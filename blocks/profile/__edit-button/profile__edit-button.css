@@ -1,0 +1,14 @@
+.profile__edit-button {
+  align-self: flex-start;
+  font-size: 0;
+  margin: 16px 0 0 18px;
+  background-color: transparent;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  transition: opacity 0.1s linear;
+}
+
+.profile__edit-button:hover {
+  opacity: 0.6;
+}

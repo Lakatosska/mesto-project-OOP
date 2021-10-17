@@ -1,8 +1,15 @@
 .profile__add-button {
-  background-color: #fff;
+  background-color: transparent;
   min-width: 150px;
   min-height: 50px;
   border: 0;
-  border-radius: 0;
   padding: 0;
+  margin-inline-start: auto;
+  font-size: 0;
+  cursor: pointer;
+  transition: opacity 0.1s linear;
+}
+
+.profile__add-button:hover {
+  opacity: 0.6;
 }
