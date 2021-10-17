@@ -1,4 +1,7 @@
 .card__info {
   background-color: #fff;
   min-height: 79px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
