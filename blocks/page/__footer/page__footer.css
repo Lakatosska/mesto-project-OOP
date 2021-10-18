@@ -7,3 +7,9 @@
     margin-block-end: 40px;
   }
 }
+
+@media screen and (max-width: 650px) {
+  .page__footer {
+    margin: 0 19px 36px;
+  }
+}

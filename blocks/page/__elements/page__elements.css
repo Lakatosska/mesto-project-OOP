@@ -7,3 +7,9 @@
     margin-block-end: 55px;
   }
 }
+
+@media screen and (max-width: 650px) {
+  .page__elements {
+    margin-block-end: 48px;
+  }
+}
