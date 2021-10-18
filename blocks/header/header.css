@@ -12,3 +12,9 @@
   top: 100%;
   left: 0;
 }
+
+@media screen and (max-width: 1023px) {
+  .header {
+    min-height: 60px;
+  }
+}

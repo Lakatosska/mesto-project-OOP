@@ -10,3 +10,9 @@
     width: calc(100vw - 200px);
   }
 }
+
+@media screen and (max-width: 1023px) {
+  .page {
+    width: calc(100vw - 100px);
+  }
+}
