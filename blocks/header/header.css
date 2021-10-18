@@ -18,3 +18,10 @@
     min-height: 60px;
   }
 }
+
+@media screen and (max-width: 650px) {
+  .header {
+    min-height: 56px;
+    padding-left: 27px;
+  }
+}

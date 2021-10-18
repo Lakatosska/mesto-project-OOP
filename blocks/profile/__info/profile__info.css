@@ -1,4 +1,30 @@
 .profile__info {
   color: #fff;
-  display: flex;
+  position: relative;
+  max-width: 396px;
+  display: grid;
+  grid-template-columns: 1fr 24px;
+  gap: 10px 18px;
+  grid-template-areas:
+    "name edit"
+    "mission .";
+}
+
+@media screen and (max-width: 767px) {
+  .profile__info {
+    max-width: 280px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .profile__info {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .profile__info {
+    max-width: 220px;
+  }
 }

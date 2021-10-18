@@ -5,8 +5,15 @@
   margin-inline-end: 30px;
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 767px) {
   .profile__avatar {
-    width: 100px;
+    margin-inline-end: 20px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .profile__avatar {
+    margin-inline-end: 0;
+    margin-block-end: 26px;
   }
 }

@@ -12,3 +12,9 @@
     width: 132px;
   }
 }
+
+@media screen and (max-width: 1023px) {
+  .header__logo {
+    width: 103.74px;
+  }
+}
