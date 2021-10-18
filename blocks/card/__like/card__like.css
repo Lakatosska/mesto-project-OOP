@@ -1,3 +1,10 @@
 .card__like {
   padding-right: 20px;
+  width: 22px;
+}
+
+@media screen and (max-width: 1279px) {
+  .card__like {
+    width: 21px;
+  }
 }
