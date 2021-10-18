@@ -1,3 +1,8 @@
 .header__logo {
   width: 142px;
+  transition: opacity 0.1s linear;
+}
+
+.header__logo:hover {
+  opacity: 0.6;
 }
