@@ -2,4 +2,5 @@
   border-radius: 50%;
   width: 120px;
   object-fit: cover;
+  margin-inline-end: 30px;
 }
