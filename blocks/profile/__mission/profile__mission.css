@@ -24,6 +24,6 @@
 @media screen and (max-width: 650px) {
   .profile__mission {
     text-align: center;
-    margin-block-end: 36px;
+    margin-block-end: 30px;
   }
 }

@@ -7,3 +7,9 @@
     margin-block-end: 45px;
   }
 }
+
+@media screen and (max-width: 650px) {
+  .page__profile {
+    margin-block-end: 36px;
+  }
+}

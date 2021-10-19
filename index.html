@@ -39,7 +39,7 @@
               <img src="./images/dombay.jpg" alt="" class="card__image" />
               <div class="card__info">
                 <p class="card__title">Домбай</p>
-                <img src="./images/heart.svg" alt="" class="card__like" />
+                <div class="card__like"></div>
               </div>
             </div>
           </li>
@@ -52,7 +52,7 @@
               />
               <div class="card__info">
                 <p class="card__title">Карачаево-Чиркесия</p>
-                <img src="./images/heart.svg" alt="" class="card__like" />
+                <div class="card__like"></div>
               </div>
             </div>
           </li>
@@ -61,7 +61,7 @@
               <img src="./images/elbrus.jpg" alt="" class="card__image" />
               <div class="card__info">
                 <p class="card__title">Эльбрус</p>
-                <img src="./images/heart.svg" alt="" class="card__like" />
+                <div class="card__like"></div>
               </div>
             </div>
           </li>
@@ -70,7 +70,7 @@
               <img src="./images/dombay.jpg" alt="" class="card__image" />
               <div class="card__info">
                 <p class="card__title">Домбай</p>
-                <img src="./images/heart.svg" alt="" class="card__like" />
+                <div class="card__like"></div>
               </div>
             </div>
           </li>
@@ -79,7 +79,7 @@
               <img src="./images/elbrus.jpg" alt="" class="card__image" />
               <div class="card__info">
                 <p class="card__title">Эльбрус</p>
-                <img src="./images/heart.svg" alt="" class="card__like" />
+                <div class="card__like"></div>
               </div>
             </div>
           </li>
@@ -92,11 +92,40 @@
               />
               <div class="card__info">
                 <p class="card__title">Карачаево-Чиркесия</p>
-                <img src="./images/heart.svg" alt="" class="card__like" />
+                <div class="card__like"></div>
               </div>
             </div>
           </li>
         </ul>
+      </section>
+      <section class="form">
+        <form action="" class="form__edit">
+          <p class="form__title">Редактировать профиль</p>
+          <fieldset class="form__input-container">
+            <input
+              type="text"
+              class="form__item"
+              name="fullname"
+              placeholder="Жак-Ив Кусто"
+              required
+              aria-label="Имя."
+            />
+            <input
+              type="text"
+              class="form__item"
+              name="mission"
+              placeholder="Исследователь океана"
+              required
+              aria-label="О себе."
+            />
+          </fieldset>
+          <button class="form__save-button" type="submit">Сохранить</button>
+          <button
+            type="button"
+            class="form__close-button"
+            aria-label="Закрыть редактирование профиля"
+          ></button>
+        </form>
       </section>
     </main>
     <footer class="footer page__footer">
