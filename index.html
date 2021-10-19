@@ -23,7 +23,7 @@
           class="profile__avatar"
         />
         <div class="profile__info">
-          <p class="profile__name">Жак-Ив Кусто</p>
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
           <p class="profile__mission">Исследователь океана</p>
           <button
             class="profile__edit-button"
@@ -36,7 +36,11 @@
         <ul class="elements__list">
           <li>
             <div class="card">
-              <img src="./images/dombay.jpg" alt="" class="card__image" />
+              <img
+                src="./images/dombay.jpg"
+                alt="Горы домбая."
+                class="card__image"
+              />
               <div class="card__info">
                 <p class="card__title">Домбай</p>
                 <div class="card__like"></div>
@@ -47,7 +51,7 @@
             <div class="card">
               <img
                 src="./images/karachaeve-cherkesiya.jpg"
-                alt=""
+                alt="Полуразрушенный храм десятого века."
                 class="card__image"
               />
               <div class="card__info">
@@ -58,7 +62,11 @@
           </li>
           <li>
             <div class="card">
-              <img src="./images/elbrus.jpg" alt="" class="card__image" />
+              <img
+                src="./images/elbrus.jpg"
+                alt="Очертания горы эльбрус в дали."
+                class="card__image"
+              />
               <div class="card__info">
                 <p class="card__title">Эльбрус</p>
                 <div class="card__like"></div>
@@ -67,7 +75,11 @@
           </li>
           <li>
             <div class="card">
-              <img src="./images/dombay.jpg" alt="" class="card__image" />
+              <img
+                src="./images/dombay.jpg"
+                alt="Горы домбая."
+                class="card__image"
+              />
               <div class="card__info">
                 <p class="card__title">Домбай</p>
                 <div class="card__like"></div>
@@ -76,7 +88,11 @@
           </li>
           <li>
             <div class="card">
-              <img src="./images/elbrus.jpg" alt="" class="card__image" />
+              <img
+                src="./images/elbrus.jpg"
+                alt="Очертания горы эльбрус в дали."
+                class="card__image"
+              />
               <div class="card__info">
                 <p class="card__title">Эльбрус</p>
                 <div class="card__like"></div>
@@ -87,7 +103,7 @@
             <div class="card">
               <img
                 src="./images/karachaeve-cherkesiya.jpg"
-                alt=""
+                alt="Полуразрушенный храм десятого века."
                 class="card__image"
               />
               <div class="card__info">
@@ -98,34 +114,36 @@
           </li>
         </ul>
       </section>
-      <section class="form">
-        <form action="" class="form__edit">
-          <p class="form__title">Редактировать профиль</p>
-          <fieldset class="form__input-container">
-            <input
-              type="text"
-              class="form__item"
-              name="fullname"
-              placeholder="Жак-Ив Кусто"
-              required
-              aria-label="Имя."
-            />
-            <input
-              type="text"
-              class="form__item"
-              name="mission"
-              placeholder="Исследователь океана"
-              required
-              aria-label="О себе."
-            />
-          </fieldset>
-          <button class="form__save-button" type="submit">Сохранить</button>
-          <button
-            type="button"
-            class="form__close-button"
-            aria-label="Закрыть редактирование профиля"
-          ></button>
-        </form>
+      <section>
+        <div class="popup">
+          <form action="" class="popup__container">
+            <p class="popup__title">Редактировать профиль</p>
+            <fieldset class="popup__input-container">
+              <input
+                type="text"
+                class="popup__item"
+                name="fullname"
+                placeholder="Жак-Ив Кусто"
+                required
+                aria-label="Имя."
+              />
+              <input
+                type="text"
+                class="popup__item"
+                name="mission"
+                placeholder="Исследователь океана"
+                required
+                aria-label="О себе."
+              />
+            </fieldset>
+            <button class="popup__save-button" type="submit">Сохранить</button>
+            <button
+              type="button"
+              class="popup__close-button"
+              aria-label="Закрыть редактирование профиля"
+            ></button>
+          </form>
+        </div>
       </section>
     </main>
     <footer class="footer page__footer">
