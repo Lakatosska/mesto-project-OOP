@@ -6,148 +6,179 @@
     <title>MESTO</title>
     <link rel="stylesheet" href="./pages/index.css" />
   </head>
-  <body class="page page__centering">
-    <header class="header page__header">
-      <a href="#" target="_blank" rel="noopener">
-        <img
-          src="./images/logo.svg"
-          alt="Логотип Место Россия."
-          class="header__logo"
-      /></a>
-    </header>
-    <main class="main page__centering">
-      <section class="profile page__profile">
-        <img
-          src="./images/Avatar.jpg"
-          alt="фото профиля."
-          class="profile__avatar"
-        />
-        <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <p class="profile__mission">Исследователь океана</p>
-          <button
-            class="profile__edit-button"
-            aria-label="Редактировать профиль"
-          ></button>
-        </div>
-        <button class="profile__add-button" aria-label="Добавить фото"></button>
-      </section>
-      <section class="cards page__cards">
-        <ul class="cards__list">
-          <li>
-            <div class="card">
-              <img
-                src="./images/dombay.jpg"
-                alt="Горы домбая."
-                class="card__image"
-              />
-              <div class="card__info">
-                <h2 class="card__title">Домбай</h2>
-                <div class="card__like"></div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="card">
-              <img
-                src="./images/karachaeve-cherkesiya.jpg"
-                alt="Полуразрушенный храм десятого века."
-                class="card__image"
-              />
-              <div class="card__info">
-                <h2 class="card__title">Карачаево-Чиркесия</h2>
-                <div class="card__like"></div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="card">
-              <img
-                src="./images/elbrus.jpg"
-                alt="Очертания горы эльбрус в дали."
-                class="card__image"
-              />
-              <div class="card__info">
-                <h2 class="card__title">Эльбрус</h2>
-                <div class="card__like"></div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="card">
-              <img
-                src="./images/dombay.jpg"
-                alt="Горы домбая."
-                class="card__image"
-              />
-              <div class="card__info">
-                <h2 class="card__title">Домбай</h2>
-                <div class="card__like"></div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="card">
-              <img
-                src="./images/elbrus.jpg"
-                alt="Очертания горы эльбрус в дали."
-                class="card__image"
-              />
-              <div class="card__info">
-                <h2 class="card__title">Эльбрус</h2>
-                <div class="card__like"></div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="card">
-              <img
-                src="./images/karachaeve-cherkesiya.jpg"
-                alt="Полуразрушенный храм десятого века."
-                class="card__image"
-              />
-              <div class="card__info">
-                <h2 class="card__title">Карачаево-Чиркесия</h2>
-                <div class="card__like"></div>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </section>
-      <section>
-        <div class="popup">
-          <form action="" class="popup__container">
-            <p class="popup__title">Редактировать профиль</p>
-            <fieldset class="popup__input-container">
-              <input
-                type="text"
-                class="popup__item"
-                name="fullname"
-                placeholder="Жак-Ив Кусто"
-                required
-                aria-label="Имя."
-              />
-              <input
-                type="text"
-                class="popup__item"
-                name="mission"
-                placeholder="Исследователь океана"
-                required
-                aria-label="О себе."
-              />
-            </fieldset>
-            <button class="popup__save-button" type="submit">Сохранить</button>
+  <body class="page">
+    <div class="page__content page__centering">
+      <header class="header page__header">
+        <a href="#" target="_blank" rel="noopener">
+          <img
+            src="./images/logo.svg"
+            alt="Логотип Место Россия."
+            class="header__logo"
+        /></a>
+      </header>
+      <main class="main page__centering">
+        <section class="profile page__profile">
+          <img
+            src="./images/Avatar.jpg"
+            alt="фото профиля."
+            class="profile__avatar"
+          />
+          <div class="profile__info">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <p class="profile__mission">Исследователь океана</p>
             <button
+              class="profile__edit-button"
+              aria-label="Редактировать профиль"
               type="button"
-              class="popup__close-button"
-              aria-label="Закрыть редактирование профиля"
             ></button>
-          </form>
-        </div>
-      </section>
-    </main>
-    <footer class="footer page__footer">
-      <p class="footer__copyright">© 2020 Mesto Russia</p>
-    </footer>
+          </div>
+          <button
+            class="profile__add-button"
+            aria-label="Добавить фото"
+            type="button"
+          ></button>
+        </section>
+        <section class="cards page__cards">
+          <ul class="cards__list">
+            <li>
+              <article class="card">
+                <img
+                  src="./images/dombay.jpg"
+                  alt="Горы домбая."
+                  class="card__image"
+                />
+                <div class="card__info">
+                  <h2 class="card__title">Домбай</h2>
+                  <button
+                    class="card__like"
+                    type="button"
+                    aria-label="Поставить лайк."
+                  ></button>
+                </div>
+              </article>
+            </li>
+            <li>
+              <article class="card">
+                <img
+                  src="./images/karachaeve-cherkesiya.jpg"
+                  alt="Полуразрушенный храм десятого века."
+                  class="card__image"
+                />
+                <div class="card__info">
+                  <h2 class="card__title">Карачаево-Чиркесия</h2>
+                  <button
+                    class="card__like"
+                    type="button"
+                    aria-label="Поставить лайк."
+                  ></button>
+                </div>
+              </article>
+            </li>
+            <li>
+              <article class="card">
+                <img
+                  src="./images/elbrus.jpg"
+                  alt="Очертания горы эльбрус в дали."
+                  class="card__image"
+                />
+                <div class="card__info">
+                  <h2 class="card__title">Эльбрус</h2>
+                  <button
+                    class="card__like"
+                    type="button"
+                    aria-label="Поставить лайк."
+                  ></button>
+                </div>
+              </article>
+            </li>
+            <li>
+              <article class="card">
+                <img
+                  src="./images/dombay.jpg"
+                  alt="Горы домбая."
+                  class="card__image"
+                />
+                <div class="card__info">
+                  <h2 class="card__title">Домбай</h2>
+                  <button
+                    class="card__like"
+                    type="button"
+                    aria-label="Поставить лайк."
+                  ></button>
+                </div>
+              </article>
+            </li>
+            <li>
+              <article class="card">
+                <img
+                  src="./images/elbrus.jpg"
+                  alt="Очертания горы эльбрус в дали."
+                  class="card__image"
+                />
+                <div class="card__info">
+                  <h2 class="card__title">Эльбрус</h2>
+                  <button
+                    class="card__like"
+                    type="button"
+                    aria-label="Поставить лайк."
+                  ></button>
+                </div>
+              </article>
+            </li>
+            <li>
+              <article class="card">
+                <img
+                  src="./images/karachaeve-cherkesiya.jpg"
+                  alt="Полуразрушенный храм десятого века."
+                  class="card__image"
+                />
+                <div class="card__info">
+                  <h2 class="card__title">Карачаево-Чиркесия</h2>
+                  <button
+                    class="card__like"
+                    type="button"
+                    aria-label="Поставить лайк."
+                  ></button>
+                </div>
+              </article>
+            </li>
+          </ul>
+        </section>
+      </main>
+      <footer class="footer page__footer">
+        <p class="footer__copyright">© 2020 Mesto Russia</p>
+      </footer>
+    </div>
+    <div class="popup">
+      <div class="popup__container">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <button
+          type="button"
+          class="popup__close-button"
+          aria-label="Закрыть редактирование профиля"
+        ></button>
+        <form action="#" name="edit-profile" class="form">
+          <fieldset class="form__container">
+            <input
+              type="text"
+              class="form__item"
+              name="fullname"
+              placeholder="Жак-Ив Кусто"
+              required
+              aria-label="Имя."
+            />
+            <input
+              type="text"
+              class="form__item"
+              name="mission"
+              placeholder="Исследователь океана"
+              required
+              aria-label="О себе."
+            />
+            <button class="form__button" type="submit">Сохранить</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
   </body>
 </html>
