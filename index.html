@@ -190,7 +190,27 @@
           class="popup__close-button"
           aria-label="Закрыть редактирование профиля"
         ></button>
-        <form action="" name="" class="edit-profile"></form>
+        <form action="#" name="edit-profile" class="form">
+          <fieldset class="form__container">
+            <input
+              type="text"
+              class="form__item"
+              name="fullname"
+              placeholder="Жак-Ив Кусто"
+              required
+              aria-label="Имя."
+            />
+            <input
+              type="text"
+              class="form__item"
+              name="mission"
+              placeholder="Исследователь океана"
+              required
+              aria-label="О себе."
+            />
+            <button class="form__button" type="submit">Сохранить</button>
+          </fieldset>
+        </form>
       </div>
     </div>
   </body>
