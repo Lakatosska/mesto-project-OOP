@@ -5,6 +5,9 @@
   font-size: 18px;
   line-height: 22px;
   grid-area: mission;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media screen and (max-width: 1023px) {
