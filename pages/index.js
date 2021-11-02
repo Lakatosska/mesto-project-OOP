@@ -16,8 +16,8 @@ btnAddPlace.addEventListener("click", function () {
 })
 
 for (let btn of btnClosePopup) {
-  btn.addEventListener("click", function (ev) {
-     ev.path[2].classList.remove("popup_opened");
-
+  btn.addEventListener("click", function () {
+    popupEditProfile.classList.remove("popup_opened");
+    popupAddPlace.classList.remove("popup_opened");
   })
 }
