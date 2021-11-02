@@ -13,6 +13,7 @@
   font-style: normal;
   font-weight: normal;
   transition: background-color 0.1s linear;
+  cursor: pointer;
 }
 
 .form__button:hover {
