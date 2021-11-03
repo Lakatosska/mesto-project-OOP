@@ -104,6 +104,11 @@ function addCardsInition() {
           aria-label="Поставить лайк."
           ></button>
         </div>
+        <button
+          class="card__trash-icon"
+          type="button"
+          aria-label="Удалить фото"
+          ></button>
       </article>
     </li>
     `
@@ -138,13 +143,29 @@ function addCardsForm() {
               aria-label="Поставить лайк."
             ></button>
           </div>
+          <button
+          class="card__trash-icon"
+          type="button"
+          aria-label="Удалить фото"
+          ></button>
         </article>
       </li>`
     );
     popupEditProfile.classList.remove(opened);
     popupAddPlace.classList.remove(opened);
+    removeCard();
   }
   formNewPlace.addEventListener("submit", formSubmitHandler);
+}
+
+//Удаление карточки по клику
+function removeCard() {
+  const removeBtns = document.querySelectorAll(".card__trash-icon");
+  for (let btn of removeBtns) {
+    btn.addEventListener("click", function (event) {
+      btn.parentElement.parentElement.remove();
+    });
+  }
 }
 
 addCardsInition();
@@ -152,3 +173,4 @@ popupOpen();
 popupClose();
 formEdit();
 addCardsForm();
+removeCard();
