@@ -1,8 +1,6 @@
 "use strict";
 
 const profile = document.querySelector(".profile");
-
-//Открытие popup
 const popupEditProfile = document.querySelector(".popup_name_edit-profile");
 const popupAddPlace = document.querySelector(".popup_name_new-place");
 const btnEditProfile = profile.querySelector(".profile__edit-button");
@@ -10,6 +8,7 @@ const btnAddPlace = profile.querySelector(".profile__add-button");
 const btnClosePopup = document.querySelectorAll(".popup__close-button");
 const opened = "popup_opened";
 
+//Открытие popup
 function popupOpen() {
   function openPopup(el, str) {
     el.classList.add(str);
@@ -125,7 +124,7 @@ function addCardsForm() {
 
   function formSubmitHandler(event) {
     event.preventDefault();
-    console.log(formPlaceTitle.value);
+
     cardList.insertAdjacentHTML(
       "afterbegin",
       `<li>
@@ -151,14 +150,15 @@ function addCardsForm() {
         </article>
       </li>`
     );
+    likeCards();
+    removeCard();
     popupEditProfile.classList.remove(opened);
     popupAddPlace.classList.remove(opened);
-    removeCard();
   }
   formNewPlace.addEventListener("submit", formSubmitHandler);
 }
 
-//Удаление карточки по клику
+//Удаление карточки по клику на корзину
 function removeCard() {
   const removeBtns = document.querySelectorAll(".card__trash-icon");
   for (let btn of removeBtns) {
@@ -168,9 +168,25 @@ function removeCard() {
   }
 }
 
+//Лайки карточек
+function likeCards() {
+  const btnsLike = document.querySelectorAll(".card__like");
+  function eventBtn(event) {
+    event.target.classList.toggle("card__like_active");
+  }
+
+  for (let like of btnsLike) {
+    if (!like.classList.contains("added-js")) {
+      like.addEventListener("click", eventBtn);
+      like.classList.add("added-js");
+    }
+  }
+}
+
 addCardsInition();
 popupOpen();
 popupClose();
 formEdit();
 addCardsForm();
 removeCard();
+likeCards();
