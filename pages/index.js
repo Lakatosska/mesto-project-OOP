@@ -54,6 +54,42 @@ function formEdit() {
   formEdit.addEventListener("submit", formSubmitHandler);
 }
 
+//Добавление карточек
+const initialCards = [
+  {
+    name: "Архыз",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
+  },
+  {
+    name: "Челябинская область",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
+  },
+  {
+    name: "Иваново",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
+  },
+  {
+    name: "Камчатка",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
+  },
+  {
+    name: "Холмогорский район",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
+  },
+  {
+    name: "Байкал",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
+  },
+];
+
+const cardsImg = document.querySelectorAll(".card__image");
+const cardsTitle = document.querySelectorAll(".card__title");
+
+for (let i = 0; i < cardsImg.length; i++) {
+  cardsImg[i].setAttribute("src", initialCards[i].link);
+  cardsTitle[i].textContent = initialCards[i].name;
+}
+
 popupOpen();
 popupClose();
 formEdit();
