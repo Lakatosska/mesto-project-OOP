@@ -82,12 +82,33 @@ const initialCards = [
   },
 ];
 
-const cardsImg = document.querySelectorAll(".card__image");
-const cardsTitle = document.querySelectorAll(".card__title");
+function addCardsInition() {
+  const cards = document.querySelector(".cards");
 
-for (let i = 0; i < cardsImg.length; i++) {
-  cardsImg[i].setAttribute("src", initialCards[i].link);
-  cardsTitle[i].textContent = initialCards[i].name;
+  const cardsList = document.createElement("ul");
+  cardsList.className = "cards__list";
+  cards.prepend(cardsList);
+
+  for (let i = 0; i <= 5; i++) {
+    cardsList.insertAdjacentHTML(
+      "afterbegin",
+      `
+    <li>
+      <article class="card">
+        <img src="${initialCards[i].link}" alt="${initialCards[i].name}" class="card__image" />
+        <div class="card__info">
+          <h2 class="card__title">${initialCards[i].name}</h2>
+          <button
+          class="card__like"
+          type="button"
+          aria-label="Поставить лайк."
+          ></button>
+        </div>
+      </article>
+    </li>
+    `
+    );
+  }
 }
 
 //Добавление карточек через форму
@@ -126,6 +147,7 @@ function addCardsForm() {
   formNewPlace.addEventListener("submit", formSubmitHandler);
 }
 
+addCardsInition();
 popupOpen();
 popupClose();
 formEdit();
