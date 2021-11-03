@@ -3,4 +3,5 @@
   object-fit: cover;
   display: block;
   aspect-ratio: 1;
+  color: white;
 }

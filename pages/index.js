@@ -54,7 +54,7 @@ function formEdit() {
   formEdit.addEventListener("submit", formSubmitHandler);
 }
 
-//Добавление карточек
+//Добавление начальных карточек
 const initialCards = [
   {
     name: "Архыз",
@@ -90,6 +90,43 @@ for (let i = 0; i < cardsImg.length; i++) {
   cardsTitle[i].textContent = initialCards[i].name;
 }
 
+//Добавление карточек через форму
+function addCardsForm() {
+  const formNewPlace = document.querySelector(".form_type_new-place");
+  const formPlaceTitle = formNewPlace.querySelector(".form__item_type_place");
+  const formPlaceUrl = formNewPlace.querySelector(".form__item_type_url");
+  const cardList = document.querySelector(".cards__list");
+
+  function formSubmitHandler(event) {
+    event.preventDefault();
+    console.log(formPlaceTitle.value);
+    cardList.insertAdjacentHTML(
+      "afterbegin",
+      `<li>
+        <article class="card">
+          <img
+            src="${formPlaceUrl.value}"
+            class="card__image"
+            alt="${formPlaceTitle.value}"
+          />
+          <div class="card__info">
+            <h2 class="card__title">${formPlaceTitle.value}</h2>
+            <button
+              class="card__like"
+              type="button"
+              aria-label="Поставить лайк."
+            ></button>
+          </div>
+        </article>
+      </li>`
+    );
+    popupEditProfile.classList.remove(opened);
+    popupAddPlace.classList.remove(opened);
+  }
+  formNewPlace.addEventListener("submit", formSubmitHandler);
+}
+
 popupOpen();
 popupClose();
 formEdit();
+addCardsForm();
