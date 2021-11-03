@@ -1,23 +1,31 @@
-"use strict"
+"use strict";
 
-const popupEditProfile = document.querySelector(".popup_name_edit-profile");
-const popupAddPlace = document.querySelector(".popup_name_new-place");
 const profile = document.querySelector(".profile");
-const btnEditProfile = profile.querySelector(".profile__edit-button");
-const btnAddPlace = profile.querySelector(".profile__add-button");
-const btnClosePopup = document.querySelectorAll(".popup__close-button");
 
-btnEditProfile.addEventListener("click", function () {
-  popupEditProfile.classList.add("popup_opened");
-})
+//Открытие и закрытие popup
+function popupOpenClose() {
+  const popupEditProfile = document.querySelector(".popup_name_edit-profile");
+  const popupAddPlace = document.querySelector(".popup_name_new-place");
+  const btnEditProfile = profile.querySelector(".profile__edit-button");
+  const btnAddPlace = profile.querySelector(".profile__add-button");
+  const btnClosePopup = document.querySelectorAll(".popup__close-button");
+  const opened = "popup_opened";
 
-btnAddPlace.addEventListener("click", function () {
-  popupAddPlace.classList.add("popup_opened");
-})
+  function openPopup(el, str) {
+    el.classList.add(str);
+  }
 
-for (let btn of btnClosePopup) {
-  btn.addEventListener("click", function () {
-    popupEditProfile.classList.remove("popup_opened");
-    popupAddPlace.classList.remove("popup_opened");
-  })
+  btnEditProfile.addEventListener("click", () =>
+    openPopup(popupEditProfile, opened)
+  );
+  btnAddPlace.addEventListener("click", () => openPopup(popupAddPlace, opened));
+
+  for (let btn of btnClosePopup) {
+    btn.addEventListener("click", function () {
+      popupEditProfile.classList.remove(opened);
+      popupAddPlace.classList.remove(opened);
+    });
+  }
 }
+
+popupOpenClose();
