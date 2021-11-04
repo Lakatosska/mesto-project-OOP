@@ -117,6 +117,7 @@ function addCardsInition() {
     `
     );
   }
+  addLikeInitialCards();
 }
 
 //Добавление карточек через форму
@@ -153,8 +154,8 @@ function addCardsForm() {
       </li>`;
 
     cardList.insertAdjacentHTML("afterbegin", cardStrHtml);
-    likeCards();
-    removeCard();
+    const cardLike = document.querySelector(".card__like");
+    cardLike.addEventListener("click", btnLikeToggleClass);
     popupEditProfile.classList.remove(opened);
     popupAddPlace.classList.remove(opened);
   }
@@ -172,18 +173,13 @@ function removeCard() {
 }
 
 //Лайки карточек
-
-function likeCards() {
+function btnLikeToggleClass(event) {
+  event.target.classList.toggle("card__like_active");
+}
+function addLikeInitialCards() {
   const btnsLike = document.querySelectorAll(".card__like");
-  function eventBtn(event) {
-    event.target.classList.toggle("card__like_active");
-  }
-
-  for (let like of btnsLike) {
-    if (!like.classList.contains("added-js")) {
-      like.addEventListener("click", eventBtn);
-      like.classList.add("added-js");
-    }
+  for (let btn of btnsLike) {
+    btn.addEventListener("click", btnLikeToggleClass);
   }
 }
 
@@ -193,4 +189,3 @@ removeClassOpenedPopup();
 editForm();
 addCardsForm();
 removeCard();
-likeCards();
