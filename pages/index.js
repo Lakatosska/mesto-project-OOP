@@ -1,11 +1,16 @@
 "use strict";
 
 const profile = document.querySelector(".profile");
-const popupEditProfile = document.querySelector(".popup_name_edit-profile");
-const popupAddPlace = document.querySelector(".popup_name_new-place");
+const profileName = profile.querySelector(".profile__name");
+const profileMission = profile.querySelector(".profile__mission");
 const btnAddPlace = profile.querySelector(".profile__add-button");
 const btnEditProfile = profile.querySelector(".profile__edit-button");
+const popupEditProfile = document.querySelector(".popup_name_edit-profile");
+const popupAddPlace = document.querySelector(".popup_name_new-place");
 const btnClosePopup = document.querySelectorAll(".popup__close-button");
+const formNameItem = document.querySelector(".form__item_type_name");
+const formMissionItem = document.querySelector(".form__item_type_mission");
+const forms = document.querySelectorAll(".form");
 const opened = "popup_opened";
 
 //Открытие попапа
@@ -16,7 +21,7 @@ function openPopup(el) {
 btnEditProfile.addEventListener("click", () => openPopup(popupEditProfile));
 btnAddPlace.addEventListener("click", () => openPopup(popupAddPlace));
 
-//Удаление класса для закрытия попапа
+//Закрытие попап
 function closePopup(el) {
   el.classList.remove(opened);
 }
@@ -27,28 +32,20 @@ for (let btn of btnClosePopup) {
   });
 }
 
-//Редактирование формы
-function editForm() {
-  const formEditProfile = document.querySelector(".form_type_edit-profile");
-  const formNameItem = formEditProfile.querySelector(".form__item_type_name");
-  const formMissionItem = formEditProfile.querySelector(
-    ".form__item_type_mission"
-  );
-  const profileName = profile.querySelector(".profile__name");
-  const profileMission = profile.querySelector(".profile__mission");
+//Редактирование профиля
 
-  formNameItem.value = profileName.textContent;
-  formMissionItem.value = profileMission.textContent;
+formNameItem.value = profileName.textContent;
+formMissionItem.value = profileMission.textContent;
 
-  function formSubmitHandler(event) {
-    event.preventDefault();
-    profileName.textContent = formNameItem.value;
-    profileMission.textContent = formMissionItem.value;
-    popupEditProfile.classList.remove(opened);
-    popupAddPlace.classList.remove(opened);
-  }
+function formProfileSubmitHandler(event) {
+  event.preventDefault();
+  profileName.textContent = formNameItem.value;
+  profileMission.textContent = formMissionItem.value;
+  closePopup(this.parentElement.parentElement);
+}
 
-  formEditProfile.addEventListener("submit", formSubmitHandler);
+for (let form of forms) {
+  form.addEventListener("submit", formProfileSubmitHandler);
 }
 
 //Добавление начальных карточек
@@ -111,20 +108,28 @@ function addCardsInition() {
     `
     );
   }
-  addLikeInitialCards();
+
+  const btnsLike = document.querySelectorAll(".card__like");
+  const removeBtns = document.querySelectorAll(".card__trash-icon");
+
+  for (let i = 0; i < initialCards.length; i++) {
+    btnsLike[i].addEventListener("click", addAndDelLike);
+    removeBtns[i].addEventListener("click", () =>
+      removeCard(removeBtns[i].parentElement.parentElement)
+    );
+  }
 }
 
 //Добавление карточек через форму
-function addCardsForm() {
-  const formNewPlace = document.querySelector(".form_type_new-place");
-  const formPlaceTitle = formNewPlace.querySelector(".form__item_type_place");
-  const formPlaceUrl = formNewPlace.querySelector(".form__item_type_url");
-  const cardList = document.querySelector(".cards__list");
 
-  function formSubmitHandler(event) {
-    event.preventDefault();
+const formNewPlace = document.querySelector(".form_type_new-place");
+const formPlaceTitle = formNewPlace.querySelector(".form__item_type_place");
+const formPlaceUrl = formNewPlace.querySelector(".form__item_type_url");
 
-    const cardStrHtml = `<li>
+function formPlaceSubmitHandler(event) {
+  event.preventDefault();
+
+  const cardStrHtml = `<li>
         <article class="card">
           <img
             src="${formPlaceUrl.value}"
@@ -146,38 +151,28 @@ function addCardsForm() {
           ></button>
         </article>
       </li>`;
-
-    cardList.insertAdjacentHTML("afterbegin", cardStrHtml);
-    const cardLike = document.querySelector(".card__like");
-    cardLike.addEventListener("click", btnLikeToggleClass);
-    popupEditProfile.classList.remove(opened);
-    popupAddPlace.classList.remove(opened);
-  }
-  formNewPlace.addEventListener("submit", formSubmitHandler);
+  const cardsList = document.querySelector(".cards__list");
+  cardsList.insertAdjacentHTML("afterbegin", cardStrHtml);
+  const cardLike = document.querySelector(".card__like");
+  cardLike.addEventListener("click", addAndDelLike);
+  const removeBtn = document.querySelector(".card__trash-icon");
+  removeBtn.addEventListener("click", () =>
+    removeCard(removeBtn.parentElement.parentElement)
+  );
+  closePopup(this.parentElement.parentElement);
 }
+formNewPlace.addEventListener("submit", formPlaceSubmitHandler);
 
-//Удаление карточки по клику на корзину
-function removeCard() {
-  const removeBtns = document.querySelectorAll(".card__trash-icon");
-  for (let btn of removeBtns) {
-    btn.addEventListener("click", function (event) {
-      btn.parentElement.parentElement.remove();
-    });
-  }
+//Удаление карточки
+function removeCard(card) {
+  card.remove();
 }
 
 //Лайки карточек
-function btnLikeToggleClass(event) {
+function addAndDelLike(event) {
   event.target.classList.toggle("card__like_active");
 }
-function addLikeInitialCards() {
-  const btnsLike = document.querySelectorAll(".card__like");
-  for (let btn of btnsLike) {
-    btn.addEventListener("click", btnLikeToggleClass);
-  }
-}
+
+//Открытие фото
 
 addCardsInition();
-editForm();
-addCardsForm();
-removeCard();
