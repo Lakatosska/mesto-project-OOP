@@ -5,8 +5,8 @@ const profileName = profile.querySelector(".profile__name");
 const profileMission = profile.querySelector(".profile__mission");
 const btnAddPlace = profile.querySelector(".profile__add-button");
 const btnEditProfile = profile.querySelector(".profile__edit-button");
-const popupEditProfile = document.querySelector(".popup_name_edit-profile");
-const popupAddPlace = document.querySelector(".popup_name_new-place");
+const popupEditProfile = document.querySelector(".popup_type_edit-profile");
+const popupAddPlace = document.querySelector(".popup_type_new-place");
 const btnClosePopup = document.querySelectorAll(".popup__close-button");
 const formNameItem = document.querySelector(".form__item_type_name");
 const formMissionItem = document.querySelector(".form__item_type_mission");
@@ -111,12 +111,14 @@ function addCardsInition() {
 
   const btnsLike = document.querySelectorAll(".card__like");
   const removeBtns = document.querySelectorAll(".card__trash-icon");
+  const cardImages = document.querySelectorAll(".card__image");
 
   for (let i = 0; i < initialCards.length; i++) {
     btnsLike[i].addEventListener("click", addAndDelLike);
     removeBtns[i].addEventListener("click", () =>
       removeCard(removeBtns[i].parentElement.parentElement)
     );
+    cardImages[i].addEventListener("click", () => openImage(cardImages[i]));
   }
 }
 
@@ -155,6 +157,8 @@ function formPlaceSubmitHandler(event) {
   cardsList.insertAdjacentHTML("afterbegin", cardStrHtml);
   const cardLike = document.querySelector(".card__like");
   cardLike.addEventListener("click", addAndDelLike);
+  const cardImg = document.querySelector(".card__image");
+  cardImg.addEventListener("click", () => openImage(cardImg));
   const removeBtn = document.querySelector(".card__trash-icon");
   removeBtn.addEventListener("click", () =>
     removeCard(removeBtn.parentElement.parentElement)
@@ -174,5 +178,25 @@ function addAndDelLike(event) {
 }
 
 //Открытие фото
+function openImage(element) {
+  const container = document.querySelector(".popup__container_for_img");
+  const targetTitle = container.querySelector(".popup__title");
+  const targetImg = container.querySelector(".popup__image");
+  const src = element.src;
+  const title = element.alt;
+  const alt = title;
+  const imgStr = `<h2 class="popup__title popup__title_for_image">${title}</h2>
+        <img
+          src="${src}"
+          alt="${alt}"
+          class="popup__image"
+        />`;
+  if ((targetImg, targetTitle)) {
+    targetTitle.remove();
+    targetImg.remove();
+  }
+  container.insertAdjacentHTML("afterbegin", imgStr);
+  container.parentElement.classList.add(opened);
+}
 
 addCardsInition();
