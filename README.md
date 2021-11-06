@@ -9,9 +9,14 @@
 - HTML
   - HTML5
   - Адаптивная верстка
-- CCS
+- CSS
   - Flexbox
   - Grig layout
 - БЭМ
   - Nested
+- JS
+
+  - Взаимодействие с DOM деревом
+  - Добавление интерактивности
+
 - [MESTO](https://andreyarkhp.github.io/mesto-project/)
