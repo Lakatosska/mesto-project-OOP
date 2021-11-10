@@ -25,7 +25,7 @@ function openPopup(el) {
 
 //Закрытие попап
 function closePopup(el) {
-  el.closest(".popup").classList.remove(POPUP_OPENED);
+  el.classList.remove(POPUP_OPENED);
 }
 
 //Редактирование профиля
@@ -119,19 +119,14 @@ function openImage() {
 }
 
 //Обработчики событий
-// for (let btn of btnsClosePopup) {
-//   btn.addEventListener("click", () => {
-//     closePopup(btn.closest(".popup"));
-//   });
-// }
 closeBtnEditProfile.addEventListener("click", (event) => {
-  closePopup(event.target);
+  closePopup(event.target.closest(".popup"));
 });
 closeBtnAddPlace.addEventListener("click", (event) => {
-  closePopup(event.target);
+  closePopup(event.target.closest(".popup"));
 });
 closeBtnOpenImage.addEventListener("click", (event) => {
-  closePopup(event.target);
+  closePopup(event.target.closest(".popup"));
 });
 btnEditProfile.addEventListener("click", () => openPopup(popupEditProfile));
 btnAddPlace.addEventListener("click", () => openPopup(popupAddPlace));
