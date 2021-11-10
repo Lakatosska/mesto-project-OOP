@@ -121,6 +121,26 @@
         ></button>
       </div>
     </div>
+    <template id="template-card">
+      <li id="card-element">
+        <article class="card">
+          <img src="" alt="" class="card__image" />
+          <div class="card__info">
+            <h2 class="card__title"></h2>
+            <button
+              class="card__like"
+              type="button"
+              aria-label="Поставить лайк."
+            ></button>
+          </div>
+          <button
+            class="card__trash-icon"
+            type="button"
+            aria-label="Удалить фото"
+          ></button>
+        </article>
+      </li>
+    </template>
     <script src="./scripts/inition-cards.js"></script>
     <script src="./pages/index.js"></script>
   </body>
