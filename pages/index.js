@@ -11,7 +11,7 @@ const btnClosePopup = document.querySelectorAll(".popup__close-button");
 const formNameItem = document.querySelector(".form__item_type_name");
 const formMissionItem = document.querySelector(".form__item_type_mission");
 const forms = document.querySelectorAll(".form");
-const opened = "popup_opened";
+const POPUP_OPENED = "popup_opened";
 
 //Открытие попапа
 function openPopup(el) {
@@ -118,7 +118,7 @@ function addCardsInition() {
     removeBtns[i].addEventListener("click", () =>
       removeCard(removeBtns[i].parentElement.parentElement)
     );
-    cardImages[i].addEventListener("click", () => openImage(cardImages[i]));
+    cardImages[i].addEventListener("click", openImage);
   }
 }
 
@@ -178,25 +178,20 @@ function addAndDelLike(event) {
 }
 
 //Открытие фото
-function openImage(element) {
-  const container = document.querySelector(".popup__container_for_img");
-  const targetTitle = container.querySelector(".popup__title");
-  const targetImg = container.querySelector(".popup__image");
-  const src = element.src;
-  const title = element.alt;
-  const alt = title;
-  const imgStr = `<h2 class="popup__title popup__title_for_image">${title}</h2>
-        <img
-          src="${src}"
-          alt="${alt}"
-          class="popup__image"
-        />`;
-  if ((targetImg, targetTitle)) {
-    targetTitle.remove();
-    targetImg.remove();
-  }
-  container.insertAdjacentHTML("afterbegin", imgStr);
-  container.parentElement.classList.add(opened);
+function openImage() {
+  const popupImage = document.querySelector(".popup_type_open-img");
+  const popupTitle = popupImage.querySelector(".popup__title");
+  const popupImg = popupImage.querySelector(".popup__image");
+
+  const imgSrc = this.src;
+  const imgAlt = this.alt;
+  const imgTitle = this.nextElementSibling.firstElementChild.textContent;
+
+  popupTitle.textContent = imgTitle;
+  popupImg.alt = imgAlt;
+  popupImg.src = imgSrc;
+
+  popupImage.classList.add(opened);
 }
 
 addCardsInition();

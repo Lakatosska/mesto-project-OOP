@@ -48,11 +48,7 @@
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
 
-        <form
-          action="#"
-          name="edit-profile"
-          class="form form_type_edit-profile"
-        >
+        <form name="edit-profile" class="form form_type_edit-profile">
           <fieldset class="form__container">
             <input
               type="text"
@@ -84,7 +80,7 @@
       <div class="popup__container">
         <h2 class="popup__title">Новое место</h2>
 
-        <form action="#" name="new-place" class="form form_type_new-place">
+        <form name="new-place" class="form form_type_new-place">
           <fieldset class="form__container">
             <input
               type="text"
@@ -95,7 +91,7 @@
               aria-label="Название места."
             />
             <input
-              type="text"
+              type="url"
               class="form__item form__item_type_url"
               name="url-link"
               placeholder="Ссылка на картинку"
@@ -114,6 +110,8 @@
     </div>
     <div class="popup popup_type_open-img">
       <div class="popup__container popup__container_for_img">
+        <h2 class="popup__title popup__title_for_image"></h2>
+        <img src="" alt="" class="popup__image" />
         <button
           type="button"
           class="popup__close-button"
