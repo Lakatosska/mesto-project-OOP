@@ -26,7 +26,7 @@ function closePopup(el) {
   el.classList.remove(opened);
 }
 
-for (let btn of btnClosePopup) {
+for (let btn of btnsClosePopup) {
   btn.addEventListener("click", () => {
     closePopup(btn.parentElement.parentElement);
   });
