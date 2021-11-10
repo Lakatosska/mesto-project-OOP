@@ -52,10 +52,7 @@ for (let form of forms) {
 
 function addCardsInition() {
   const cards = document.querySelector(".cards");
-  const cardsList = document.createElement("ul");
-
-  cardsList.className = "cards__list";
-  cards.prepend(cardsList);
+  const cardsList = document.querySelector(".cards__list");
 
   for (let i = 0; i < initialCards.length; i++) {
     cardsList.insertAdjacentHTML(
