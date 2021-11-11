@@ -47,9 +47,9 @@ function formProfileSubmitHandler(event) {
 //Создание карточки
 
 function createCard(card) {
-  const templateCard = document.querySelector("#template-card");
+  const templateCard = document.querySelector(".template-card");
   const cardElement = templateCard.content
-    .querySelector("#card-element")
+    .querySelector(".card-element")
     .cloneNode(true);
   const cardImage = cardElement.querySelector(".card__image");
   const cardTitle = cardElement.querySelector(".card__title");
@@ -97,7 +97,7 @@ function addCard(container, card) {
 
 //Удаление карточки
 function removeCard(event) {
-  event.target.closest("#card-element").remove();
+  event.target.closest(".card-element").remove();
 }
 
 //Лайки карточек
