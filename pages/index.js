@@ -16,6 +16,8 @@ const closeBtnOpenImage = popupOpenImage.querySelector(".popup__close-button");
 const formNewPlace = document.querySelector(".form_type_new-place");
 const inputName = document.querySelector(".form__item_type_name");
 const inputMission = document.querySelector(".form__item_type_mission");
+const formPlaceTitle = formNewPlace.querySelector(".form__item_type_place");
+const formPlaceUrl = formNewPlace.querySelector(".form__item_type_url");
 const POPUP_OPENED = "popup_opened";
 
 //Открытие попапа
@@ -29,7 +31,7 @@ function closePopup(popup) {
 }
 
 //Запись данных профиля в поля формы
-function writeProfileData() {
+function setInputData() {
   inputName.value = profileName.textContent;
   inputMission.value = profileMission.textContent;
 }
@@ -44,7 +46,7 @@ function formProfileSubmitHandler(event) {
 
 //Создание карточки
 
-function createCard(cardName, cardLink) {
+function createCard(card) {
   const templateCard = document.querySelector("#template-card");
   const cardElement = templateCard.content
     .querySelector("#card-element")
@@ -54,9 +56,9 @@ function createCard(cardName, cardLink) {
   const likeBtn = cardElement.querySelector(".card__like");
   const deleteCardBtn = cardElement.querySelector(".card__trash-icon");
 
-  cardImage.src = cardLink;
-  cardImage.alt = cardName;
-  cardTitle.textContent = cardName;
+  cardImage.src = card.link;
+  cardImage.alt = card.name;
+  cardTitle.textContent = card.name;
 
   cardImage.addEventListener("click", openImage);
   likeBtn.addEventListener("click", toggleLike);
@@ -68,8 +70,8 @@ function createCard(cardName, cardLink) {
 //Добавление начальных карточек
 
 function addCardsInition() {
-  initialCards.forEach((el) => {
-    addCard(cardsList, createCard(el.name, el.link));
+  initialCards.forEach((card) => {
+    addCard(cardsList, createCard(card));
   });
 }
 
@@ -77,15 +79,15 @@ function addCardsInition() {
 
 function formPlaceSubmitHandler(event) {
   event.preventDefault();
-
-  const formPlaceTitle = formNewPlace.querySelector(
-    ".form__item_type_place"
-  ).value;
-  const formPlaceUrl = formNewPlace.querySelector(".form__item_type_url").value;
-
-  addCard(cardsList, createCard(formPlaceTitle, formPlaceUrl));
+  addCard(
+    cardsList,
+    createCard({
+      name: formPlaceTitle.value,
+      link: formPlaceUrl.value,
+    })
+  );
   closePopup(popupAddPlace);
-  event.target.reset();
+  formNewPlace.reset();
 }
 
 //Добавление карточки
@@ -131,7 +133,7 @@ closeBtnOpenImage.addEventListener("click", (event) => {
   closePopup(event.target.closest(".popup"));
 });
 btnEditProfile.addEventListener("click", () => {
-  writeProfileData();
+  setInputData();
   openPopup(popupEditProfile);
 });
 btnAddPlace.addEventListener("click", () => openPopup(popupAddPlace));
