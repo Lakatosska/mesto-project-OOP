@@ -14,29 +14,31 @@ const closeBtnAddPlace = popupAddPlace.querySelector(".popup__close-button");
 const popupOpenImage = document.querySelector(".popup_type_open-img");
 const closeBtnOpenImage = popupOpenImage.querySelector(".popup__close-button");
 const formNewPlace = document.querySelector(".form_type_new-place");
-const formNameItem = document.querySelector(".form__item_type_name");
-const formMissionItem = document.querySelector(".form__item_type_mission");
+const inputName = document.querySelector(".form__item_type_name");
+const inputMission = document.querySelector(".form__item_type_mission");
 const POPUP_OPENED = "popup_opened";
 
 //Открытие попапа
-function openPopup(el) {
-  el.classList.add(POPUP_OPENED);
+function openPopup(popup) {
+  popup.classList.add(POPUP_OPENED);
 }
 
 //Закрытие попап
-function closePopup(el) {
-  el.classList.remove(POPUP_OPENED);
+function closePopup(popup) {
+  popup.classList.remove(POPUP_OPENED);
+}
+
+//Запись данных профиля в поля формы
+function writeProfileData() {
+  inputName.value = profileName.textContent;
+  inputMission.value = profileMission.textContent;
 }
 
 //Редактирование профиля
-
-formNameItem.value = profileName.textContent;
-formMissionItem.value = profileMission.textContent;
-
 function formProfileSubmitHandler(event) {
   event.preventDefault();
-  profileName.textContent = formNameItem.value;
-  profileMission.textContent = formMissionItem.value;
+  profileName.textContent = inputName.value;
+  profileMission.textContent = inputMission.value;
   closePopup(popupEditProfile);
 }
 
@@ -48,13 +50,13 @@ function createCard(cardName, cardLink) {
     .querySelector("#card-element")
     .cloneNode(true);
   const cardImage = cardElement.querySelector(".card__image");
-  const cardTitile = cardElement.querySelector(".card__title");
+  const cardTitle = cardElement.querySelector(".card__title");
   const likeBtn = cardElement.querySelector(".card__like");
   const deleteCardBtn = cardElement.querySelector(".card__trash-icon");
 
   cardImage.src = cardLink;
   cardImage.alt = cardName;
-  cardTitile.textContent = cardName;
+  cardTitle.textContent = cardName;
 
   cardImage.addEventListener("click", openImage);
   likeBtn.addEventListener("click", toggleLike);
@@ -128,7 +130,10 @@ closeBtnAddPlace.addEventListener("click", (event) => {
 closeBtnOpenImage.addEventListener("click", (event) => {
   closePopup(event.target.closest(".popup"));
 });
-btnEditProfile.addEventListener("click", () => openPopup(popupEditProfile));
+btnEditProfile.addEventListener("click", () => {
+  writeProfileData();
+  openPopup(popupEditProfile);
+});
 btnAddPlace.addEventListener("click", () => openPopup(popupAddPlace));
 popupEditProfile.addEventListener("submit", formProfileSubmitHandler);
 formNewPlace.addEventListener("submit", formPlaceSubmitHandler);
