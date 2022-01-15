@@ -1,4 +1,11 @@
-"use strict";
+import { initialCards } from "./components/card.js";
+import {
+  openPopup,
+  closePopup,
+  closePopupOverlay,
+  closePopupEscape,
+  openImage,
+} from "./components/modal.js";
 
 const profileName = document.querySelector(".profile__name");
 const profileMission = document.querySelector(".profile__mission");
@@ -19,18 +26,7 @@ const inputName = document.querySelector(".form__item_type_name");
 const inputMission = document.querySelector(".form__item_type_mission");
 const inputPlaceTitle = formNewPlace.querySelector(".form__item_type_place");
 const inputPlaceUrl = formNewPlace.querySelector(".form__item_type_url");
-
-const POPUP_OPENED = "popup_opened";
-
-//Открытие попапа
-function openPopup(popup) {
-  popup.classList.add(POPUP_OPENED);
-}
-
-//Закрытие попап
-function closePopup(popup) {
-  popup.classList.remove(POPUP_OPENED);
-}
+const popups = document.querySelectorAll(".popup");
 
 //Запись данных профиля в поля формы
 function setInputData() {
@@ -104,19 +100,6 @@ function toggleLike(event) {
   event.target.classList.toggle("card__like_active");
 }
 
-//Открытие фото
-function openImage(card) {
-  const popupImage = document.querySelector(".popup_type_open-img");
-  const popupTitle = popupImage.querySelector(".popup__title");
-  const popupImg = popupImage.querySelector(".popup__image");
-
-  popupTitle.textContent = card.name;
-  popupImg.alt = `Изображение ${card.name}`;
-  popupImg.src = card.link;
-
-  openPopup(popupImage);
-}
-
 //Обработчики событий
 closeBtnEditProfile.addEventListener("click", (event) => {
   closePopup(popupEditProfile);
@@ -134,5 +117,11 @@ btnEditProfile.addEventListener("click", () => {
 btnAddPlace.addEventListener("click", () => openPopup(popupAddPlace));
 formEditProfile.addEventListener("submit", formProfileSubmitHandler);
 formNewPlace.addEventListener("submit", formPlaceSubmitHandler);
+
+popups.forEach((popup) => {
+  popup.addEventListener("click", closePopupOverlay);
+});
+
+document.addEventListener("keydown", closePopupEscape);
 
 addCardsInition();
