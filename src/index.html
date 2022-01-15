@@ -4,14 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MESTO</title>
-    <link rel="stylesheet" href="./index.css" />
   </head>
   <body class="page">
     <div class="page__content page__centering">
       <header class="header page__header">
         <a href="#" target="_blank" rel="noopener">
           <img
-            src="./images/logo.svg"
+            src="<%=require('./images/logo.svg')%>"
             alt="Логотип Место Россия."
             class="header__logo"
         /></a>
@@ -19,7 +18,7 @@
       <main class="main">
         <section class="profile page__profile">
           <img
-            src="./images/Avatar.jpg"
+            src="<%=require('./images/Avatar.jpg')%>"
             alt="фото профиля."
             class="profile__avatar"
           />
@@ -141,6 +140,5 @@
         </article>
       </li>
     </template>
-    <script src="./index.js" type="module"></script>
   </body>
 </html>
