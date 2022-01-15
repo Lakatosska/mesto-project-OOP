@@ -71,3 +71,4 @@ popups.forEach((popup) => {
 document.addEventListener("keydown", closePopupEscape);
 
 addCardsInition();
+console.log("test");
