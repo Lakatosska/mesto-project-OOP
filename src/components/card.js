@@ -34,6 +34,21 @@ const inputPlaceTitle = formNewPlace.querySelector(".form__item_type_place");
 const inputPlaceUrl = formNewPlace.querySelector(".form__item_type_url");
 const popupAddPlace = document.querySelector(".popup_type_new-place");
 
+//Добавление карточки
+function addCard(container, card) {
+  container.prepend(card);
+}
+
+//Удаление карточки
+function removeCard(event) {
+  event.target.closest(".card-element").remove();
+}
+
+//Лайки карточек
+function toggleLike(event) {
+  event.target.classList.toggle("card__like_active");
+}
+
 //Создание карточки
 function createCard(card) {
   const templateCard = document.querySelector(".template-card");
@@ -56,6 +71,8 @@ function createCard(card) {
   return cardElement;
 }
 
+
+
 //Добавление начальных карточек
 function addCardsInition() {
   initialCards.forEach((card) => {
@@ -75,21 +92,6 @@ function formPlaceSubmitHandler(event) {
   );
   closePopup(popupAddPlace);
   formNewPlace.reset();
-}
-
-//Добавление карточки
-function addCard(container, card) {
-  container.prepend(card);
-}
-
-//Удаление карточки
-function removeCard(event) {
-  event.target.closest(".card-element").remove();
-}
-
-//Лайки карточек
-function toggleLike(event) {
-  event.target.classList.toggle("card__like_active");
 }
 
 export { formPlaceSubmitHandler, addCardsInition, formNewPlace, popupAddPlace };

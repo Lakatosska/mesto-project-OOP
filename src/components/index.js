@@ -5,12 +5,7 @@ import {
   formNewPlace,
   popupAddPlace,
 } from "./card.js";
-import {
-  openPopup,
-  closePopup,
-  closePopupOverlay,
-  closePopupEscape,
-} from "./modal.js";
+import { openPopup, closePopup, closePopupOverlay } from "./modal.js";
 import { enableValidation } from "./validate.js";
 
 const profileName = document.querySelector(".profile__name");
@@ -52,13 +47,13 @@ function formProfileSubmitHandler(event) {
 }
 
 //Обработчики событий
-closeBtnEditProfile.addEventListener("click", (event) => {
+closeBtnEditProfile.addEventListener("click", () => {
   closePopup(popupEditProfile);
 });
-closeBtnAddPlace.addEventListener("click", (event) => {
+closeBtnAddPlace.addEventListener("click", () => {
   closePopup(popupAddPlace);
 });
-closeBtnOpenImage.addEventListener("click", (event) => {
+closeBtnOpenImage.addEventListener("click", () => {
   closePopup(popupOpenImage);
 });
 btnEditProfile.addEventListener("click", () => {
@@ -72,8 +67,6 @@ formNewPlace.addEventListener("submit", formPlaceSubmitHandler);
 popups.forEach((popup) => {
   popup.addEventListener("click", closePopupOverlay);
 });
-
-document.addEventListener("keydown", closePopupEscape);
 
 enableValidation(validationConfig);
 

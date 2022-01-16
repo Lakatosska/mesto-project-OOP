@@ -3,11 +3,13 @@ const POPUP_OPENED = "popup_opened";
 //Открытие попапа
 function openPopup(popup) {
   popup.classList.add(POPUP_OPENED);
+  addListenerEsc();
 }
 
 //Закрытие попап
 function closePopup(popup) {
   popup.classList.remove(POPUP_OPENED);
+  removeListenerEsc();
 }
 
 //Закрытие попап при клике на оверлей
@@ -15,6 +17,13 @@ function closePopupOverlay(event) {
   if (!Object.is(event.target, event.curentTarget)) {
     closePopup(event.target);
   }
+}
+
+function addListenerEsc() {
+  document.addEventListener("keydown", closePopupEscape);
+}
+function removeListenerEsc() {
+  document.removeEventListener("keydown", closePopupEscape);
 }
 
 // Закрытие попап клавишей Escape
@@ -37,10 +46,4 @@ function openImage(card) {
   openPopup(popupImage);
 }
 
-export {
-  openPopup,
-  closePopup,
-  closePopupOverlay,
-  closePopupEscape,
-  openImage,
-};
+export { openPopup, closePopup, closePopupOverlay, openImage };
