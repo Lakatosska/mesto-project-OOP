@@ -1,0 +1,8 @@
+.form__error-message_visible{
+padding: 0;
+opacity: 1;
+}
+
+.form__error-message_visible:last-of-type{
+  margin-bottom: 20px;
+}

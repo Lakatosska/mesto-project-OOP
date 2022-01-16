@@ -11,26 +11,31 @@ import {
   closePopupOverlay,
   closePopupEscape,
 } from "./components/modal.js";
+import { enableValidation } from "./components/validate.js";
 
 const profileName = document.querySelector(".profile__name");
 const profileMission = document.querySelector(".profile__mission");
 const btnAddPlace = document.querySelector(".profile__add-button");
 const btnEditProfile = document.querySelector(".profile__edit-button");
-
 const popupEditProfile = document.querySelector(".popup_type_edit-profile");
 const closeBtnEditProfile = popupEditProfile.querySelector(
   ".popup__close-button"
 );
-
 const closeBtnAddPlace = popupAddPlace.querySelector(".popup__close-button");
 const popupOpenImage = document.querySelector(".popup_type_open-img");
 const closeBtnOpenImage = popupOpenImage.querySelector(".popup__close-button");
-
 const formEditProfile = document.querySelector(".form_type_edit-profile");
 const inputName = document.querySelector(".form__item_type_name");
 const inputMission = document.querySelector(".form__item_type_mission");
-
 const popups = document.querySelectorAll(".popup");
+const validationConfig = {
+  formSelector: ".form",
+  errorClass: "form__error-message_visible",
+  inputSelector: ".form__item",
+  inputErrorClass: "form__item_invalid",
+  submitButtonSelector: ".form__button",
+  inactiveButtonClass: "form__button_disabled",
+};
 
 //Запись данных профиля в поля формы
 function setInputData() {
@@ -70,5 +75,6 @@ popups.forEach((popup) => {
 
 document.addEventListener("keydown", closePopupEscape);
 
+enableValidation(validationConfig);
+
 addCardsInition();
-console.log("test");

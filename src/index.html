@@ -49,24 +49,38 @@
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
 
-        <form name="edit-profile" class="form form_type_edit-profile">
+        <form
+          name="edit-profile"
+          class="form form_type_edit-profile"
+          novalidate
+        >
           <fieldset class="form__container">
             <input
               type="text"
               class="form__item form__item_type_name"
               name="fullname"
               placeholder="Жак-Ив Кусто"
+              id="fullname"
+              minlength="2"
+              maxlength="40"
               required
               aria-label="Имя."
             />
+            <p id="error-fullname" class="form__error-message"></p>
+
             <input
               type="text"
               class="form__item form__item_type_mission"
               name="mission"
+              minlength="2"
+              maxlength="200"
               placeholder="Исследователь океана"
+              id="mission"
               required
               aria-label="О себе."
             />
+            <p id="error-mission" class="form__error-message"></p>
+
             <button class="form__button" type="submit">Сохранить</button>
           </fieldset>
         </form>
@@ -81,25 +95,35 @@
       <div class="popup__container">
         <h2 class="popup__title">Новое место</h2>
 
-        <form name="new-place" class="form form_type_new-place">
+        <form name="new-place" class="form form_type_new-place" novalidate>
           <fieldset class="form__container">
             <input
               type="text"
               class="form__item form__item_type_place"
               name="place"
               placeholder="Название"
+              minlength="2"
+              maxlength="30"
+              id="place"
               required
               aria-label="Название места."
             />
+            <p id="error-place" class="form__error-message"></p>
+
             <input
               type="url"
               class="form__item form__item_type_url"
               name="url-link"
               placeholder="Ссылка на картинку"
+              id="url-link"
               required
               aria-label="Ссылка на картинку"
             />
-            <button class="form__button" type="submit">Создать</button>
+            <p id="error-url-link" class="form__error-message"></p>
+
+            <button class="form__button form__button_disabled" type="submit">
+              Создать
+            </button>
           </fieldset>
         </form>
         <button
