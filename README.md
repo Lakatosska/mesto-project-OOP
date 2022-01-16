@@ -9,6 +9,7 @@
 - HTML
   - HTML5
   - Адаптивная верстка
+  - Шаблоны
 - CSS
   - Flexbox
   - Grig layout
@@ -18,5 +19,8 @@
 
   - Взаимодействие с DOM деревом
   - Добавление интерактивности
+  - Валидация форм
+  - Модули
+  - Использован Webpack
 
 - [MESTO](https://andreyarkhp.github.io/mesto-project/)

@@ -1,17 +1,17 @@
-import "./index.css";
+import "../index.css";
 import {
   formPlaceSubmitHandler,
   addCardsInition,
   formNewPlace,
   popupAddPlace,
-} from "./components/card.js";
+} from "./card.js";
 import {
   openPopup,
   closePopup,
   closePopupOverlay,
   closePopupEscape,
-} from "./components/modal.js";
-import { enableValidation } from "./components/validate.js";
+} from "./modal.js";
+import { enableValidation } from "./validate.js";
 
 const profileName = document.querySelector(".profile__name");
 const profileMission = document.querySelector(".profile__mission");
