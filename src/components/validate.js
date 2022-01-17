@@ -9,14 +9,13 @@ function toggleButtonState(
   inputs,
   { submitButtonSelector, inactiveButtonClass }
 ) {
-  const buttons = Array.from(form.querySelectorAll(submitButtonSelector));
-  buttons.forEach((button) => {
-    if (hasInvalidInput(inputs)) {
-      button.classList.add(inactiveButtonClass);
-    } else {
-      button.classList.remove(inactiveButtonClass);
-    }
-  });
+  const button = form.querySelector(submitButtonSelector);
+  console.log(button);
+  if (hasInvalidInput(inputs)) {
+    button.classList.add(inactiveButtonClass);
+  } else {
+    button.classList.remove(inactiveButtonClass);
+  }
 }
 
 function showErrorMessage(errorElement, input, errorClass, inputErrorClass) {
