@@ -1,3 +1,6 @@
+const popupImage = document.querySelector(".popup_type_open-img");
+const popupTitle = popupImage.querySelector(".popup__title");
+const popupImg = popupImage.querySelector(".popup__image");
 const POPUP_OPENED = "popup_opened";
 
 //Открытие попапа
@@ -35,10 +38,6 @@ function closePopupEscape(event) {
 
 //Открытие фото
 function openImage(card) {
-  const popupImage = document.querySelector(".popup_type_open-img");
-  const popupTitle = popupImage.querySelector(".popup__title");
-  const popupImg = popupImage.querySelector(".popup__image");
-
   popupTitle.textContent = card.name;
   popupImg.alt = `Изображение ${card.name}`;
   popupImg.src = card.link;
