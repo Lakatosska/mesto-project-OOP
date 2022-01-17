@@ -71,8 +71,6 @@ function createCard(card) {
   return cardElement;
 }
 
-
-
 //Добавление начальных карточек
 function addCardsInition() {
   initialCards.forEach((card) => {
@@ -81,7 +79,7 @@ function addCardsInition() {
 }
 
 //Добавление карточек через форму
-function formPlaceSubmitHandler(event) {
+function HandlerformPlaceSubmit(event) {
   event.preventDefault();
   addCard(
     cardsList,
@@ -94,4 +92,4 @@ function formPlaceSubmitHandler(event) {
   formNewPlace.reset();
 }
 
-export { formPlaceSubmitHandler, addCardsInition, formNewPlace, popupAddPlace };
+export { HandlerformPlaceSubmit, addCardsInition, formNewPlace, popupAddPlace };
