@@ -4,3 +4,9 @@
   opacity: .2;
   color: #000;
 }
+
+.form__button_disabled:hover{
+  background: #e5e5e5;
+  color: #000;
+  opacity: .2;
+}

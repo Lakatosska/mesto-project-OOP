@@ -1,4 +1,6 @@
 import { closePopup, openImage } from "./modal.js";
+import { setDisabledButton } from "./validate.js";
+import { validationConfig } from "./index.js";
 const arkhyzImage =
   "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg";
 
@@ -29,6 +31,7 @@ const initialCards = [
   },
 ];
 const formNewPlace = document.querySelector(".form_type_new-place");
+const formNewPlaceButton = formNewPlace.querySelector(".form__button");
 const cardsList = document.querySelector(".cards__list");
 const inputPlaceTitle = formNewPlace.querySelector(".form__item_type_place");
 const inputPlaceUrl = formNewPlace.querySelector(".form__item_type_url");
@@ -90,6 +93,7 @@ function HandlerformPlaceSubmit(event) {
   );
   closePopup(popupAddPlace);
   formNewPlace.reset();
+  setDisabledButton(formNewPlaceButton, validationConfig.inactiveButtonClass);
 }
 
 export { HandlerformPlaceSubmit, addCardsInition, formNewPlace, popupAddPlace };

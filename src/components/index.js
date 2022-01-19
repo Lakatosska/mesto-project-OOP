@@ -23,7 +23,7 @@ const formEditProfile = document.querySelector(".form_type_edit-profile");
 const inputName = document.querySelector(".form__item_type_name");
 const inputMission = document.querySelector(".form__item_type_mission");
 const popups = document.querySelectorAll(".popup");
-const validationConfig = {
+export const validationConfig = {
   formSelector: ".form",
   errorClass: "form__error-message_visible",
   inputSelector: ".form__item",

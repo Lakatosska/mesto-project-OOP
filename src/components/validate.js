@@ -4,17 +4,26 @@ function hasInvalidInput(inputs) {
   });
 }
 
+function setDisabledButton(button, inactiveButtonClass) {
+  button.classList.add(inactiveButtonClass);
+  button.setAttribute("disabled", "disabled");
+}
+
+function removeDisabledButton(button, inactiveButtonClass) {
+  button.classList.remove(inactiveButtonClass);
+  button.removeAttribute("disabled");
+}
+
 function toggleButtonState(
   form,
   inputs,
   { submitButtonSelector, inactiveButtonClass }
 ) {
   const button = form.querySelector(submitButtonSelector);
-  console.log(button);
   if (hasInvalidInput(inputs)) {
-    button.classList.add(inactiveButtonClass);
+    setDisabledButton(button, inactiveButtonClass);
   } else {
-    button.classList.remove(inactiveButtonClass);
+    removeDisabledButton(button, inactiveButtonClass);
   }
 }
 
@@ -59,4 +68,4 @@ function enableValidation({ formSelector, ...rest }) {
   });
 }
 
-export { enableValidation };
+export { enableValidation, toggleButtonState, setDisabledButton };
