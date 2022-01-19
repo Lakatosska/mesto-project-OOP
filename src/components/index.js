@@ -1,6 +1,6 @@
 import "../index.css";
 import {
-  HandlerformPlaceSubmit,
+  handlePlaceFormSubmit,
   addCardsInition,
   formNewPlace,
   popupAddPlace,
@@ -33,7 +33,7 @@ function setInputData() {
 }
 
 //Редактирование профиля
-function handlerFormProfileSubmit(event) {
+function handleProfileFormSubmit(event) {
   event.preventDefault();
   profileName.textContent = inputName.value;
   profileMission.textContent = inputMission.value;
@@ -47,8 +47,8 @@ btnEditProfile.addEventListener("click", () => {
   openPopup(popupEditProfile);
 });
 btnAddPlace.addEventListener("click", () => openPopup(popupAddPlace));
-formEditProfile.addEventListener("submit", handlerFormProfileSubmit);
-formNewPlace.addEventListener("submit", HandlerformPlaceSubmit);
+formEditProfile.addEventListener("submit", handleProfileFormSubmit);
+formNewPlace.addEventListener("submit", handlePlaceFormSubmit);
 
 popups.forEach((popup) => {
   popup.addEventListener("mousedown", (event) => {

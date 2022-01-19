@@ -82,7 +82,7 @@ function addCardsInition() {
 }
 
 //Добавление карточек через форму
-function HandlerformPlaceSubmit(event) {
+function handlePlaceFormSubmit(event) {
   event.preventDefault();
   addCard(
     cardsList,
@@ -96,4 +96,4 @@ function HandlerformPlaceSubmit(event) {
   setDisabledButton(formNewPlaceButton, validationConfig.inactiveButtonClass);
 }
 
-export { HandlerformPlaceSubmit, addCardsInition, formNewPlace, popupAddPlace };
+export { handlePlaceFormSubmit, addCardsInition, formNewPlace, popupAddPlace };
