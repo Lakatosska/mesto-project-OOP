@@ -5,7 +5,7 @@ import {
   formNewPlace,
   popupAddPlace,
 } from "./card.js";
-import { openPopup, closePopup, closePopupOverlay } from "./modal.js";
+import { openPopup, closePopup } from "./modal.js";
 import { enableValidation } from "./validate.js";
 
 const profileName = document.querySelector(".profile__name");
@@ -13,12 +13,6 @@ const profileMission = document.querySelector(".profile__mission");
 const btnAddPlace = document.querySelector(".profile__add-button");
 const btnEditProfile = document.querySelector(".profile__edit-button");
 const popupEditProfile = document.querySelector(".popup_type_edit-profile");
-const closeBtnEditProfile = popupEditProfile.querySelector(
-  ".popup__close-button"
-);
-const closeBtnAddPlace = popupAddPlace.querySelector(".popup__close-button");
-const popupOpenImage = document.querySelector(".popup_type_open-img");
-const closeBtnOpenImage = popupOpenImage.querySelector(".popup__close-button");
 const formEditProfile = document.querySelector(".form_type_edit-profile");
 const inputName = document.querySelector(".form__item_type_name");
 const inputMission = document.querySelector(".form__item_type_mission");
@@ -47,15 +41,7 @@ function handlerFormProfileSubmit(event) {
 }
 
 //Обработчики событий
-closeBtnEditProfile.addEventListener("click", () => {
-  closePopup(popupEditProfile);
-});
-closeBtnAddPlace.addEventListener("click", () => {
-  closePopup(popupAddPlace);
-});
-closeBtnOpenImage.addEventListener("click", () => {
-  closePopup(popupOpenImage);
-});
+
 btnEditProfile.addEventListener("click", () => {
   setInputData();
   openPopup(popupEditProfile);
@@ -65,7 +51,14 @@ formEditProfile.addEventListener("submit", handlerFormProfileSubmit);
 formNewPlace.addEventListener("submit", HandlerformPlaceSubmit);
 
 popups.forEach((popup) => {
-  popup.addEventListener("click", closePopupOverlay);
+  popup.addEventListener("mousedown", (event) => {
+    if (event.target.classList.contains("popup_opened")) {
+      closePopup(popup);
+    }
+    if (event.target.classList.contains("popup__close-button")) {
+      closePopup(popup);
+    }
+  });
 });
 
 enableValidation(validationConfig);

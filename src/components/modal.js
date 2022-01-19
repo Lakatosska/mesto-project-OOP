@@ -15,13 +15,6 @@ function closePopup(popup) {
   removeListenerEsc();
 }
 
-//Закрытие попап при клике на оверлей
-function closePopupOverlay(event) {
-  if (!Object.is(event.target, event.curentTarget)) {
-    closePopup(event.target);
-  }
-}
-
 function addListenerEsc() {
   document.addEventListener("keydown", closePopupEscape);
 }
@@ -45,4 +38,4 @@ function openImage(card) {
   openPopup(popupImage);
 }
 
-export { openPopup, closePopup, closePopupOverlay, openImage };
+export { openPopup, closePopup, openImage };

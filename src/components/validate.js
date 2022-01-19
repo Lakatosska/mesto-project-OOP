@@ -68,4 +68,4 @@ function enableValidation({ formSelector, ...rest }) {
   });
 }
 
-export { enableValidation, toggleButtonState, setDisabledButton };
+export { enableValidation, setDisabledButton };
