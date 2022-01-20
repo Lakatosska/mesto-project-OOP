@@ -26,22 +26,90 @@ export const validationConfig = {
   inactiveButtonClass: "form__button_disabled",
 };
 
+export const fetchConfig = {
+  baseUrl: "https://nomoreparties.co/v1/plus-cohort-6/",
+  authorization: "65d32b7f-c1f2-44b3-9a5c-d1cd8d3f9a2c",
+  get: "GET",
+  patch: "PATCH",
+  post: "POST",
+  delete: "DELETE",
+};
+
+//Получение и установка начальных данных страницы
+function setInitialPage() {
+  fetch(`${fetchConfig.baseUrl}cards`, {
+    method: fetchConfig.get,
+    headers: {
+      authorization: fetchConfig.authorization,
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      addCardsInition(data);
+    })
+    .catch((err) => console.log(`Error: ${err}`));
+
+  fetch(`${fetchConfig.baseUrl}users/me`, {
+    method: fetchConfig.get,
+    headers: {
+      authorization: fetchConfig.authorization,
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      profileName.textContent = data.name;
+      profileMission.textContent = data.about;
+    })
+    .catch((err) => console.log(`Error: ${err}`));
+}
+
 //Запись данных профиля в поля формы
 function setInputData() {
-  inputName.value = profileName.textContent;
-  inputMission.value = profileMission.textContent;
+  fetch(`${fetchConfig.baseUrl}users/me`, {
+    method: fetchConfig.get,
+    headers: {
+      authorization: fetchConfig.authorization,
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      inputName.value = data.name;
+      inputMission.value = data.about;
+    });
 }
 
 //Редактирование профиля
 function handleProfileFormSubmit(event) {
   event.preventDefault();
-  profileName.textContent = inputName.value;
-  profileMission.textContent = inputMission.value;
+  fetch(`${fetchConfig.baseUrl}users/me`, {
+    method: fetchConfig.patch,
+    headers: {
+      authorization: fetchConfig.authorization,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: inputName.value,
+      about: inputMission.value,
+    }),
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      profileName.textContent = data.name;
+      profileMission.textContent = data.about;
+    });
+
   closePopup(popupEditProfile);
 }
 
 //Обработчики событий
-
 btnEditProfile.addEventListener("click", () => {
   setInputData();
   openPopup(popupEditProfile);
@@ -61,6 +129,5 @@ popups.forEach((popup) => {
   });
 });
 
+setInitialPage();
 enableValidation(validationConfig);
-
-addCardsInition();

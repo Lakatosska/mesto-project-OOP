@@ -11,6 +11,7 @@
   background-color: transparent;
   cursor: pointer;
   transition: opacity 0.1s linear;
+  display: none;
 }
 
 .card__trash-icon:hover {

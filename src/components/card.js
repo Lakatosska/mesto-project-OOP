@@ -1,59 +1,42 @@
 import { closePopup, openImage } from "./modal.js";
 import { setDisabledButton } from "./validate.js";
-import { validationConfig } from "./index.js";
-const arkhyzImage =
-  "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg";
+import { validationConfig, fetchConfig } from "./index.js";
 
-const initialCards = [
-  {
-    name: "Архыз",
-    link: arkhyzImage,
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
 const formNewPlace = document.querySelector(".form_type_new-place");
 const formNewPlaceButton = formNewPlace.querySelector(".form__button");
 const cardsList = document.querySelector(".cards__list");
 const inputPlaceTitle = formNewPlace.querySelector(".form__item_type_place");
 const inputPlaceUrl = formNewPlace.querySelector(".form__item_type_url");
 const popupAddPlace = document.querySelector(".popup_type_new-place");
+const CARD__LIKE_ACTIVE = "card__like_active";
 
 //Добавление карточки
-function addCard(container, card) {
-  container.prepend(card);
+function addCard(container, card, append) {
+  if (append) {
+    container.append(card);
+  } else {
+    container.prepend(card);
+  }
 }
 
 //Удаление карточки
-function removeCard(event) {
+function removeCard(event, id) {
   event.target.closest(".card-element").remove();
+  fetch(`${fetchConfig.baseUrl}cards/${id}`, {
+    method: fetchConfig.delete,
+    headers: {
+      authorization: fetchConfig.authorization,
+    },
+  });
 }
 
 //Лайки карточек
 function toggleLike(event) {
-  event.target.classList.toggle("card__like_active");
+  event.target.classList.toggle(CARD__LIKE_ACTIVE);
 }
 
 //Создание карточки
-function createCard(card) {
+function createCard(card, ownCard) {
   const templateCard = document.querySelector(".template-card");
   const cardElement = templateCard.content
     .querySelector(".card-element")
@@ -62,35 +45,58 @@ function createCard(card) {
   const cardTitle = cardElement.querySelector(".card__title");
   const likeBtn = cardElement.querySelector(".card__like");
   const deleteCardBtn = cardElement.querySelector(".card__trash-icon");
+  const counterLikeCard = cardElement.querySelector(".card__like-counter");
 
   cardImage.src = card.link;
   cardImage.alt = card.name;
   cardTitle.textContent = card.name;
 
+  if (ownCard) {
+    deleteCardBtn.classList.add("card__trash-icon_visible");
+  }
+
+  if (card.likes.length) {
+    counterLikeCard.textContent = card.likes.length;
+    if (card.likes.length > 0) {
+      likeBtn.classList.add(CARD__LIKE_ACTIVE);
+    }
+  }
   cardImage.addEventListener("click", () => openImage(card));
   likeBtn.addEventListener("click", toggleLike);
-  deleteCardBtn.addEventListener("click", removeCard);
+  deleteCardBtn.addEventListener("click", (event) => {
+    removeCard(event, card._id);
+  });
 
   return cardElement;
 }
 
 //Добавление начальных карточек
-function addCardsInition() {
-  initialCards.forEach((card) => {
-    addCard(cardsList, createCard(card));
+function addCardsInition(data) {
+  data.forEach((card) => {
+    addCard(cardsList, createCard(card), true);
   });
 }
 
 //Добавление карточек через форму
 function handlePlaceFormSubmit(event) {
   event.preventDefault();
-  addCard(
-    cardsList,
-    createCard({
+  fetch(`${fetchConfig.baseUrl}cards`, {
+    method: fetchConfig.post,
+    headers: {
+      authorization: fetchConfig.authorization,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
       name: inputPlaceTitle.value,
       link: inputPlaceUrl.value,
+    }),
+  })
+    .then((res) => {
+      return res.json();
     })
-  );
+    .then((data) => {
+      addCard(cardsList, createCard(data, true));
+    });
   closePopup(popupAddPlace);
   formNewPlace.reset();
   setDisabledButton(formNewPlaceButton, validationConfig.inactiveButtonClass);
