@@ -7,6 +7,7 @@ import {
 } from "./card.js";
 import { openPopup, closePopup } from "./modal.js";
 import { enableValidation } from "./validate.js";
+import { getInitialCards, getUserData, sendUsersData } from "./api";
 
 const profileName = document.querySelector(".profile__name");
 const profileMission = document.querySelector(".profile__mission");
@@ -26,85 +27,32 @@ export const validationConfig = {
   inactiveButtonClass: "form__button_disabled",
 };
 
-export const fetchConfig = {
-  baseUrl: "https://nomoreparties.co/v1/plus-cohort-6/",
-  authorization: "65d32b7f-c1f2-44b3-9a5c-d1cd8d3f9a2c",
-  get: "GET",
-  patch: "PATCH",
-  post: "POST",
-  delete: "DELETE",
-};
-
 //Получение и установка начальных данных страницы
 function setInitialPage() {
-  fetch(`${fetchConfig.baseUrl}cards`, {
-    method: fetchConfig.get,
-    headers: {
-      authorization: fetchConfig.authorization,
-    },
-  })
-    .then((res) => {
-      return res.json();
-    })
+  Promise.all([getInitialCards(), getUserData()])
     .then((data) => {
-      addCardsInition(data);
-    })
-    .catch((err) => console.log(`Error: ${err}`));
-
-  fetch(`${fetchConfig.baseUrl}users/me`, {
-    method: fetchConfig.get,
-    headers: {
-      authorization: fetchConfig.authorization,
-    },
-  })
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      profileName.textContent = data.name;
-      profileMission.textContent = data.about;
+      addCardsInition(data[0]);
+      profileName.textContent = data[1].name;
+      profileMission.textContent = data[1].about;
     })
     .catch((err) => console.log(`Error: ${err}`));
 }
 
 //Запись данных профиля в поля формы
 function setInputData() {
-  fetch(`${fetchConfig.baseUrl}users/me`, {
-    method: fetchConfig.get,
-    headers: {
-      authorization: fetchConfig.authorization,
-    },
-  })
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      inputName.value = data.name;
-      inputMission.value = data.about;
-    });
+  getUserData().then((data) => {
+    inputName.value = data.name;
+    inputMission.value = data.about;
+  });
 }
 
 //Редактирование профиля
 function handleProfileFormSubmit(event) {
   event.preventDefault();
-  fetch(`${fetchConfig.baseUrl}users/me`, {
-    method: fetchConfig.patch,
-    headers: {
-      authorization: fetchConfig.authorization,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name: inputName.value,
-      about: inputMission.value,
-    }),
-  })
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      profileName.textContent = data.name;
-      profileMission.textContent = data.about;
-    });
+  sendUsersData().then((data) => {
+    profileName.textContent = data.name;
+    profileMission.textContent = data.about;
+  });
 
   closePopup(popupEditProfile);
 }

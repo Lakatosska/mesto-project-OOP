@@ -1,6 +1,7 @@
 import { closePopup, openImage } from "./modal.js";
 import { setDisabledButton } from "./validate.js";
-import { validationConfig, fetchConfig } from "./index.js";
+import { validationConfig } from "./index.js";
+import { fetchConfig, deleteCard, postDataCard } from "./api.js";
 
 const formNewPlace = document.querySelector(".form_type_new-place");
 const formNewPlaceButton = formNewPlace.querySelector(".form__button");
@@ -22,12 +23,7 @@ function addCard(container, card, append) {
 //Удаление карточки
 function removeCard(event, id) {
   event.target.closest(".card-element").remove();
-  fetch(`${fetchConfig.baseUrl}cards/${id}`, {
-    method: fetchConfig.delete,
-    headers: {
-      authorization: fetchConfig.authorization,
-    },
-  });
+  deleteCard(id);
 }
 
 //Лайки карточек
@@ -51,7 +47,7 @@ function createCard(card, ownCard) {
   cardImage.alt = card.name;
   cardTitle.textContent = card.name;
 
-  if (ownCard) {
+  if (Object.is(card.owner._id, fetchConfig.ownerId)) {
     deleteCardBtn.classList.add("card__trash-icon_visible");
   }
 
@@ -80,23 +76,9 @@ function addCardsInition(data) {
 //Добавление карточек через форму
 function handlePlaceFormSubmit(event) {
   event.preventDefault();
-  fetch(`${fetchConfig.baseUrl}cards`, {
-    method: fetchConfig.post,
-    headers: {
-      authorization: fetchConfig.authorization,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name: inputPlaceTitle.value,
-      link: inputPlaceUrl.value,
-    }),
-  })
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      addCard(cardsList, createCard(data, true));
-    });
+  postDataCard(inputPlaceTitle, inputPlaceUrl).then((data) => {
+    addCard(cardsList, createCard(data, true));
+  });
   closePopup(popupAddPlace);
   formNewPlace.reset();
   setDisabledButton(formNewPlaceButton, validationConfig.inactiveButtonClass);
