@@ -27,12 +27,12 @@ function removeCard(event, id) {
 }
 
 //Лайки карточек
-function toggleLike(event) {
+function toggleLike(event, likes) {
   event.target.classList.toggle(CARD__LIKE_ACTIVE);
 }
 
 //Создание карточки
-function createCard(card, ownCard) {
+function createCard(card) {
   const templateCard = document.querySelector(".template-card");
   const cardElement = templateCard.content
     .querySelector(".card-element")
@@ -58,7 +58,7 @@ function createCard(card, ownCard) {
     }
   }
   cardImage.addEventListener("click", () => openImage(card));
-  likeBtn.addEventListener("click", toggleLike);
+  likeBtn.addEventListener("click", (event) => toggleLike(event, card.likes));
   deleteCardBtn.addEventListener("click", (event) => {
     removeCard(event, card._id);
   });
@@ -77,7 +77,7 @@ function addCardsInition(data) {
 function handlePlaceFormSubmit(event) {
   event.preventDefault();
   postDataCard(inputPlaceTitle, inputPlaceUrl).then((data) => {
-    addCard(cardsList, createCard(data, true));
+    addCard(cardsList, createCard(data));
   });
   closePopup(popupAddPlace);
   formNewPlace.reset();

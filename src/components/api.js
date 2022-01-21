@@ -15,7 +15,7 @@ function deleteCard(id) {
   });
 }
 
-//Отправка данных карточки через форму
+//Отправка данных карточки
 function postDataCard(inputTitle, inputUrl) {
   return fetch(`${fetchConfig.baseUrl}cards`, {
     method: "POST",
@@ -29,8 +29,8 @@ function postDataCard(inputTitle, inputUrl) {
   });
 }
 
-//Получение начальных карточек
-function getInitialCards() {
+//Получение  карточек
+function getCards() {
   return fetch(`${fetchConfig.baseUrl}cards`, {
     headers: fetchConfig.headers,
   }).then((res) => {
@@ -65,7 +65,7 @@ export {
   fetchConfig,
   deleteCard,
   postDataCard,
-  getInitialCards,
+  getCards,
   getUserData,
   sendUsersData,
 };

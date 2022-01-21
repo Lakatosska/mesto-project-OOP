@@ -7,7 +7,7 @@ import {
 } from "./card.js";
 import { openPopup, closePopup } from "./modal.js";
 import { enableValidation } from "./validate.js";
-import { getInitialCards, getUserData, sendUsersData } from "./api";
+import { getCards, getUserData, sendUsersData } from "./api";
 
 const profileName = document.querySelector(".profile__name");
 const profileMission = document.querySelector(".profile__mission");
@@ -29,7 +29,7 @@ export const validationConfig = {
 
 //Получение и установка начальных данных страницы
 function setInitialPage() {
-  Promise.all([getInitialCards(), getUserData()])
+  Promise.all([getCards(), getUserData()])
     .then((data) => {
       addCardsInition(data[0]);
       profileName.textContent = data[1].name;
