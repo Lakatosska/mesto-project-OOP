@@ -1,7 +1,13 @@
 import { closePopup, openImage } from "./modal.js";
 import { setDisabledButton } from "./validate.js";
 import { validationConfig } from "./index.js";
-import { fetchConfig, deleteCard, postDataCard } from "./api.js";
+import {
+  fetchConfig,
+  deleteCard,
+  postDataCard,
+  setLike,
+  deleteLike,
+} from "./api.js";
 
 const formNewPlace = document.querySelector(".form_type_new-place");
 const formNewPlaceButton = formNewPlace.querySelector(".form__button");
@@ -10,6 +16,11 @@ const inputPlaceTitle = formNewPlace.querySelector(".form__item_type_place");
 const inputPlaceUrl = formNewPlace.querySelector(".form__item_type_url");
 const popupAddPlace = document.querySelector(".popup_type_new-place");
 const CARD__LIKE_ACTIVE = "card__like_active";
+
+//Установка счетчика лайков
+function setLikesCounter(counter, card) {
+  counter.textContent = card.likes.length;
+}
 
 //Добавление карточки
 function addCard(container, card, append) {
@@ -23,12 +34,31 @@ function addCard(container, card, append) {
 //Удаление карточки
 function removeCard(event, id) {
   event.target.closest(".card-element").remove();
-  deleteCard(id);
+  deleteCard(id).catch((err) => {
+    console.log(`Error: ${err}`);
+  });
 }
 
 //Лайки карточек
-function toggleLike(event, likes) {
+function toggleLike(event, card, counter) {
   event.target.classList.toggle(CARD__LIKE_ACTIVE);
+  if (event.target.classList.contains(CARD__LIKE_ACTIVE)) {
+    setLike(card._id)
+      .then((card) => {
+        setLikesCounter(counter, card);
+      })
+      .catch((err) => {
+        console.log(`Error: ${err}`);
+      });
+  } else {
+    deleteLike(card._id)
+      .then((card) => {
+        setLikesCounter(counter, card);
+      })
+      .catch((err) => {
+        console.log(`Error: ${err}`);
+      });
+  }
 }
 
 //Создание карточки
@@ -42,7 +72,6 @@ function createCard(card) {
   const likeBtn = cardElement.querySelector(".card__like");
   const deleteCardBtn = cardElement.querySelector(".card__trash-icon");
   const counterLikeCard = cardElement.querySelector(".card__like-counter");
-
   cardImage.src = card.link;
   cardImage.alt = card.name;
   cardTitle.textContent = card.name;
@@ -51,14 +80,20 @@ function createCard(card) {
     deleteCardBtn.classList.add("card__trash-icon_visible");
   }
 
-  if (card.likes.length) {
-    counterLikeCard.textContent = card.likes.length;
-    if (card.likes.length > 0) {
-      likeBtn.classList.add(CARD__LIKE_ACTIVE);
-    }
+  if (
+    card.likes.some((like) => {
+      return Object.is(like._id, fetchConfig.ownerId);
+    })
+  ) {
+    likeBtn.classList.add(CARD__LIKE_ACTIVE);
   }
+
+  setLikesCounter(counterLikeCard, card);
+
   cardImage.addEventListener("click", () => openImage(card));
-  likeBtn.addEventListener("click", (event) => toggleLike(event, card.likes));
+  likeBtn.addEventListener("click", (event) =>
+    toggleLike(event, card, counterLikeCard)
+  );
   deleteCardBtn.addEventListener("click", (event) => {
     removeCard(event, card._id);
   });
@@ -67,8 +102,8 @@ function createCard(card) {
 }
 
 //Добавление начальных карточек
-function addCardsInition(data) {
-  data.forEach((card) => {
+function addCardsInition(cards) {
+  cards.forEach((card) => {
     addCard(cardsList, createCard(card), true);
   });
 }

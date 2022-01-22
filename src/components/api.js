@@ -8,8 +8,8 @@ const fetchConfig = {
 };
 
 //Удаление карточки
-function deleteCard(id) {
-  return fetch(`${fetchConfig.baseUrl}cards/${id}`, {
+function deleteCard(cardId) {
+  return fetch(`${fetchConfig.baseUrl}cards/${cardId}`, {
     method: "DELETE",
     headers: fetchConfig.headers,
   });
@@ -61,8 +61,30 @@ function sendUsersData() {
   });
 }
 
+//Отправка лайка
+function setLike(cardId) {
+  return fetch(`${fetchConfig.baseUrl}cards/likes/${cardId}`, {
+    method: "PUT",
+    headers: fetchConfig.headers,
+  }).then((res) => {
+    return res.json();
+  });
+}
+
+//Удаление лайка
+function deleteLike(cardId) {
+  return fetch(`${fetchConfig.baseUrl}cards/likes/${cardId}`, {
+    method: "DELETE",
+    headers: fetchConfig.headers,
+  }).then((res) => {
+    return res.json();
+  });
+}
+
 export {
   fetchConfig,
+  setLike,
+  deleteLike,
   deleteCard,
   postDataCard,
   getCards,
