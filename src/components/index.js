@@ -49,7 +49,7 @@ function setInputData() {
 //Редактирование профиля
 function handleProfileFormSubmit(event) {
   event.preventDefault();
-  sendUsersData().then((data) => {
+  sendUsersData(inputName, inputMission).then((data) => {
     profileName.textContent = data.name;
     profileMission.textContent = data.about;
   });

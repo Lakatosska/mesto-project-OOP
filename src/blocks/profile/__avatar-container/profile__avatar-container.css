@@ -1,0 +1,35 @@
+.profile__avatar-container{
+  border-radius: 50%;
+  overflow: hidden;
+  margin-inline-end: 30px;
+  position: relative;
+}
+
+.profile__avatar-container::before{
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background:no-repeat 50%  url(../../../images/pencil.svg);
+  opacity: 0;
+  transition:opacity  0.2s linear;
+}
+
+.profile__avatar-container:hover::before{
+  opacity: 1;
+}
+
+@media screen and (max-width: 767px) {
+  .profile__avatar-container {
+    margin-inline-end: 20px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .profile__avatar-container {
+    margin-inline-end: 0;
+    margin-block-end: 26px;
+  }
+}

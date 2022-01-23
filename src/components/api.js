@@ -25,7 +25,10 @@ function postDataCard(inputTitle, inputUrl) {
       link: inputUrl.value,
     }),
   }).then((res) => {
-    return res.json();
+    if (res.ok) {
+      return res.json();
+    }
+    Promise.reject(`Ошибка: ${res.status}`);
   });
 }
 
@@ -34,7 +37,10 @@ function getCards() {
   return fetch(`${fetchConfig.baseUrl}cards`, {
     headers: fetchConfig.headers,
   }).then((res) => {
-    return res.json();
+    if (res.ok) {
+      return res.json();
+    }
+    Promise.reject(`Ошибка: ${res.status}`);
   });
 }
 
@@ -43,12 +49,15 @@ function getUserData() {
   return fetch(`${fetchConfig.baseUrl}users/me`, {
     headers: fetchConfig.headers,
   }).then((res) => {
-    return res.json();
+    if (res.ok) {
+      return res.json();
+    }
+    Promise.reject(`Ошибка: ${res.status}`);
   });
 }
 
 //Отправка изменненых данных пользователя
-function sendUsersData() {
+function sendUsersData(inputName, inputMission) {
   return fetch(`${fetchConfig.baseUrl}users/me`, {
     method: "PATCH",
     headers: fetchConfig.headers,
@@ -57,7 +66,10 @@ function sendUsersData() {
       about: inputMission.value,
     }),
   }).then((res) => {
-    return res.json();
+    if (res.ok) {
+      return res.json();
+    }
+    Promise.reject(`Ошибка: ${res.status}`);
   });
 }
 
@@ -67,7 +79,10 @@ function setLike(cardId) {
     method: "PUT",
     headers: fetchConfig.headers,
   }).then((res) => {
-    return res.json();
+    if (res.ok) {
+      return res.json();
+    }
+    Promise.reject(`Ошибка: ${res.status}`);
   });
 }
 
@@ -77,7 +92,10 @@ function deleteLike(cardId) {
     method: "DELETE",
     headers: fetchConfig.headers,
   }).then((res) => {
-    return res.json();
+    if (res.ok) {
+      return res.json();
+    }
+    Promise.reject(`Ошибка: ${res.status}`);
   });
 }
 

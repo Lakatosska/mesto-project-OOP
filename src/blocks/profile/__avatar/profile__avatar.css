@@ -1,19 +1,17 @@
 .profile__avatar {
-  border-radius: 50%;
+  display: block;
   width: 120px;
   object-fit: cover;
-  margin-inline-end: 30px;
+  position: relative;
+  transition: opacity 0.2s linear;
 }
 
-@media screen and (max-width: 767px) {
-  .profile__avatar {
-    margin-inline-end: 20px;
-  }
+.profile__avatar:hover{
+  opacity: .2;
 }
 
-@media screen and (max-width: 650px) {
-  .profile__avatar {
-    margin-inline-end: 0;
-    margin-block-end: 26px;
-  }
-}
+
+
+
+
+

@@ -17,11 +17,13 @@
       </header>
       <main class="main">
         <section class="profile page__profile">
-          <img
-            src="<%=require('./images/Avatar.jpg')%>"
-            alt="фото профиля."
-            class="profile__avatar"
-          />
+          <div class="profile__avatar-container">
+            <img
+              src="<%=require('./images/Avatar.jpg')%>"
+              alt="фото профиля."
+              class="profile__avatar"
+            />
+          </div>
           <div class="profile__info">
             <h1 class="profile__name"></h1>
             <p class="profile__mission"></p>
@@ -141,6 +143,35 @@
       <div class="popup__container popup__container_for_img">
         <h2 class="popup__title popup__title_for_image"></h2>
         <img src="" alt="" class="popup__image" />
+        <button
+          type="button"
+          class="popup__close-button"
+          aria-label="Закрыть всплывающее окно"
+        ></button>
+      </div>
+    </div>
+    <div class="popup popup_type_edit-avatar">
+      <div class="popup__container">
+        <h2 class="popup__title">Обновить аватар</h2>
+
+        <form name="edit-avatar" class="form form_type_edit-avatar" novalidate>
+          <fieldset class="form__container">
+            <input
+              type="url"
+              class="form__item form__item_type_url"
+              name="avatar-url"
+              placeholder="Жак-Ив Кусто"
+              id="avatar-url"
+              minlength="2"
+              maxlength="40"
+              required
+              aria-label="URL адресс аватара."
+            />
+            <p id="error-avatar-url" class="form__error-message"></p>
+
+            <button class="form__button" type="submit">Сохранить</button>
+          </fieldset>
+        </form>
         <button
           type="button"
           class="popup__close-button"
