@@ -84,7 +84,7 @@ function setAvatar(url) {
     body: JSON.stringify({
       avatar: url,
     }),
-  });
+  }).then(checkResponse);
 }
 
 export {

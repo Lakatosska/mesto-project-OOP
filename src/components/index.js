@@ -17,14 +17,16 @@ const btnEditProfile = document.querySelector(".profile__edit-button");
 const popupEditProfile = document.querySelector(".popup_type_edit-profile");
 const popupEditAvatar = document.querySelector(".popup_type_edit-avatar");
 const formEditProfile = document.querySelector(".form_type_edit-profile");
+const btnSaveProfile = formEditProfile.querySelector(".form__button");
 const formEditAvatar = document.querySelector(".form_type_edit-avatar");
 const inputUrlAvatar = formEditAvatar.querySelector(
   ".form__item_type_url-avatar"
 );
-const btnEditAvatar = formEditAvatar.querySelector(".form__button");
+const btnSaveAvatar = formEditAvatar.querySelector(".form__button");
 const inputName = document.querySelector(".form__item_type_name");
 const inputMission = document.querySelector(".form__item_type_mission");
 const popups = document.querySelectorAll(".popup");
+export const timeDelay = 100;
 
 export const validationConfig = {
   formSelector: ".form",
@@ -49,31 +51,49 @@ function setInitialPage() {
 
 //Запись данных профиля в поля формы
 function setInputData() {
-  getUserData().then((data) => {
-    inputName.value = data.name;
-    inputMission.value = data.about;
-  });
+  getUserData()
+    .then((data) => {
+      inputName.value = data.name;
+      inputMission.value = data.about;
+    })
+    .catch((err) => console.log(`Error: ${err}`));
 }
 
 //Редактирование профиля
 function handleProfileFormSubmit(event) {
   event.preventDefault();
-  sendUsersData(inputName, inputMission).then((data) => {
-    profileName.textContent = data.name;
-    profileMission.textContent = data.about;
-  });
-
-  closePopup(popupEditProfile);
+  btnSaveProfile.textContent = "Сохранение...";
+  sendUsersData(inputName, inputMission)
+    .then((data) => {
+      profileName.textContent = data.name;
+      profileMission.textContent = data.about;
+    })
+    .catch((err) => console.log(`Error: ${err}`))
+    .finally(() => {
+      closePopup(popupEditProfile);
+      setTimeout(() => {
+        btnSaveProfile.textContent = "Сохранить";
+      }, timeDelay);
+    });
 }
 
 //Редактирование аватара
 function handleAvatarFormSubmit(event) {
   event.preventDefault();
-  profileAvatar.src = inputUrlAvatar.value;
-  setAvatar(inputUrlAvatar.value);
-  closePopup(popupEditAvatar);
-  formEditAvatar.reset();
-  setDisabledButton(btnEditAvatar, validationConfig.inactiveButtonClass);
+  btnSaveAvatar.textContent = "Сохранение...";
+  setAvatar(inputUrlAvatar.value)
+    .then((data) => {
+      profileAvatar.src = data.avatar;
+    })
+    .catch((err) => console.log(`Error: ${err}`))
+    .finally(() => {
+      closePopup(popupEditAvatar);
+      setTimeout(() => {
+        formEditAvatar.reset();
+        setDisabledButton(btnSaveAvatar, validationConfig.inactiveButtonClass);
+        btnSaveAvatar.textContent = "Сохранить";
+      }, timeDelay);
+    });
 }
 
 //Обработчики событий

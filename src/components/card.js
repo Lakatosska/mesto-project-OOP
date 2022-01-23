@@ -1,6 +1,6 @@
 import { closePopup, openImage } from "./modal.js";
 import { setDisabledButton } from "./validate.js";
-import { validationConfig } from "./index.js";
+import { validationConfig, timeDelay } from "./index.js";
 import {
   fetchConfig,
   deleteCard,
@@ -111,12 +111,23 @@ function addCardsInition(cards) {
 //Добавление карточек через форму
 function handlePlaceFormSubmit(event) {
   event.preventDefault();
-  postDataCard(inputPlaceTitle, inputPlaceUrl).then((data) => {
-    addCard(cardsList, createCard(data));
-  });
-  closePopup(popupAddPlace);
-  formNewPlace.reset();
-  setDisabledButton(formNewPlaceButton, validationConfig.inactiveButtonClass);
+  formNewPlaceButton.textContent = "Сохранение...";
+  postDataCard(inputPlaceTitle, inputPlaceUrl)
+    .then((data) => {
+      addCard(cardsList, createCard(data));
+    })
+    .catch((err) => console.log(`Error: ${err}`))
+    .finally(() => {
+      closePopup(popupAddPlace);
+      setTimeout(() => {
+        formNewPlace.reset();
+        setDisabledButton(
+          formNewPlaceButton,
+          validationConfig.inactiveButtonClass
+        );
+        formNewPlaceButton.textContent = "Создать";
+      }, timeDelay);
+    });
 }
 
 export { handlePlaceFormSubmit, addCardsInition, formNewPlace, popupAddPlace };
