@@ -18,11 +18,7 @@
       <main class="main">
         <section class="profile page__profile">
           <div class="profile__avatar-container">
-            <img
-              src="<%=require('./images/Avatar.jpg')%>"
-              alt="фото профиля."
-              class="profile__avatar"
-            />
+            <img src="" alt="фото профиля." class="profile__avatar" />
           </div>
           <div class="profile__info">
             <h1 class="profile__name"></h1>
@@ -158,18 +154,22 @@
           <fieldset class="form__container">
             <input
               type="url"
-              class="form__item form__item_type_url"
+              class="form__item form__item_type_url-avatar"
               name="avatar-url"
-              placeholder="Жак-Ив Кусто"
+              placeholder="https://somewebsite.com/someimage.jpg"
               id="avatar-url"
-              minlength="2"
-              maxlength="40"
               required
               aria-label="URL адресс аватара."
             />
             <p id="error-avatar-url" class="form__error-message"></p>
 
-            <button class="form__button" type="submit">Сохранить</button>
+            <button
+              class="form__button form__button_disabled"
+              type="submit"
+              disabled
+            >
+              Сохранить
+            </button>
           </fieldset>
         </form>
         <button

@@ -6,18 +6,26 @@ import {
   popupAddPlace,
 } from "./card.js";
 import { openPopup, closePopup } from "./modal.js";
-import { enableValidation } from "./validate.js";
-import { getCards, getUserData, sendUsersData } from "./api";
+import { enableValidation, setDisabledButton } from "./validate.js";
+import { getCards, getUserData, sendUsersData, setAvatar } from "./api";
 
 const profileName = document.querySelector(".profile__name");
 const profileMission = document.querySelector(".profile__mission");
+const profileAvatar = document.querySelector(".profile__avatar");
 const btnAddPlace = document.querySelector(".profile__add-button");
 const btnEditProfile = document.querySelector(".profile__edit-button");
 const popupEditProfile = document.querySelector(".popup_type_edit-profile");
+const popupEditAvatar = document.querySelector(".popup_type_edit-avatar");
 const formEditProfile = document.querySelector(".form_type_edit-profile");
+const formEditAvatar = document.querySelector(".form_type_edit-avatar");
+const inputUrlAvatar = formEditAvatar.querySelector(
+  ".form__item_type_url-avatar"
+);
+const btnEditAvatar = formEditAvatar.querySelector(".form__button");
 const inputName = document.querySelector(".form__item_type_name");
 const inputMission = document.querySelector(".form__item_type_mission");
 const popups = document.querySelectorAll(".popup");
+
 export const validationConfig = {
   formSelector: ".form",
   errorClass: "form__error-message_visible",
@@ -34,6 +42,7 @@ function setInitialPage() {
       addCardsInition(data[0]);
       profileName.textContent = data[1].name;
       profileMission.textContent = data[1].about;
+      profileAvatar.src = data[1].avatar;
     })
     .catch((err) => console.log(`Error: ${err}`));
 }
@@ -57,6 +66,16 @@ function handleProfileFormSubmit(event) {
   closePopup(popupEditProfile);
 }
 
+//Редактирование аватара
+function handleAvatarFormSubmit(event) {
+  event.preventDefault();
+  profileAvatar.src = inputUrlAvatar.value;
+  setAvatar(inputUrlAvatar.value);
+  closePopup(popupEditAvatar);
+  formEditAvatar.reset();
+  setDisabledButton(btnEditAvatar, validationConfig.inactiveButtonClass);
+}
+
 //Обработчики событий
 btnEditProfile.addEventListener("click", () => {
   setInputData();
@@ -65,6 +84,8 @@ btnEditProfile.addEventListener("click", () => {
 btnAddPlace.addEventListener("click", () => openPopup(popupAddPlace));
 formEditProfile.addEventListener("submit", handleProfileFormSubmit);
 formNewPlace.addEventListener("submit", handlePlaceFormSubmit);
+profileAvatar.addEventListener("click", () => openPopup(popupEditAvatar));
+formEditAvatar.addEventListener("submit", handleAvatarFormSubmit);
 
 popups.forEach((popup) => {
   popup.addEventListener("mousedown", (event) => {

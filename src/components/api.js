@@ -7,6 +7,13 @@ const fetchConfig = {
   ownerId: "a40dc32b197666cc70ed64f0",
 };
 
+function checkResponse(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  Promise.reject(`Ошибка: ${res.status}`);
+}
+
 //Удаление карточки
 function deleteCard(cardId) {
   return fetch(`${fetchConfig.baseUrl}cards/${cardId}`, {
@@ -24,36 +31,21 @@ function postDataCard(inputTitle, inputUrl) {
       name: inputTitle.value,
       link: inputUrl.value,
     }),
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    Promise.reject(`Ошибка: ${res.status}`);
-  });
+  }).then(checkResponse);
 }
 
 //Получение  карточек
 function getCards() {
   return fetch(`${fetchConfig.baseUrl}cards`, {
     headers: fetchConfig.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    Promise.reject(`Ошибка: ${res.status}`);
-  });
+  }).then(checkResponse);
 }
 
 //Получение данных пользователя
 function getUserData() {
   return fetch(`${fetchConfig.baseUrl}users/me`, {
     headers: fetchConfig.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    Promise.reject(`Ошибка: ${res.status}`);
-  });
+  }).then(checkResponse);
 }
 
 //Отправка изменненых данных пользователя
@@ -65,12 +57,7 @@ function sendUsersData(inputName, inputMission) {
       name: inputName.value,
       about: inputMission.value,
     }),
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    Promise.reject(`Ошибка: ${res.status}`);
-  });
+  }).then(checkResponse);
 }
 
 //Отправка лайка
@@ -78,12 +65,7 @@ function setLike(cardId) {
   return fetch(`${fetchConfig.baseUrl}cards/likes/${cardId}`, {
     method: "PUT",
     headers: fetchConfig.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    Promise.reject(`Ошибка: ${res.status}`);
-  });
+  }).then(checkResponse);
 }
 
 //Удаление лайка
@@ -91,11 +73,17 @@ function deleteLike(cardId) {
   return fetch(`${fetchConfig.baseUrl}cards/likes/${cardId}`, {
     method: "DELETE",
     headers: fetchConfig.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    Promise.reject(`Ошибка: ${res.status}`);
+  }).then(checkResponse);
+}
+
+//Отправка аватара
+function setAvatar(url) {
+  return fetch(`${fetchConfig.baseUrl}users/me/avatar`, {
+    method: "PATCH",
+    headers: fetchConfig.headers,
+    body: JSON.stringify({
+      avatar: url,
+    }),
   });
 }
 
@@ -108,4 +96,5 @@ export {
   getCards,
   getUserData,
   sendUsersData,
+  setAvatar,
 };
