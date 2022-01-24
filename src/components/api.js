@@ -19,7 +19,7 @@ function deleteCard(cardId) {
   return fetch(`${fetchConfig.baseUrl}cards/${cardId}`, {
     method: "DELETE",
     headers: fetchConfig.headers,
-  });
+  }).then(checkResponse);
 }
 
 //Отправка данных карточки
@@ -88,7 +88,6 @@ function setAvatar(url) {
 }
 
 export {
-  fetchConfig,
   setLike,
   deleteLike,
   deleteCard,

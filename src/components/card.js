@@ -1,13 +1,7 @@
 import { closePopup, openImage, openPopup } from "./modal.js";
 import { setDisabledButton } from "./validate.js";
-import { validationConfig, handleErrors } from "./index.js";
-import {
-  fetchConfig,
-  deleteCard,
-  postDataCard,
-  setLike,
-  deleteLike,
-} from "./api.js";
+import { validationConfig, handleErrors, userId } from "./index.js";
+import { deleteCard, postDataCard, setLike, deleteLike } from "./api.js";
 
 const formNewPlace = document.querySelector(".form_type_new-place");
 const formNewPlaceButton = formNewPlace.querySelector(".form__button");
@@ -87,13 +81,13 @@ function createCard(card) {
   cardImage.alt = card.name;
   cardTitle.textContent = card.name;
 
-  if (Object.is(card.owner._id, fetchConfig.ownerId)) {
+  if (Object.is(card.owner._id, userId)) {
     deleteCardBtn.classList.add("card__trash-icon_visible");
   }
 
   if (
     card.likes.some((like) => {
-      return Object.is(like._id, fetchConfig.ownerId);
+      return Object.is(like._id, userId);
     })
   ) {
     likeBtn.classList.add(CARD__LIKE_ACTIVE);

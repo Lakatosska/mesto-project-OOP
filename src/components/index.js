@@ -36,6 +36,7 @@ const popups = document.querySelectorAll(".popup");
 const popupError = document.querySelector(".popup_for_error");
 const errorTitle = popupError.querySelector(".popup__title_for_error");
 const errorText = popupError.querySelector(".popup__text-error");
+export let userId;
 
 export const validationConfig = {
   formSelector: ".form",
@@ -75,6 +76,7 @@ export function handleErrors(err, errorTitle, errorText) {
 function setInitialPage() {
   Promise.all([getCards(), getUserData()])
     .then((data) => {
+      userId = data[1]._id;
       addCardsInition(data[0]);
       profileName.textContent = data[1].name;
       profileMission.textContent = data[1].about;
