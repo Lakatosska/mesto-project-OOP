@@ -1,5 +1,3 @@
-import { openPopup } from "./modal";
-
 const fetchConfig = {
   baseUrl: "https://nomoreparties.co/v1/plus-cohort-6/",
   headers: {

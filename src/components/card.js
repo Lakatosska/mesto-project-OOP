@@ -1,4 +1,4 @@
-import { closePopup, openImage } from "./modal.js";
+import { closePopup, openImage, openPopup } from "./modal.js";
 import { setDisabledButton } from "./validate.js";
 import { validationConfig, timeDelay, handleErrors } from "./index.js";
 import {
@@ -15,6 +15,9 @@ const cardsList = document.querySelector(".cards__list");
 const inputPlaceTitle = formNewPlace.querySelector(".form__item_type_place");
 const inputPlaceUrl = formNewPlace.querySelector(".form__item_type_url");
 const popupAddPlace = document.querySelector(".popup_type_new-place");
+const popupDeleteCard = document.querySelector(".popup_for_delete-card");
+const btnConfirmDeleteCard = popupDeleteCard.querySelector(".form__button");
+let listenConfirmDeleteCard;
 const CARD__LIKE_ACTIVE = "card__like_active";
 
 //Установка счетчика лайков
@@ -39,6 +42,8 @@ function removeCard(event, id) {
     handleErrors(err.message, errorTitle, errorText);
     console.log(`Error: ${err}`);
   });
+  closePopup(popupDeleteCard);
+  btnConfirmDeleteCard.removeEventListener("click", listenConfirmDeleteCard);
 }
 
 //Лайки карточек
@@ -101,7 +106,14 @@ function createCard(card) {
     toggleLike(event, card, counterLikeCard)
   );
   deleteCardBtn.addEventListener("click", (event) => {
-    removeCard(event, card._id);
+    btnConfirmDeleteCard.removeEventListener("click", listenConfirmDeleteCard);
+    openPopup(popupDeleteCard);
+    btnConfirmDeleteCard.addEventListener(
+      "click",
+      (listenConfirmDeleteCard = () => {
+        removeCard(event, card._id);
+      })
+    );
   });
 
   return cardElement;
@@ -115,7 +127,6 @@ function addCardsInition(cards) {
 }
 
 //Добавление карточек через форму
-
 function handlePlaceFormSubmit(event) {
   event.preventDefault();
   formNewPlaceButton.textContent = "Сохранение...";
