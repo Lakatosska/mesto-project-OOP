@@ -1,8 +1,4 @@
-const popupImage = document.querySelector(".popup_type_open-img");
-const popupTitle = popupImage.querySelector(".popup__title");
-const popupImg = popupImage.querySelector(".popup__image");
-const POPUP_OPENED = "popup_opened";
-
+import { popupImage, popupTitle, popupImg, POPUP_OPENED } from "./constants.js";
 //Открытие попапа
 function openPopup(popup) {
   popup.classList.add(POPUP_OPENED);

@@ -1,18 +1,20 @@
 import { closePopup, openImage, openPopup } from "./modal.js";
 import { setDisabledButton } from "./validate.js";
-import { validationConfig, handleErrors, userId } from "./index.js";
+import { handleErrors, userId } from "./index.js";
 import { deleteCard, postDataCard, setLike, deleteLike } from "./api.js";
-
-const formNewPlace = document.querySelector(".form_type_new-place");
-const formNewPlaceButton = formNewPlace.querySelector(".form__button");
-const cardsList = document.querySelector(".cards__list");
-const inputPlaceTitle = formNewPlace.querySelector(".form__item_type_place");
-const inputPlaceUrl = formNewPlace.querySelector(".form__item_type_url");
-const popupAddPlace = document.querySelector(".popup_type_new-place");
-const popupDeleteCard = document.querySelector(".popup_for_delete-card");
-const btnConfirmDeleteCard = popupDeleteCard.querySelector(".form__button");
+import {
+  validationConfig,
+  formNewPlace,
+  formNewPlaceButton,
+  cardsList,
+  inputPlaceTitle,
+  inputPlaceUrl,
+  popupAddPlace,
+  popupDeleteCard,
+  btnConfirmDeleteCard,
+  CARD__LIKE_ACTIVE,
+} from "./constants.js";
 let listenConfirmDeleteCard;
-const CARD__LIKE_ACTIVE = "card__like_active";
 
 //Установка счетчика лайков
 function setLikesCounter(counter, card) {
@@ -28,24 +30,34 @@ function addCard(container, card, append) {
   }
 }
 
+function removeListenerDeleteBtn() {
+  btnConfirmDeleteCard.removeEventListener("click", listenConfirmDeleteCard);
+}
+
 //Удаление карточки
 function removeCard(event, id) {
-  event.target.closest(".card-element").remove();
-  deleteCard(id).catch((err) => {
-    openPopup(popupError);
-    handleErrors(err.message, errorTitle, errorText);
-    console.log(`Error: ${err}`);
-  });
-  closePopup(popupDeleteCard);
-  btnConfirmDeleteCard.removeEventListener("click", listenConfirmDeleteCard);
+  deleteCard(id)
+    .then(() => {
+      event.target.closest(".card-element").remove();
+      closePopup(popupDeleteCard);
+      btnConfirmDeleteCard.removeEventListener(
+        "click",
+        listenConfirmDeleteCard
+      );
+    })
+    .catch((err) => {
+      openPopup(popupError);
+      handleErrors(err.message, errorTitle, errorText);
+      console.log(`Error: ${err}`);
+    });
 }
 
 //Лайки карточек
 function toggleLike(event, card, counter) {
-  event.target.classList.toggle(CARD__LIKE_ACTIVE);
   if (event.target.classList.contains(CARD__LIKE_ACTIVE)) {
-    setLike(card._id)
+    deleteLike(card._id)
       .then((card) => {
+        event.target.classList.remove(CARD__LIKE_ACTIVE);
         setLikesCounter(counter, card);
       })
       .catch((err) => {
@@ -54,8 +66,9 @@ function toggleLike(event, card, counter) {
         console.log(`Error: ${err}`);
       });
   } else {
-    deleteLike(card._id)
+    setLike(card._id)
       .then((card) => {
+        event.target.classList.add(CARD__LIKE_ACTIVE);
         setLikesCounter(counter, card);
       })
       .catch((err) => {
@@ -100,10 +113,12 @@ function createCard(card) {
     toggleLike(event, card, counterLikeCard)
   );
   deleteCardBtn.addEventListener("click", (event) => {
+    btnConfirmDeleteCard.textContent = "Да";
     openPopup(popupDeleteCard);
     btnConfirmDeleteCard.addEventListener(
       "click",
       (listenConfirmDeleteCard = () => {
+        btnConfirmDeleteCard.textContent = "Удаление...";
         removeCard(event, card._id);
       })
     );
@@ -126,29 +141,18 @@ function handlePlaceFormSubmit(event) {
   postDataCard(inputPlaceTitle, inputPlaceUrl)
     .then((data) => {
       addCard(cardsList, createCard(data));
-    })
-    .catch((err) => {
-      openPopup(popupError);
-      handleErrors(err.message, errorTitle, errorText);
-      console.log(`Error: ${err}`);
-    })
-    .finally(() => {
       closePopup(popupAddPlace);
       formNewPlace.reset();
       setDisabledButton(
         formNewPlaceButton,
         validationConfig.inactiveButtonClass
       );
+    })
+    .catch((err) => {
+      openPopup(popupError);
+      handleErrors(err.message, errorTitle, errorText);
+      console.log(`Error: ${err}`);
     });
 }
 
-export {
-  handlePlaceFormSubmit,
-  addCardsInition,
-  formNewPlace,
-  popupAddPlace,
-  listenConfirmDeleteCard,
-  btnConfirmDeleteCard,
-  popupDeleteCard,
-  formNewPlaceButton,
-};
+export { handlePlaceFormSubmit, addCardsInition, listenConfirmDeleteCard };

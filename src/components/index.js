@@ -2,50 +2,40 @@ import "../index.css";
 import {
   handlePlaceFormSubmit,
   addCardsInition,
-  formNewPlace,
-  popupAddPlace,
   listenConfirmDeleteCard,
-  btnConfirmDeleteCard,
-  popupDeleteCard,
-  formNewPlaceButton,
 } from "./card.js";
 import { openPopup, closePopup } from "./modal.js";
 import { enableValidation, setDisabledButton } from "./validate.js";
 import { getCards, getUserData, sendUsersData, setAvatar } from "./api";
+import {
+  profileName,
+  profileMission,
+  profileAvatarContainer,
+  profileAvatar,
+  btnAddPlace,
+  btnEditProfile,
+  popupEditProfile,
+  popupEditAvatar,
+  formEditProfile,
+  btnSaveProfile,
+  formEditAvatar,
+  inputUrlAvatar,
+  btnSaveAvatar,
+  inputName,
+  inputMission,
+  popups,
+  popupError,
+  errorTitle,
+  errorText,
+  validationConfig,
+  formNewPlaceButton,
+  formNewPlace,
+  popupAddPlace,
+  btnConfirmDeleteCard,
+  popupDeleteCard,
+} from "./constants";
 
-const profileName = document.querySelector(".profile__name");
-const profileMission = document.querySelector(".profile__mission");
-const profileAvatarContainer = document.querySelector(
-  ".profile__avatar-container"
-);
-const profileAvatar = profileAvatarContainer.querySelector(".profile__avatar");
-const btnAddPlace = document.querySelector(".profile__add-button");
-const btnEditProfile = document.querySelector(".profile__edit-button");
-const popupEditProfile = document.querySelector(".popup_type_edit-profile");
-const popupEditAvatar = document.querySelector(".popup_type_edit-avatar");
-const formEditProfile = document.querySelector(".form_type_edit-profile");
-const btnSaveProfile = formEditProfile.querySelector(".form__button");
-const formEditAvatar = document.querySelector(".form_type_edit-avatar");
-const inputUrlAvatar = formEditAvatar.querySelector(
-  ".form__item_type_url-avatar"
-);
-const btnSaveAvatar = formEditAvatar.querySelector(".form__button");
-const inputName = document.querySelector(".form__item_type_name");
-const inputMission = document.querySelector(".form__item_type_mission");
-const popups = document.querySelectorAll(".popup");
-const popupError = document.querySelector(".popup_for_error");
-const errorTitle = popupError.querySelector(".popup__title_for_error");
-const errorText = popupError.querySelector(".popup__text-error");
 export let userId;
-
-export const validationConfig = {
-  formSelector: ".form",
-  errorClass: "form__error-message_visible",
-  inputSelector: ".form__item",
-  inputErrorClass: "form__item_invalid",
-  submitButtonSelector: ".form__button",
-  inactiveButtonClass: "form__button_disabled",
-};
 
 //Функция обработки ошибок
 export function handleErrors(err, errorTitle, errorText) {
@@ -75,31 +65,17 @@ export function handleErrors(err, errorTitle, errorText) {
 //Получение и установка начальных данных страницы
 function setInitialPage() {
   Promise.all([getCards(), getUserData()])
-    .then((data) => {
-      userId = data[1]._id;
-      addCardsInition(data[0]);
-      profileName.textContent = data[1].name;
-      profileMission.textContent = data[1].about;
-      profileAvatar.src = data[1].avatar;
+    .then(([cards, userData]) => {
+      userId = userData._id;
+      addCardsInition(cards);
+      profileName.textContent = userData.name;
+      profileMission.textContent = userData.about;
+      profileAvatar.src = userData.avatar;
     })
     .catch((err) => {
       openPopup(popupError);
       handleErrors(err.message, errorTitle, errorText);
       console.log(`Ошибка: ${err}`);
-    });
-}
-
-//Запись данных профиля в поля формы
-function setInputData() {
-  getUserData()
-    .then((data) => {
-      inputName.value = data.name;
-      inputMission.value = data.about;
-    })
-    .catch((err) => {
-      openPopup(popupError);
-      handleErrors(err.message, errorTitle, errorText);
-      console.log(`Error: ${err}`);
     });
 }
 
@@ -111,14 +87,12 @@ function handleProfileFormSubmit(event) {
     .then((data) => {
       profileName.textContent = data.name;
       profileMission.textContent = data.about;
+      closePopup(popupEditProfile);
     })
     .catch((err) => {
       openPopup(popupError);
       handleErrors(err.message, errorTitle, errorText);
       console.log(`Error: ${err}`);
-    })
-    .finally(() => {
-      closePopup(popupEditProfile);
     });
 }
 
@@ -145,7 +119,8 @@ function handleAvatarFormSubmit(event) {
 //Обработчики событий
 btnEditProfile.addEventListener("click", () => {
   btnSaveProfile.textContent = "Сохранить";
-  setInputData();
+  inputName.value = profileName.textContent;
+  inputMission.value = profileMission.textContent;
   openPopup(popupEditProfile);
 });
 btnAddPlace.addEventListener("click", () => {

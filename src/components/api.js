@@ -1,11 +1,4 @@
-const fetchConfig = {
-  baseUrl: "https://nomoreparties.co/v1/plus-cohort-6/",
-  headers: {
-    authorization: "65d32b7f-c1f2-44b3-9a5c-d1cd8d3f9a2c",
-    "Content-Type": "application/json",
-  },
-  ownerId: "a40dc32b197666cc70ed64f0",
-};
+import { fetchConfig } from "./constants.js";
 
 function checkResponse(res) {
   if (res.ok) {
