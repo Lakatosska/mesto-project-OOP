@@ -11,7 +11,10 @@ import { getCards, getUserData, sendUsersData, setAvatar } from "./api";
 
 const profileName = document.querySelector(".profile__name");
 const profileMission = document.querySelector(".profile__mission");
-const profileAvatar = document.querySelector(".profile__avatar");
+const profileAvatarContainer = document.querySelector(
+  ".profile__avatar-container"
+);
+const profileAvatar = profileAvatarContainer.querySelector(".profile__avatar");
 const btnAddPlace = document.querySelector(".profile__add-button");
 const btnEditProfile = document.querySelector(".profile__edit-button");
 const popupEditProfile = document.querySelector(".popup_type_edit-profile");
@@ -26,6 +29,9 @@ const btnSaveAvatar = formEditAvatar.querySelector(".form__button");
 const inputName = document.querySelector(".form__item_type_name");
 const inputMission = document.querySelector(".form__item_type_mission");
 const popups = document.querySelectorAll(".popup");
+const popupError = document.querySelector(".popup_for_error");
+const errorTitle = popupError.querySelector(".popup__title_for_error");
+const errorText = popupError.querySelector(".popup__text-error");
 export const timeDelay = 100;
 
 export const validationConfig = {
@@ -37,6 +43,31 @@ export const validationConfig = {
   inactiveButtonClass: "form__button_disabled",
 };
 
+//Функция обработки ошибок
+export function handleErrors(err, errorTitle, errorText) {
+  switch (err) {
+    case "400":
+      errorTitle.textContent = "Проверьте введенный адресс";
+      errorText.textContent = "Код ошибки 400";
+      break;
+    case "403":
+      errorTitle.textContent = "Доступ запрещен";
+      errorText.textContent = "Код ошибки 403";
+      break;
+    case "404":
+      errorTitle.textContent = "Ресурс не найден";
+      errorText.textContent = "Код ошибки: 404. Проверьте URL ";
+      break;
+    case "500":
+      errorTitle.textContent = "Ошибка сервера";
+      errorText.textContent = "Попробуйте повторить позже";
+      break;
+    default:
+      errorTitle.textContent = "Ошибка";
+      errorText.textContent = `Код ошибки ${err}`;
+  }
+}
+
 //Получение и установка начальных данных страницы
 function setInitialPage() {
   Promise.all([getCards(), getUserData()])
@@ -46,7 +77,11 @@ function setInitialPage() {
       profileMission.textContent = data[1].about;
       profileAvatar.src = data[1].avatar;
     })
-    .catch((err) => console.log(`Error: ${err}`));
+    .catch((err) => {
+      openPopup(popupError);
+      handleErrors(err.message, errorTitle, errorText);
+      console.log(`Ошибка: ${err}`);
+    });
 }
 
 //Запись данных профиля в поля формы
@@ -56,7 +91,11 @@ function setInputData() {
       inputName.value = data.name;
       inputMission.value = data.about;
     })
-    .catch((err) => console.log(`Error: ${err}`));
+    .catch((err) => {
+      openPopup(popupError);
+      handleErrors(err.message, errorTitle, errorText);
+      console.log(`Error: ${err}`);
+    });
 }
 
 //Редактирование профиля
@@ -68,7 +107,11 @@ function handleProfileFormSubmit(event) {
       profileName.textContent = data.name;
       profileMission.textContent = data.about;
     })
-    .catch((err) => console.log(`Error: ${err}`))
+    .catch((err) => {
+      openPopup(popupError);
+      handleErrors(err.message, errorTitle, errorText);
+      console.log(`Error: ${err}`);
+    })
     .finally(() => {
       closePopup(popupEditProfile);
       setTimeout(() => {
@@ -85,7 +128,11 @@ function handleAvatarFormSubmit(event) {
     .then((data) => {
       profileAvatar.src = data.avatar;
     })
-    .catch((err) => console.log(`Error: ${err}`))
+    .catch((err) => {
+      openPopup(popupError);
+      handleErrors(err.message, errorTitle, errorText);
+      console.log(`Error: ${err}`);
+    })
     .finally(() => {
       closePopup(popupEditAvatar);
       setTimeout(() => {
@@ -104,7 +151,9 @@ btnEditProfile.addEventListener("click", () => {
 btnAddPlace.addEventListener("click", () => openPopup(popupAddPlace));
 formEditProfile.addEventListener("submit", handleProfileFormSubmit);
 formNewPlace.addEventListener("submit", handlePlaceFormSubmit);
-profileAvatar.addEventListener("click", () => openPopup(popupEditAvatar));
+profileAvatarContainer.addEventListener("click", () =>
+  openPopup(popupEditAvatar)
+);
 formEditAvatar.addEventListener("submit", handleAvatarFormSubmit);
 
 popups.forEach((popup) => {

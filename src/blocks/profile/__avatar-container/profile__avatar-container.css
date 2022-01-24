@@ -12,7 +12,7 @@
   top: 0;
   left: 0;
   position: absolute;
-  background:no-repeat 50%  url(../../../images/pencil.svg);
+  background:no-repeat 50%  url(../../../images/pencil.svg),rgba(0, 0, 0, 0.8);
   opacity: 0;
   transition:opacity  0.2s linear;
 }

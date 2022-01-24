@@ -179,10 +179,28 @@
         ></button>
       </div>
     </div>
-    <div class="popup popup_type_error popup_opened">
+    <div class="popup popup_for_error">
       <div class="popup__container">
-        <h2 class="popup__title">Ошибка</h2>
-        p.popup__text-error
+        <h2 class="popup__title popup__title_for_error">Ошибка</h2>
+        <p class="popup__text-error"></p>
+        <button
+          type="button"
+          class="popup__close-button"
+          aria-label="Закрыть всплывающее окно"
+        ></button>
+      </div>
+    </div>
+    <div class="popup popup_for_delete-card popup_opened">
+      <div class="popup__container">
+        <h2 class="popup__title popup__title popup__title_for_delete-card">
+          Вы уверены?
+        </h2>
+        <button class="form__button" type="button">Да</button>
+        <button
+          type="button"
+          class="popup__close-button"
+          aria-label="Закрыть всплывающее окно"
+        ></button>
       </div>
     </div>
     <template class="template-card">

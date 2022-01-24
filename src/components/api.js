@@ -1,3 +1,5 @@
+import { openPopup } from "./modal";
+
 const fetchConfig = {
   baseUrl: "https://nomoreparties.co/v1/plus-cohort-6/",
   headers: {
@@ -11,7 +13,7 @@ function checkResponse(res) {
   if (res.ok) {
     return res.json();
   }
-  Promise.reject(`Ошибка: ${res.status}`);
+  throw new Error(res.status);
 }
 
 //Удаление карточки

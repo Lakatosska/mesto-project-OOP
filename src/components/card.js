@@ -1,6 +1,6 @@
 import { closePopup, openImage } from "./modal.js";
 import { setDisabledButton } from "./validate.js";
-import { validationConfig, timeDelay } from "./index.js";
+import { validationConfig, timeDelay, handleErrors } from "./index.js";
 import {
   fetchConfig,
   deleteCard,
@@ -35,6 +35,8 @@ function addCard(container, card, append) {
 function removeCard(event, id) {
   event.target.closest(".card-element").remove();
   deleteCard(id).catch((err) => {
+    openPopup(popupError);
+    handleErrors(err.message, errorTitle, errorText);
     console.log(`Error: ${err}`);
   });
 }
@@ -48,6 +50,8 @@ function toggleLike(event, card, counter) {
         setLikesCounter(counter, card);
       })
       .catch((err) => {
+        openPopup(popupError);
+        handleErrors(err.message, errorTitle, errorText);
         console.log(`Error: ${err}`);
       });
   } else {
@@ -56,6 +60,8 @@ function toggleLike(event, card, counter) {
         setLikesCounter(counter, card);
       })
       .catch((err) => {
+        openPopup(popupError);
+        handleErrors(err.message, errorTitle, errorText);
         console.log(`Error: ${err}`);
       });
   }
@@ -109,6 +115,7 @@ function addCardsInition(cards) {
 }
 
 //Добавление карточек через форму
+
 function handlePlaceFormSubmit(event) {
   event.preventDefault();
   formNewPlaceButton.textContent = "Сохранение...";
@@ -116,7 +123,11 @@ function handlePlaceFormSubmit(event) {
     .then((data) => {
       addCard(cardsList, createCard(data));
     })
-    .catch((err) => console.log(`Error: ${err}`))
+    .catch((err) => {
+      openPopup(popupError);
+      handleErrors(err.message, errorTitle, errorText);
+      console.log(`Error: ${err}`);
+    })
     .finally(() => {
       closePopup(popupAddPlace);
       setTimeout(() => {
