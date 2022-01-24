@@ -40,10 +40,7 @@ function removeCard(event, id) {
     .then(() => {
       event.target.closest(".card-element").remove();
       closePopup(popupDeleteCard);
-      btnConfirmDeleteCard.removeEventListener(
-        "click",
-        listenConfirmDeleteCard
-      );
+      removeListenerDeleteBtn();
     })
     .catch((err) => {
       openPopup(popupError);
@@ -155,4 +152,9 @@ function handlePlaceFormSubmit(event) {
     });
 }
 
-export { handlePlaceFormSubmit, addCardsInition, listenConfirmDeleteCard };
+export {
+  handlePlaceFormSubmit,
+  addCardsInition,
+  removeListenerDeleteBtn,
+  listenConfirmDeleteCard,
+};

@@ -1,4 +1,5 @@
 import { popupImage, popupTitle, popupImg, POPUP_OPENED } from "./constants.js";
+import { removeListenerDeleteBtn } from "./card.js";
 //Открытие попапа
 function openPopup(popup) {
   popup.classList.add(POPUP_OPENED);
@@ -9,6 +10,7 @@ function openPopup(popup) {
 function closePopup(popup) {
   popup.classList.remove(POPUP_OPENED);
   removeListenerEsc();
+  removeListenerDeleteBtn();
 }
 
 function addListenerEsc() {
