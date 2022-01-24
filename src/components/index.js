@@ -4,6 +4,9 @@ import {
   addCardsInition,
   formNewPlace,
   popupAddPlace,
+  listenConfirmDeleteCard,
+  btnConfirmDeleteCard,
+  popupDeleteCard,
 } from "./card.js";
 import { openPopup, closePopup } from "./modal.js";
 import { enableValidation, setDisabledButton } from "./validate.js";
@@ -160,8 +163,20 @@ popups.forEach((popup) => {
   popup.addEventListener("mousedown", (event) => {
     if (event.target.classList.contains("popup_opened")) {
       closePopup(popup);
+      if (event.target.classList.contains("popup_for_delete-card")) {
+        btnConfirmDeleteCard.removeEventListener(
+          "click",
+          listenConfirmDeleteCard
+        );
+      }
     }
     if (event.target.classList.contains("popup__close-button")) {
+      if (popupDeleteCard.classList.contains("popup_opened")) {
+        btnConfirmDeleteCard.removeEventListener(
+          "click",
+          listenConfirmDeleteCard
+        );
+      }
       closePopup(popup);
     }
   });

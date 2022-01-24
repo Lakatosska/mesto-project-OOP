@@ -106,7 +106,6 @@ function createCard(card) {
     toggleLike(event, card, counterLikeCard)
   );
   deleteCardBtn.addEventListener("click", (event) => {
-    btnConfirmDeleteCard.removeEventListener("click", listenConfirmDeleteCard);
     openPopup(popupDeleteCard);
     btnConfirmDeleteCard.addEventListener(
       "click",
@@ -152,4 +151,12 @@ function handlePlaceFormSubmit(event) {
     });
 }
 
-export { handlePlaceFormSubmit, addCardsInition, formNewPlace, popupAddPlace };
+export {
+  handlePlaceFormSubmit,
+  addCardsInition,
+  formNewPlace,
+  popupAddPlace,
+  listenConfirmDeleteCard,
+  btnConfirmDeleteCard,
+  popupDeleteCard,
+};
