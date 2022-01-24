@@ -1,9 +1,0 @@
-.main {
-  align-self: center;
-}
-
-@media screen and (max-width: 650px) {
-  .main {
-    width: calc(100vw - 38px);
-  }
-}
