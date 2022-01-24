@@ -7,6 +7,7 @@ import {
   listenConfirmDeleteCard,
   btnConfirmDeleteCard,
   popupDeleteCard,
+  formNewPlaceButton,
 } from "./card.js";
 import { openPopup, closePopup } from "./modal.js";
 import { enableValidation, setDisabledButton } from "./validate.js";
@@ -35,7 +36,6 @@ const popups = document.querySelectorAll(".popup");
 const popupError = document.querySelector(".popup_for_error");
 const errorTitle = popupError.querySelector(".popup__title_for_error");
 const errorText = popupError.querySelector(".popup__text-error");
-export const timeDelay = 100;
 
 export const validationConfig = {
   formSelector: ".form",
@@ -117,9 +117,6 @@ function handleProfileFormSubmit(event) {
     })
     .finally(() => {
       closePopup(popupEditProfile);
-      setTimeout(() => {
-        btnSaveProfile.textContent = "Сохранить";
-      }, timeDelay);
     });
 }
 
@@ -138,25 +135,27 @@ function handleAvatarFormSubmit(event) {
     })
     .finally(() => {
       closePopup(popupEditAvatar);
-      setTimeout(() => {
-        formEditAvatar.reset();
-        setDisabledButton(btnSaveAvatar, validationConfig.inactiveButtonClass);
-        btnSaveAvatar.textContent = "Сохранить";
-      }, timeDelay);
+      formEditAvatar.reset();
+      setDisabledButton(btnSaveAvatar, validationConfig.inactiveButtonClass);
     });
 }
 
 //Обработчики событий
 btnEditProfile.addEventListener("click", () => {
+  btnSaveProfile.textContent = "Сохранить";
   setInputData();
   openPopup(popupEditProfile);
 });
-btnAddPlace.addEventListener("click", () => openPopup(popupAddPlace));
+btnAddPlace.addEventListener("click", () => {
+  formNewPlaceButton.textContent = "Создать";
+  openPopup(popupAddPlace);
+});
 formEditProfile.addEventListener("submit", handleProfileFormSubmit);
 formNewPlace.addEventListener("submit", handlePlaceFormSubmit);
-profileAvatarContainer.addEventListener("click", () =>
-  openPopup(popupEditAvatar)
-);
+profileAvatarContainer.addEventListener("click", () => {
+  btnSaveAvatar.textContent = "Сохранить";
+  openPopup(popupEditAvatar);
+});
 formEditAvatar.addEventListener("submit", handleAvatarFormSubmit);
 
 popups.forEach((popup) => {

@@ -1,6 +1,6 @@
 import { closePopup, openImage, openPopup } from "./modal.js";
 import { setDisabledButton } from "./validate.js";
-import { validationConfig, timeDelay, handleErrors } from "./index.js";
+import { validationConfig, handleErrors } from "./index.js";
 import {
   fetchConfig,
   deleteCard,
@@ -140,14 +140,11 @@ function handlePlaceFormSubmit(event) {
     })
     .finally(() => {
       closePopup(popupAddPlace);
-      setTimeout(() => {
-        formNewPlace.reset();
-        setDisabledButton(
-          formNewPlaceButton,
-          validationConfig.inactiveButtonClass
-        );
-        formNewPlaceButton.textContent = "Создать";
-      }, timeDelay);
+      formNewPlace.reset();
+      setDisabledButton(
+        formNewPlaceButton,
+        validationConfig.inactiveButtonClass
+      );
     });
 }
 
@@ -159,4 +156,5 @@ export {
   listenConfirmDeleteCard,
   btnConfirmDeleteCard,
   popupDeleteCard,
+  formNewPlaceButton,
 };
