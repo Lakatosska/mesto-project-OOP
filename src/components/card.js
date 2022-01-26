@@ -13,6 +13,7 @@ import {
   popupDeleteCard,
   btnConfirmDeleteCard,
   CARD__LIKE_ACTIVE,
+  popupError,
 } from "./constants.js";
 let listenConfirmDeleteCard;
 
@@ -30,6 +31,7 @@ function addCard(container, card, append) {
   }
 }
 
+//Удаление слушателя кнопки в попапе подтверждения удаления карточки
 function removeListenerDeleteBtn() {
   btnConfirmDeleteCard.removeEventListener("click", listenConfirmDeleteCard);
 }
@@ -40,7 +42,6 @@ function removeCard(event, id) {
     .then(() => {
       event.target.closest(".card-element").remove();
       closePopup(popupDeleteCard);
-      removeListenerDeleteBtn();
     })
     .catch((err) => {
       openPopup(popupError);
@@ -112,8 +113,10 @@ function createCard(card) {
   deleteCardBtn.addEventListener("click", (event) => {
     btnConfirmDeleteCard.textContent = "Да";
     openPopup(popupDeleteCard);
+    //Этот слушатель удаляется каждый раз при закрытии попапа.Ошибок в консоли нет, удаляется нужная карточка.
     btnConfirmDeleteCard.addEventListener(
       "click",
+
       (listenConfirmDeleteCard = () => {
         btnConfirmDeleteCard.textContent = "Удаление...";
         removeCard(event, card._id);
@@ -152,9 +155,4 @@ function handlePlaceFormSubmit(event) {
     });
 }
 
-export {
-  handlePlaceFormSubmit,
-  addCardsInition,
-  removeListenerDeleteBtn,
-  listenConfirmDeleteCard,
-};
+export { handlePlaceFormSubmit, addCardsInition, removeListenerDeleteBtn };

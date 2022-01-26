@@ -1,9 +1,5 @@
 import "../index.css";
-import {
-  handlePlaceFormSubmit,
-  addCardsInition,
-  listenConfirmDeleteCard,
-} from "./card.js";
+import { handlePlaceFormSubmit, addCardsInition } from "./card.js";
 import { openPopup, closePopup } from "./modal.js";
 import { enableValidation, setDisabledButton } from "./validate.js";
 import { getCards, getUserData, sendUsersData, setAvatar } from "./api";
@@ -31,8 +27,6 @@ import {
   formNewPlaceButton,
   formNewPlace,
   popupAddPlace,
-  btnConfirmDeleteCard,
-  popupDeleteCard,
 } from "./constants";
 
 export let userId;
@@ -103,16 +97,14 @@ function handleAvatarFormSubmit(event) {
   setAvatar(inputUrlAvatar.value)
     .then((data) => {
       profileAvatar.src = data.avatar;
+      closePopup(popupEditAvatar);
+      formEditAvatar.reset();
+      setDisabledButton(btnSaveAvatar, validationConfig.inactiveButtonClass);
     })
     .catch((err) => {
       openPopup(popupError);
       handleErrors(err.message, errorTitle, errorText);
       console.log(`Error: ${err}`);
-    })
-    .finally(() => {
-      closePopup(popupEditAvatar);
-      formEditAvatar.reset();
-      setDisabledButton(btnSaveAvatar, validationConfig.inactiveButtonClass);
     });
 }
 
