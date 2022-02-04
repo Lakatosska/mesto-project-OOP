@@ -34,25 +34,25 @@ export let userId;
 //Функция обработки ошибок
 export function handleErrors(err, errorTitle, errorText) {
   switch (err) {
-    case "400":
+    case 400:
       errorTitle.textContent = "Проверьте введенный адресс";
       errorText.textContent = "Код ошибки 400";
       break;
-    case "403":
+    case 403:
       errorTitle.textContent = "Доступ запрещен";
-      errorText.textContent = "Код ошибки 403";
+      errorText.textContent = "Код ошибки 403. Проверьте логин и пароль.";
       break;
-    case "404":
+    case 404:
       errorTitle.textContent = "Ресурс не найден";
       errorText.textContent = "Код ошибки: 404. Проверьте URL ";
       break;
-    case "500":
+    case 500:
       errorTitle.textContent = "Ошибка сервера";
       errorText.textContent = "Попробуйте повторить позже";
       break;
     default:
       errorTitle.textContent = "Ошибка";
-      errorText.textContent = `Код ошибки ${err}`;
+      errorText.textContent = ` ${err} Попробуйте повторить запрос.`;
   }
 }
 
@@ -68,7 +68,7 @@ function setInitialPage() {
     })
     .catch((err) => {
       openPopup(popupError);
-      handleErrors(err.message, errorTitle, errorText);
+      handleErrors(err, errorTitle, errorText);
       console.log(`Ошибка: ${err}`);
     });
 }
@@ -85,7 +85,8 @@ function handleProfileFormSubmit(event) {
     })
     .catch((err) => {
       openPopup(popupError);
-      handleErrors(err.message, errorTitle, errorText);
+      handleErrors(err, errorTitle, errorText);
+      btnSaveProfile.textContent = "Сохранить";
       console.log(`Error: ${err}`);
     });
 }
@@ -103,7 +104,8 @@ function handleAvatarFormSubmit(event) {
     })
     .catch((err) => {
       openPopup(popupError);
-      handleErrors(err.message, errorTitle, errorText);
+      handleErrors(err, errorTitle, errorText);
+      btnSaveAvatar.textContent = "Сохранить";
       console.log(`Error: ${err}`);
     });
 }

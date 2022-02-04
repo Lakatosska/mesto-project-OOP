@@ -14,6 +14,8 @@ import {
   btnConfirmDeleteCard,
   CARD__LIKE_ACTIVE,
   popupError,
+  errorTitle,
+  errorText,
 } from "./constants.js";
 let listenConfirmDeleteCard;
 
@@ -45,7 +47,7 @@ function removeCard(event, id) {
     })
     .catch((err) => {
       openPopup(popupError);
-      handleErrors(err.message, errorTitle, errorText);
+      handleErrors(err, errorTitle, errorText);
       console.log(`Error: ${err}`);
     });
 }
@@ -60,7 +62,7 @@ function toggleLike(event, card, counter) {
       })
       .catch((err) => {
         openPopup(popupError);
-        handleErrors(err.message, errorTitle, errorText);
+        handleErrors(err, errorTitle, errorText);
         console.log(`Error: ${err}`);
       });
   } else {
@@ -71,7 +73,7 @@ function toggleLike(event, card, counter) {
       })
       .catch((err) => {
         openPopup(popupError);
-        handleErrors(err.message, errorTitle, errorText);
+        handleErrors(err, errorTitle, errorText);
         console.log(`Error: ${err}`);
       });
   }
@@ -150,7 +152,8 @@ function handlePlaceFormSubmit(event) {
     })
     .catch((err) => {
       openPopup(popupError);
-      handleErrors(err.message, errorTitle, errorText);
+      handleErrors(err, errorTitle, errorText);
+      formNewPlaceButton.textContent = "Создать";
       console.log(`Error: ${err}`);
     });
 }
