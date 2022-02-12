@@ -102,7 +102,9 @@ export default class Api {
     if (res.ok) {
       return res.json();
     }
+    return Promise.reject(`Ошибка: ${res.status}`)
   }
+
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}cards/${cardId}`, {
       method: "DELETE",
@@ -120,6 +122,7 @@ export default class Api {
       }),
     }).then(checkResponse);
   }
+
   getCards() {
     return fetch(`${this._baseUrl}cards`, {
       headers: this._headers,
