@@ -26,19 +26,19 @@ export default class Api {
         name: inputTitle,
         link: inputUrl,
       }),
-    }).then(this._checkResponse);
+    }).then(checkResponse);
   }
 
   getCards() {
     return fetch(`${this._baseUrl}cards`, {
       headers: this._headers,
-    }).then(this._checkResponse);
+    }).then(checkResponse);
   }
 
   getUserData() {
     return fetch(`${this._baseUrl}users/me`, {
       headers: this._headers,
-    }).then(this._checkResponse);
+    }).then(checkResponse);
   }
 
   sendUsersData(inputName, inputMission) {
@@ -49,21 +49,21 @@ export default class Api {
         name: inputName.value,
         about: inputMission.value,
       }),
-    }).then(this._checkResponse);
+    }).then(checkResponse);
   }
 
   setLike(cardId) {
     return fetch(`${this._baseUrl}cards/likes/${cardId}`, {
       method: "PUT",
       headers: this._headers,
-    }).then(this._checkResponse);
+    }).then(checkResponse);
   }
 
   deleteLike(cardId) {
     return fetch(`${this._baseUrl}cards/likes/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this._checkResponse);
+    }).then(checkResponse);
   }
 
   setAvatar(url) {
@@ -73,6 +73,6 @@ export default class Api {
       body: JSON.stringify({
         avatar: url,
       }),
-    }).then(this._checkResponse);
+    }).then(checkResponse);
   }
 }
