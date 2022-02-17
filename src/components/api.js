@@ -15,7 +15,7 @@ export default class Api {
     return fetch(`${this._baseUrl}cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(checkResponse);
+    }).then(this._checkResponse);
   }
 
   postDataCard(inputTitle, inputUrl) {
@@ -26,19 +26,19 @@ export default class Api {
         name: inputTitle,
         link: inputUrl,
       }),
-    }).then(checkResponse);
+    }).then(this._checkResponse);
   }
 
   getCards() {
     return fetch(`${this._baseUrl}cards`, {
       headers: this._headers,
-    }).then(checkResponse);
+    }).then(this._checkResponse);
   }
 
   getUserData() {
     return fetch(`${this._baseUrl}users/me`, {
       headers: this._headers,
-    }).then(checkResponse);
+    }).then(this._checkResponse);
   }
 
   sendUsersData(inputName, inputMission) {
@@ -49,21 +49,21 @@ export default class Api {
         name: inputName.value,
         about: inputMission.value,
       }),
-    }).then(checkResponse);
+    }).then(this._checkResponse);
   }
 
   setLike(cardId) {
     return fetch(`${this._baseUrl}cards/likes/${cardId}`, {
       method: "PUT",
       headers: this._headers,
-    }).then(checkResponse);
+    }).then(this._checkResponse);
   }
 
   deleteLike(cardId) {
     return fetch(`${this._baseUrl}cards/likes/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(checkResponse);
+    }).then(this._checkResponse);
   }
 
   setAvatar(url) {
@@ -73,6 +73,6 @@ export default class Api {
       body: JSON.stringify({
         avatar: url,
       }),
-    }).then(checkResponse);
+    }).then(this._checkResponse);
   }
 }
