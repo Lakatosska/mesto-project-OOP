@@ -6,7 +6,7 @@ export default class UserInfo {
   }
 
   getUserInfo(data) {
-    if (!this._user) {
+    if (data) {
       this._user = data;
       return this._user;
     } else {

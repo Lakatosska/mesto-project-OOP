@@ -31,6 +31,7 @@ const cardsList = new Section(
 
 // page initialization
 api.getAppInfo().then(([cardData, userData]) => {
+  console.log(cardData);
   userInfo.getUserInfo(userData);
   userInfo.setUserInfo();
   cardsList.renderItems(cardData);
