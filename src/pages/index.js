@@ -1,5 +1,6 @@
 import "../index.css";
 import { fetchConfig, userSelectors } from "../utils/constants.js";
+import { handleCardClick, toggleLike } from "../utils/utils.js";
 import Api from "../components/api.js";
 import Section from "../components/Section.js";
 import Card from "../components/card.js";
@@ -31,7 +32,6 @@ const cardsList = new Section(
 
 // page initialization
 api.getAppInfo().then(([cardData, userData]) => {
-  console.log(cardData);
   userInfo.getUserInfo(userData);
   userInfo.setUserInfo();
   cardsList.renderItems(cardData);
