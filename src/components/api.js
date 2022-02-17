@@ -50,8 +50,8 @@ export default class Api {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        name: inputName.value,
-        about: inputMission.value,
+        name: inputName,
+        about: inputMission,
       }),
     }).then(this._checkResponse);
   }
