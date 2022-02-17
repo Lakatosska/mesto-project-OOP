@@ -3,6 +3,9 @@ import {
   fetchConfig,
   userSelectors,
   btnEditProfile,
+  profileName,
+  profileMission,
+  btnSaveProfile,
 } from "../utils/constants.js";
 import { handleCardClick, toggleLike } from "../utils/utils.js";
 import Api from "../components/api.js";
@@ -67,5 +70,10 @@ api.getAppInfo().then(([cardData, userData]) => {
 
 //Listeners
 btnEditProfile.addEventListener("click", () => {
+  btnSaveProfile.textContent = "Сохранить";
+  popupEditProfile.setCurrentValues({
+    fullname: profileName,
+    mission: profileMission,
+  });
   popupEditProfile.open();
 });
