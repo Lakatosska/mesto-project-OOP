@@ -4,18 +4,22 @@ export default class Api {
     this._headers = headers;
   }
 
-  _this._checkResponse(res) {
+  checkResponse(res) {
     if (res.ok) {
       return res.json();
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
+  getAppInfo() {
+    return Promise.all([this._getCards(), this._getUserData()]);
+  }
+
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this._this._checkResponse);
+    }).then(this._checkResponse);
   }
 
   postDataCard(inputTitle, inputUrl) {
@@ -29,13 +33,13 @@ export default class Api {
     }).then(this._checkResponse);
   }
 
-  getCards() {
+  _getCards() {
     return fetch(`${this._baseUrl}cards`, {
       headers: this._headers,
     }).then(this._checkResponse);
   }
 
-  getUserData() {
+  _getUserData() {
     return fetch(`${this._baseUrl}users/me`, {
       headers: this._headers,
     }).then(this._checkResponse);

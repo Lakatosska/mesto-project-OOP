@@ -1,30 +1,40 @@
 import "../index.css";
 import { fetchConfig } from "../utils/constants.js";
-import Api from "../components/Api.js";
+import Api from "../components/api.js";
 import Section from "../components/Section.js";
-import Card from "../components/Card.js";
+import Card from "../components/card.js";
+
+
+// create class instances
 
 const api = new Api(fetchConfig);
 
-api.getCards().then((res) => {
-  const cardsList = new Section(
-    {
-      items: res,
-      renderer: (item) => {
-        const card = new Card({
-          data: item,
-          selector: ".template-card",
-          handleCardClick: handleCardClick,
-          toggleLike: toggleLike,
-          userId: userInfo.getUserInfo()._id,
-          popupImage: popupImage,
-        });
-        const cardElement = card.generate();
+const cardsList = new Section(
+  {
+    renderer: (item) => {
+      const card = new Card({
+        data: item,
+        selector: ".template-card",
+        handleCardClick: handleCardClick,
+        toggleLike: toggleLike,
+        userId: userInfo.getUserInfo()._id,
+        popupImage: popupImage,
+      });
+      const cardElement = card.generate();
 
-        cardsList.addItem(cardElement);
-      },
+      cardsList.addItem(cardElement);
     },
-    ".cards__list"
-  );
-  cardsList.renderItems();
+  },
+  ".cards__list"
+);
+
+const userInfo = new UserInfo(userSelectors);
+
+// page initialization
+api.getAppInfo().then(([cardData, userData]) => {
+  userInfo.getUserInfo(userData);
+  userInfo.setUserInfo();
+  cardsList.renderItems(cardData);
 });
+
+
