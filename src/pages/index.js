@@ -1,8 +1,8 @@
+import "../index.css"
 import { fetchConfig } from "../utils/constants.js";
 import { setCards } from "../utils/utils.js";
 import Api from "../components/Api.js";
 import Section from "../components/Section.js";
-import { setCards } from "../utils/utils.js";
 
 const api = new Api(fetchConfig);
 
