@@ -14,8 +14,6 @@ const api = new Api(fetchConfig);
 
 const userInfo = new UserInfo(userSelectors);
 
-const popup = new Popup(".popup");
-
 const popupImage = new PopupWithImage(".popup_type_open-img");
 
 const cardsList = new Section(

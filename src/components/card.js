@@ -1,7 +1,18 @@
 export default class Card {
-  constructor(data, selector) {
-    this._cardData = card.Data;
+  constructor({
+    data,
+    selector,
+    handleCardClick,
+    toggleLike,
+    userId,
+    popupImage,
+  }) {
+    this._cardData = data;
     this._selector = selector;
+    this._handleCardClick = handleCardClick;
+    this._toggleLike = toggleLike;
+    this._userId = userId;
+    this._popupImage = popupImage;
   }
 
   _getElement() {
@@ -9,9 +20,8 @@ export default class Card {
     const cardElement = templateCard.content
       .querySelector(".card-element")
       .cloneNode(true);
-
-      return cardElement;
-    }
+    return cardElement;
+  }
 
   generate() {
     this._element = this._getElement();
@@ -25,20 +35,35 @@ export default class Card {
     cardImage.alt = this._cardData.name;
     cardTitle.textContent = this._cardData.name;
 
-    this._setEventListeners(cardImage);
+    if (Object.is(this._cardData.owner._id, this._userId)) {
+      deleteCardBtn.classList.add("card__trash-icon_visible");
+    }
 
+    counterLikeCard.textContent = this._cardData.likes.length;
+
+    if (
+      this._cardData.likes.some((like) => {
+        return Object.is(like._id, this._userId);
+      })
+    ) {
+      likeBtn.classList.add("card__like_active");
+    }
+    this._setEventListeners(cardImage, cardTitle, likeBtn, counterLikeCard);
     return this._element;
   }
 
-  _setEventListeners(element) {
-    element.addEventListener("click", this._handleClickImage);
+  _setEventListeners(cardImage, cardTitle, likeBtn, counterLikeCard) {
+    cardImage.addEventListener("click", () => {
+      this._handleCardClick(
+        {
+          image: cardImage.src,
+          title: cardTitle.textContent,
+        },
+        this._popupImage
+      );
+    });
+    likeBtn.addEventListener("click", (event) => {
+      this._toggleLike(event, this._cardData, counterLikeCard);
+    });
   }
-  _handleClickImage() {
-    console.log("click");
-  }
-
 }
-
-
-
-
