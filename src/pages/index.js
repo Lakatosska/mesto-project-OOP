@@ -1,13 +1,14 @@
 import "../index.css";
-import { fetchConfig } from "../utils/constants.js";
+import { fetchConfig, userSelectors } from "../utils/constants.js";
 import Api from "../components/api.js";
 import Section from "../components/Section.js";
 import Card from "../components/card.js";
-
+import UserInfo from "../components/UserInfo.js";
 
 // create class instances
 
 const api = new Api(fetchConfig);
+const userInfo = new UserInfo(userSelectors);
 
 const cardsList = new Section(
   {
@@ -28,13 +29,9 @@ const cardsList = new Section(
   ".cards__list"
 );
 
-const userInfo = new UserInfo(userSelectors);
-
 // page initialization
 api.getAppInfo().then(([cardData, userData]) => {
   userInfo.getUserInfo(userData);
   userInfo.setUserInfo();
   cardsList.renderItems(cardData);
 });
-
-

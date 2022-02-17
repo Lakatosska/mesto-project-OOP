@@ -59,3 +59,9 @@ export const fetchConfig = {
     "Content-Type": "application/json",
   },
 };
+
+export const userSelectors = {
+  profileName: ".profile__name",
+  profileMission: ".profile__mission",
+  profileAvatar: ".profile__avatar",
+};
