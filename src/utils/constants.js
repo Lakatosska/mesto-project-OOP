@@ -65,3 +65,9 @@ export const userSelectors = {
   profileMission: ".profile__mission",
   profileAvatar: ".profile__avatar",
 };
+
+export const formSelectors = {
+  formEditProfile: ".form_type_edit-profile",
+  formNewPlace: ".form_type_new-place",
+  formEditAvatar: ".form_type_edit-avatar",
+};

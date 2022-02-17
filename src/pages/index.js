@@ -1,6 +1,7 @@
 import "../index.css";
 import {
   fetchConfig,
+  validationConfig,
   userSelectors,
   btnEditProfile,
   profileName,
@@ -8,6 +9,7 @@ import {
   btnSaveProfile,
   btnAddPlace,
   popupAddPlace,
+  formSelectors,
 } from "../utils/constants.js";
 import { handleCardClick, toggleLike } from "../utils/utils.js";
 import Api from "../components/api.js";
@@ -15,7 +17,8 @@ import Section from "../components/Section.js";
 import Card from "../components/card.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-import PopupWithForm from "../components/PopupWithForm";
+import PopupWithForm from "../components/PopupWithForm.js";
+import FormValidator from "../components/FormValidator.js";
 
 // create class instances
 
@@ -73,6 +76,26 @@ const popupNewPlace = new PopupWithForm({
       });
   }
 })
+
+
+
+const editProfileFormValidator = new FormValidator(
+  validationConfig,
+  formSelectors.formEditProfile
+);
+const newPlaceFormValidator = new FormValidator(
+  validationConfig,
+  formSelectors.formNewPlace
+);
+const editAvatarFormValidator = new FormValidator(
+  validationConfig,
+  formSelectors.formEditAvatar
+);
+
+// index.js
+editProfileFormValidator.enableValidation();
+newPlaceFormValidator.enableValidation();
+editAvatarFormValidator.enableValidation()
 
 
 
