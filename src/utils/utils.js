@@ -1,4 +1,4 @@
-export function handleCardClick(card) {
+export function handleCardClick(card, popupImage) {
   popupImage.open(card);
 }
 
