@@ -5,11 +5,18 @@ import Api from "../components/api.js";
 import Section from "../components/Section.js";
 import Card from "../components/card.js";
 import UserInfo from "../components/UserInfo.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+
 
 // create class instances
 
 const api = new Api(fetchConfig);
+
 const userInfo = new UserInfo(userSelectors);
+
+const popup = new Popup(".popup");
+
+const popupImage = new PopupWithImage(".popup_type_open-img");
 
 const cardsList = new Section(
   {
