@@ -47,30 +47,27 @@ const popupEditProfile = new PopupWithForm({
   },
 });
 
-//const formNewPlaceButton = formSelectors.formNewPlace.querySelector(".form__button");
-//const formNewPlace = document.querySelector(".form_type_new-place");
-//const formNewPlaceButton = formNewPlace.querySelector(".form__button");
-
 const popupNewPlace = new PopupWithForm({
   popupSelector: ".popup_type_new-place",
   handleFormSubmit: (event, button, { place, url_link }) => {
     event.preventDefault();
     button.textContent = "Сохранение...";
     api.postDataCard(place, url_link)
-    console.log(place, url_link)
       .then((cardData) => {
-        cardsList.setItem(cardData);
+        const card = new Card({
+          data: cardData,
+          selector: ".template-card",
+          handleCardClick: handleCardClick,
+          toggleLike: toggleLike,
+          userId: userInfo.getUserInfo()._id,
+          popupImage: popupImage,
+        });
+
+        const cardElement = card.generate();
+        cardsList.addItem(cardElement, true);
         popupNewPlace.close();
-        /*
-        setDisabledButton(
-          formNewPlaceButton,
-          validationConfig.inactiveButtonClass
-        );
-        */
       })
       .catch((err) => {
-        //openPopup(popupError);
-        // handleErrors(err, errorTitle, errorText);
         button.textContent = "Создать";
         console.log(`Error: ${err}`);
       });
