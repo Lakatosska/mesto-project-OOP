@@ -6,6 +6,7 @@ export default class Card {
     toggleLike,
     userId,
     popupImage,
+    api,
   }) {
     this._cardData = data;
     this._selector = selector;
@@ -13,6 +14,7 @@ export default class Card {
     this._toggleLike = toggleLike;
     this._userId = userId;
     this._popupImage = popupImage;
+    this._api = api;
   }
 
   _getElement() {
@@ -63,7 +65,7 @@ export default class Card {
       );
     });
     likeBtn.addEventListener("click", (event) => {
-      this._toggleLike(event, this._cardData, counterLikeCard);
+      this._toggleLike(event, this._cardData, counterLikeCard, this._api);
     });
   }
 }

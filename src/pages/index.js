@@ -8,7 +8,6 @@ import {
   profileMission,
   btnSaveProfile,
   btnAddPlace,
-  popupAddPlace,
   formSelectors,
 } from "../utils/constants.js";
 import { handleCardClick, toggleLike } from "../utils/utils.js";
@@ -28,6 +27,7 @@ function createCard(item) {
     toggleLike: toggleLike,
     userId: userInfo.getUserInfo()._id,
     popupImage: popupImage,
+    api: api,
   });
   return card.generate();
 }

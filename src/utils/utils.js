@@ -1,8 +1,10 @@
+import { CARD__LIKE_ACTIVE } from "./constants.js";
+
 export function handleCardClick(card, popupImage) {
   popupImage.open(card);
 }
 
-export function toggleLike(event, card, counter) {
+export function toggleLike(event, card, counter, api) {
   if (event.target.classList.contains(CARD__LIKE_ACTIVE)) {
     api
       .deleteLike(card._id)
