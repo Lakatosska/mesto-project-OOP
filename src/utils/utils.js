@@ -4,6 +4,13 @@ export function handleCardClick(card, popupImage) {
   popupImage.open(card);
 }
 
+export function handleDeleteClick(card, api) {
+  console.log(card);
+  api.deleteCard(card._id)
+  //.then(() = > {})
+
+}
+
 export function toggleLike(event, card, counter, api) {
   if (event.target.classList.contains(CARD__LIKE_ACTIVE)) {
     api

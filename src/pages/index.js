@@ -10,9 +10,10 @@ import {
   btnAddPlace,
   formSelectors,
   profileAvatarContainer,
-  btnSaveAvatar
+  btnSaveAvatar,
+
 } from "../utils/constants.js";
-import { handleCardClick, toggleLike } from "../utils/utils.js";
+import { handleCardClick, toggleLike, handleDeleteClick } from "../utils/utils.js";
 import Api from "../components/api.js";
 import Section from "../components/Section.js";
 import Card from "../components/card.js";
@@ -21,14 +22,16 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "../components/FormValidator.js";
 
+
 function createCard(item) {
   const card = new Card({
     data: item,
     selector: ".template-card",
-    handleCardClick: handleCardClick,
-    toggleLike: toggleLike,
+    handleCardClick,
+    toggleLike,
+    handleDeleteClick,
     userId: userInfo.getUserInfo()._id,
-    popupImage: popupImage,
+    popupImage,
     api: api,
   });
   return card.generate();

@@ -3,6 +3,7 @@ export default class Card {
     data,
     selector,
     handleCardClick,
+    handleDeleteClick,
     toggleLike,
     userId,
     popupImage,
@@ -11,18 +12,11 @@ export default class Card {
     this._cardData = data;
     this._selector = selector;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteClick = handleDeleteClick;
     this._toggleLike = toggleLike;
     this._userId = userId;
     this._popupImage = popupImage;
     this._api = api;
-  }
-
-  _getElement() {
-    const templateCard = document.querySelector(this._selector);
-    const cardElement = templateCard.content
-      .querySelector(".card-element")
-      .cloneNode(true);
-    return cardElement;
   }
 
   generate() {
@@ -50,11 +44,23 @@ export default class Card {
     ) {
       likeBtn.classList.add("card__like_active");
     }
-    this._setEventListeners(cardImage, cardTitle, likeBtn, counterLikeCard);
+    this._setEventListeners(cardImage, cardTitle, likeBtn, counterLikeCard, deleteCardBtn);
     return this._element;
   }
 
-  _setEventListeners(cardImage, cardTitle, likeBtn, counterLikeCard) {
+  _deleteCard() {
+    this._element.remove();
+    this._element = null;
+  }
+
+  _getElement() {
+    const templateCard = document.querySelector(this._selector);
+    return templateCard.content
+      .querySelector(".card-element")
+      .cloneNode(true);
+  }
+
+  _setEventListeners(cardImage, cardTitle, likeBtn, counterLikeCard, deleteCardBtn) {
     cardImage.addEventListener("click", () => {
       this._handleCardClick(
         {
@@ -67,5 +73,9 @@ export default class Card {
     likeBtn.addEventListener("click", (event) => {
       this._toggleLike(event, this._cardData, counterLikeCard, this._api);
     });
+
+    deleteCardBtn.addEventListener("click", () => {
+      this._handleDeleteClick(this._cardData, this._api);
+    })
   }
 }
