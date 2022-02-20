@@ -9,6 +9,8 @@ import {
   btnSaveProfile,
   btnAddPlace,
   formSelectors,
+  profileAvatarContainer,
+  btnSaveAvatar
 } from "../utils/constants.js";
 import { handleCardClick, toggleLike } from "../utils/utils.js";
 import Api from "../components/api.js";
@@ -78,6 +80,29 @@ const popupNewPlace = new PopupWithForm({
   },
 });
 
+const popupEditAvatar = new PopupWithForm({
+  popupSelector: ".popup_type_edit-avatar",
+  handleFormSubmit: (event, button, { avatar_url }) => {
+    event.preventDefault();
+
+    button.textContent = "Сохранение...";
+    api
+      .setAvatar(avatar_url)
+      .then((userData) => {
+        userInfo.getUserInfo(userData);
+        userInfo.setUserInfo();
+        popupEditAvatar.close();
+      })
+      .catch((err) => {
+        console.log(`Error: ${err}`);
+      });
+  },
+});
+
+popupEditAvatar.setEventListeners();
+popupNewPlace.setEventListeners();
+popupEditProfile.setEventListeners();
+
 const editProfileFormValidator = new FormValidator(
   validationConfig,
   formSelectors.formEditProfile
@@ -128,4 +153,9 @@ btnEditProfile.addEventListener("click", () => {
 
 btnAddPlace.addEventListener("click", () => {
   popupNewPlace.open();
+});
+
+profileAvatarContainer.addEventListener("click", () => {
+  btnSaveAvatar.textContent = "Сохранить";
+  popupEditAvatar.open();
 });
