@@ -20,6 +20,18 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "../components/FormValidator.js";
 
+function createCard(item) {
+  const card = new Card({
+    data: item,
+    selector: ".template-card",
+    handleCardClick: handleCardClick,
+    toggleLike: toggleLike,
+    userId: userInfo.getUserInfo()._id,
+    popupImage: popupImage,
+  });
+  return card.generate();
+}
+
 // create class instances
 
 const api = new Api(fetchConfig);
@@ -52,18 +64,10 @@ const popupNewPlace = new PopupWithForm({
   handleFormSubmit: (event, button, { place, url_link }) => {
     event.preventDefault();
     button.textContent = "Сохранение...";
-    api.postDataCard(place, url_link)
+    api
+      .postDataCard(place, url_link)
       .then((cardData) => {
-        const card = new Card({
-          data: cardData,
-          selector: ".template-card",
-          handleCardClick: handleCardClick,
-          toggleLike: toggleLike,
-          userId: userInfo.getUserInfo()._id,
-          popupImage: popupImage,
-        });
-
-        const cardElement = card.generate();
+        const cardElement = createCard(cardData);
         cardsList.addItem(cardElement, true);
         popupNewPlace.close();
       })
@@ -71,10 +75,8 @@ const popupNewPlace = new PopupWithForm({
         button.textContent = "Создать";
         console.log(`Error: ${err}`);
       });
-  }
-})
-
-
+  },
+});
 
 const editProfileFormValidator = new FormValidator(
   validationConfig,
@@ -92,27 +94,14 @@ const editAvatarFormValidator = new FormValidator(
 // index.js
 editProfileFormValidator.enableValidation();
 newPlaceFormValidator.enableValidation();
-editAvatarFormValidator.enableValidation()
-
-
+editAvatarFormValidator.enableValidation();
 
 popupNewPlace.setEventListeners();
-
-
-
 
 const cardsList = new Section(
   {
     renderer: (item) => {
-      const card = new Card({
-        data: item,
-        selector: ".template-card",
-        handleCardClick: handleCardClick,
-        toggleLike: toggleLike,
-        userId: userInfo.getUserInfo()._id,
-        popupImage: popupImage,
-      });
-      const cardElement = card.generate();
+      const cardElement = createCard(item);
 
       cardsList.addItem(cardElement);
     },
@@ -139,4 +128,4 @@ btnEditProfile.addEventListener("click", () => {
 
 btnAddPlace.addEventListener("click", () => {
   popupNewPlace.open();
-})
+});
