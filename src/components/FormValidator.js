@@ -72,12 +72,9 @@ export default class FormValidator {
         this._handlerInputValidity(input);
         this._toggleButtonState(inputs);
       });
-      this._form.addEventListener("reset", (event) => {
-        this._toggleButtonState(inputs);
-         this._handlerInputValidity(input);
-
-      })
-
+      this._form.addEventListener("reset", () => {
+        this._setDisabledButton();
+      });
     });
   }
 
