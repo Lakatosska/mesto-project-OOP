@@ -50,7 +50,7 @@ export default class Card {
     return this._element;
   }
 
-  _deleteCard() {
+  removeCard() {
     this._element.remove();
     this._element = null;
   }
@@ -78,7 +78,7 @@ export default class Card {
     });
 
     deleteCardBtn.addEventListener("click", () => {
-      this._handleDeleteClick(this._cardData);
+      this._handleDeleteClick(this._cardData, this);
     });
   }
 }

@@ -38,10 +38,13 @@ function handleCardClick(card) {
   popupImage.open(card);
 }
 
-function handleDeleteClick(card) {
-  console.log(card);
-  api.deleteCard(card._id);
-  //.then(() = > {})
+function handleDeleteClick(cardData, card) {
+  api
+    .deleteCard(cardData._id)
+    .then(card.removeCard())
+    .catch((err) => {
+      console.log(`Error: ${err}`);
+    });
 }
 
 function toggleLike(event, card, counter) {
