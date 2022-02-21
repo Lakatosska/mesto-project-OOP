@@ -9,7 +9,6 @@ import {
   btnAddPlace,
   formSelectors,
   profileAvatarContainer,
-  CARD__LIKE_ACTIVE,
 } from "../utils/constants.js";
 import Api from "../components/api.js";
 import Section from "../components/Section.js";
@@ -37,10 +36,10 @@ function handleCardClick(card) {
   popupImage.open(card);
 }
 
-function handleDeleteClick(cardData, card) {
+function handleDeleteClick(cardData) {
   api
     .deleteCard(cardData._id)
-    .then(card.removeCard())
+    .then(this.removeCard())
     .catch((err) => {
       console.log(`Error: ${err}`);
     });
