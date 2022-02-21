@@ -6,8 +6,6 @@ export default class Card {
     handleDeleteClick,
     toggleLike,
     userId,
-    popupImage,
-    api,
   }) {
     this._cardData = data;
     this._selector = selector;
@@ -15,8 +13,6 @@ export default class Card {
     this._handleDeleteClick = handleDeleteClick;
     this._toggleLike = toggleLike;
     this._userId = userId;
-    this._popupImage = popupImage;
-    this._api = api;
   }
 
   generate() {
@@ -44,7 +40,13 @@ export default class Card {
     ) {
       likeBtn.classList.add("card__like_active");
     }
-    this._setEventListeners(cardImage, cardTitle, likeBtn, counterLikeCard, deleteCardBtn);
+    this._setEventListeners(
+      cardImage,
+      cardTitle,
+      likeBtn,
+      counterLikeCard,
+      deleteCardBtn
+    );
     return this._element;
   }
 
@@ -55,27 +57,28 @@ export default class Card {
 
   _getElement() {
     const templateCard = document.querySelector(this._selector);
-    return templateCard.content
-      .querySelector(".card-element")
-      .cloneNode(true);
+    return templateCard.content.querySelector(".card-element").cloneNode(true);
   }
 
-  _setEventListeners(cardImage, cardTitle, likeBtn, counterLikeCard, deleteCardBtn) {
+  _setEventListeners(
+    cardImage,
+    cardTitle,
+    likeBtn,
+    counterLikeCard,
+    deleteCardBtn
+  ) {
     cardImage.addEventListener("click", () => {
-      this._handleCardClick(
-        {
-          image: cardImage.src,
-          title: cardTitle.textContent,
-        },
-        this._popupImage
-      );
+      this._handleCardClick({
+        image: cardImage.src,
+        title: cardTitle.textContent,
+      });
     });
     likeBtn.addEventListener("click", (event) => {
-      this._toggleLike(event, this._cardData, counterLikeCard, this._api);
+      this._toggleLike(event, this._cardData, counterLikeCard);
     });
 
     deleteCardBtn.addEventListener("click", () => {
-      this._handleDeleteClick(this._cardData, this._api);
-    })
+      this._handleDeleteClick(this._cardData);
+    });
   }
 }

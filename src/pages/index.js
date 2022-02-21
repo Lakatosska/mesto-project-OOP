@@ -11,9 +11,8 @@ import {
   formSelectors,
   profileAvatarContainer,
   btnSaveAvatar,
-
+  CARD__LIKE_ACTIVE,
 } from "../utils/constants.js";
-import { handleCardClick, toggleLike, handleDeleteClick } from "../utils/utils.js";
 import Api from "../components/api.js";
 import Section from "../components/Section.js";
 import Card from "../components/card.js";
@@ -21,7 +20,6 @@ import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "../components/FormValidator.js";
-
 
 function createCard(item) {
   const card = new Card({
@@ -32,11 +30,43 @@ function createCard(item) {
     handleDeleteClick,
     userId: userInfo.getUserInfo()._id,
     popupImage,
-    api: api,
   });
   return card.generate();
 }
 
+function handleCardClick(card) {
+  popupImage.open(card);
+}
+
+function handleDeleteClick(card) {
+  console.log(card);
+  api.deleteCard(card._id);
+  //.then(() = > {})
+}
+
+function toggleLike(event, card, counter) {
+  if (event.target.classList.contains(CARD__LIKE_ACTIVE)) {
+    api
+      .deleteLike(card._id)
+      .then((card) => {
+        event.target.classList.remove(CARD__LIKE_ACTIVE);
+        counter.textContent = card.likes.length;
+      })
+      .catch((err) => {
+        console.log(`Error: ${err}`);
+      });
+  } else {
+    api
+      .setLike(card._id)
+      .then((card) => {
+        event.target.classList.add(CARD__LIKE_ACTIVE);
+        counter.textContent = card.likes.length;
+      })
+      .catch((err) => {
+        console.log(`Error: ${err}`);
+      });
+  }
+}
 // create class instances
 
 const api = new Api(fetchConfig);
