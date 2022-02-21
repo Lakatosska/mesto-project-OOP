@@ -13,36 +13,40 @@ export default class Popup {
     }
   }
 
-  close() {
-    this._popup.classList.remove(Popup._POPUP_OPENED);
+  close(findPopup) {
+    if (findPopup) {
+      document
+        .querySelector(`.${Popup._POPUP_OPENED}`)
+        .classList.remove(Popup._POPUP_OPENED);
+    } else {
+      this._popup.classList.remove(Popup._POPUP_OPENED);
+    }
   }
 
   setEventListeners() {
-    document.addEventListener("keydown", this._handleEscClose.bind(this));
+    document.addEventListener("keydown", (event) => {
+      this._handleEscClose(event);
+    });
     document.querySelectorAll(Popup._POPUP).forEach((popup) => {
-      popup.addEventListener("mousedown", this._handleClose);
+      popup.addEventListener("mousedown", (event) => {
+        this._handleClose(event);
+      });
     });
     Popup._needSetEventListener = false;
   }
 
   _handleEscClose(event) {
     if (Object.is(event.key, "Escape")) {
-      document
-        .querySelector(`.${Popup._POPUP_OPENED}`)
-        .classList.remove(Popup._POPUP_OPENED);
+      this.close(true);
     }
   }
 
   _handleClose(event) {
     if (event.target.classList.contains("popup_opened")) {
-      event.target
-        .closest(`.${Popup._POPUP_OPENED}`)
-        .classList.remove(Popup._POPUP_OPENED);
+      this.close(true);
     }
     if (event.target.classList.contains("popup__close-button")) {
-      event.target
-        .closest(`.${Popup._POPUP_OPENED}`)
-        .classList.remove(Popup._POPUP_OPENED);
+      this.close(true);
     }
   }
 }
