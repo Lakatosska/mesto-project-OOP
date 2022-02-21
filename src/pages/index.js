@@ -46,13 +46,12 @@ function handleDeleteClick(cardData, card) {
     });
 }
 
-function toggleLike(event, card, counter) {
-  if (event.target.classList.contains(CARD__LIKE_ACTIVE)) {
+function toggleLike(card) {
+  if (this.isLiked()) {
     api
       .deleteLike(card._id)
       .then((card) => {
-        event.target.classList.remove(CARD__LIKE_ACTIVE);
-        counter.textContent = card.likes.length;
+        this.updateLikes(card);
       })
       .catch((err) => {
         console.log(`Error: ${err}`);
@@ -61,8 +60,7 @@ function toggleLike(event, card, counter) {
     api
       .setLike(card._id)
       .then((card) => {
-        event.target.classList.add(CARD__LIKE_ACTIVE);
-        counter.textContent = card.likes.length;
+        this.updateLikes(card);
       })
       .catch((err) => {
         console.log(`Error: ${err}`);
