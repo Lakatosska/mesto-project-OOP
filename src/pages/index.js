@@ -81,7 +81,7 @@ const popupImage = new PopupWithImage(".popup_type_open-img");
 
 const popupEditProfile = new PopupWithForm({
   popupSelector: ".popup_type_edit-profile",
-  handleFormSubmit: (event, button, { fullname, mission }) => {
+  handleFormSubmit: (event, { fullname, mission }) => {
     event.preventDefault();
     renderLoading("popup_type_edit-profile", true);
     console.log(fullname, mission);
@@ -100,9 +100,9 @@ const popupEditProfile = new PopupWithForm({
 
 const popupNewPlace = new PopupWithForm({
   popupSelector: ".popup_type_new-place",
-  handleFormSubmit: (event, button, { place, url_link }) => {
+  handleFormSubmit: (event, { place, url_link }) => {
     event.preventDefault();
-    button.textContent = "Сохранение...";
+    renderLoading("popup_type_new-place", true,"Создать","Создание...");
     api
       .postDataCard(place, url_link)
       .then((cardData) => {
@@ -111,7 +111,6 @@ const popupNewPlace = new PopupWithForm({
         popupNewPlace.close();
       })
       .catch((err) => {
-        button.textContent = "Создать";
         console.log(`Error: ${err}`);
       });
   },
@@ -119,10 +118,10 @@ const popupNewPlace = new PopupWithForm({
 
 const popupEditAvatar = new PopupWithForm({
   popupSelector: ".popup_type_edit-avatar",
-  handleFormSubmit: (event, button, { avatar_url }) => {
+  handleFormSubmit: (event, { avatar_url }) => {
     event.preventDefault();
 
-    button.textContent = "Сохранение...";
+    renderLoading("popup_type_edit-avatar", true);
     api
       .setAvatar(avatar_url)
       .then((userData) => {
@@ -174,7 +173,7 @@ editAvatarFormValidator.enableValidation();
 
 //Listeners
 btnEditProfile.addEventListener("click", () => {
-  btnSaveProfile.textContent = "Сохранить";
+  renderLoading("popup_type_edit-profile", false);
   popupEditProfile.setCurrentValues({
     fullname: profileName,
     mission: profileMission,
@@ -183,11 +182,12 @@ btnEditProfile.addEventListener("click", () => {
 });
 
 btnAddPlace.addEventListener("click", () => {
+  renderLoading("popup_type_new-place", false,"Создать","Создание...");
   popupNewPlace.open();
 });
 
 profileAvatarContainer.addEventListener("click", () => {
-  btnSaveAvatar.textContent = "Сохранить";
+  renderLoading("popup_type_edit-avatar", false);
   popupEditAvatar.open();
 });
 
