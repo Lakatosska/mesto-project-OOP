@@ -6,11 +6,9 @@ import {
   btnEditProfile,
   profileName,
   profileMission,
-  btnSaveProfile,
   btnAddPlace,
   formSelectors,
   profileAvatarContainer,
-  btnSaveAvatar,
   CARD__LIKE_ACTIVE,
 } from "../utils/constants.js";
 import Api from "../components/api.js";
@@ -84,7 +82,6 @@ const popupEditProfile = new PopupWithForm({
   handleFormSubmit: (event, { fullname, mission }) => {
     event.preventDefault();
     renderLoading("popup_type_edit-profile", true);
-    console.log(fullname, mission);
     api
       .sendUsersData(fullname, mission)
       .then((userData) => {
@@ -102,7 +99,7 @@ const popupNewPlace = new PopupWithForm({
   popupSelector: ".popup_type_new-place",
   handleFormSubmit: (event, { place, url_link }) => {
     event.preventDefault();
-    renderLoading("popup_type_new-place", true,"Создать","Создание...");
+    renderLoading("popup_type_new-place", true, "Создать", "Создание...");
     api
       .postDataCard(place, url_link)
       .then((cardData) => {
@@ -182,7 +179,7 @@ btnEditProfile.addEventListener("click", () => {
 });
 
 btnAddPlace.addEventListener("click", () => {
-  renderLoading("popup_type_new-place", false,"Создать","Создание...");
+  renderLoading("popup_type_new-place", false, "Создать", "Создание...");
   popupNewPlace.open();
 });
 
