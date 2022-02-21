@@ -132,10 +132,6 @@ const popupEditAvatar = new PopupWithForm({
   },
 });
 
-popupEditAvatar.setEventListeners();
-popupNewPlace.setEventListeners();
-popupEditProfile.setEventListeners();
-
 const editProfileFormValidator = new FormValidator(
   validationConfig,
   formSelectors.formEditProfile
@@ -148,13 +144,6 @@ const editAvatarFormValidator = new FormValidator(
   validationConfig,
   formSelectors.formEditAvatar
 );
-
-// index.js
-editProfileFormValidator.enableValidation();
-newPlaceFormValidator.enableValidation();
-editAvatarFormValidator.enableValidation();
-
-popupNewPlace.setEventListeners();
 
 const cardsList = new Section(
   {
@@ -174,6 +163,11 @@ api.getAppInfo().then(([cardData, userData]) => {
   cardsList.renderItems(cardData);
 });
 
+//Enable validation
+editProfileFormValidator.enableValidation();
+newPlaceFormValidator.enableValidation();
+editAvatarFormValidator.enableValidation();
+
 //Listeners
 btnEditProfile.addEventListener("click", () => {
   btnSaveProfile.textContent = "Сохранить";
@@ -192,3 +186,7 @@ profileAvatarContainer.addEventListener("click", () => {
   btnSaveAvatar.textContent = "Сохранить";
   popupEditAvatar.open();
 });
+
+popupEditAvatar.setEventListeners();
+popupNewPlace.setEventListeners();
+popupEditProfile.setEventListeners();
