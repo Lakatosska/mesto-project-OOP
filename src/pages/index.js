@@ -20,6 +20,7 @@ import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "../components/FormValidator.js";
+import { renderLoading } from "../utils/utils.js";
 
 function createCard(item) {
   const card = new Card({
@@ -82,7 +83,7 @@ const popupEditProfile = new PopupWithForm({
   popupSelector: ".popup_type_edit-profile",
   handleFormSubmit: (event, button, { fullname, mission }) => {
     event.preventDefault();
-    button.textContent = "Сохранение...";
+    renderLoading("popup_type_edit-profile", true);
     console.log(fullname, mission);
     api
       .sendUsersData(fullname, mission)
