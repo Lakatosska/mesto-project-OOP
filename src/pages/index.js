@@ -20,18 +20,6 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "../components/FormValidator.js";
 import { renderLoading } from "../utils/utils.js";
 
-function createCard(item) {
-  const card = new Card({
-    data: item,
-    selector: ".template-card",
-    handleCardClick,
-    toggleLike,
-    handleDeleteClick,
-    userId: userInfo.getUserInfo().userId,
-    popupImage,
-  });
-  return card.generate();
-}
 
 function handleCardClick(card) {
   popupImage.open(card);
@@ -102,8 +90,7 @@ const popupNewPlace = new PopupWithForm({
     api
       .postDataCard(place, url_link)
       .then((cardData) => {
-        const cardElement = createCard(cardData);
-        cardsList.addItem(cardElement, true);
+        cardsList.addItem(cardData,true);
         popupNewPlace.close();
       })
       .catch((err) => {
@@ -148,10 +135,17 @@ const editAvatarFormValidator = new FormValidator(
 
 const cardsList = new Section(
   {
-    renderer: (item) => {
-      const cardElement = createCard(item);
-
-      cardsList.addItem(cardElement);
+    renderer: item => {
+      const card = new Card({
+        data: item,
+        selector: ".template-card",
+        handleCardClick,
+        toggleLike,
+        handleDeleteClick,
+        popupImage,
+        userId: userInfo.getUserInfo().userId,
+      });
+      return card.generate();
     },
   },
   ".cards__list"
