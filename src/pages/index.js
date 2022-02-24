@@ -20,7 +20,6 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "../components/FormValidator.js";
 import { renderLoading } from "../utils/utils.js";
 
-
 function handleCardClick(card) {
   popupImage.open(card);
 }
@@ -35,20 +34,20 @@ function handleDeleteClick(cardData) {
 }
 
 function toggleLike(card) {
-  if (this.isLiked()) {
+  if (card.isLiked()) {
     api
-      .deleteLike(card._id)
-      .then((card) => {
-        this.updateLikes(card);
+      .deleteLike(card._cardData._id)
+      .then((likes) => {
+        card.updateLikes(likes);
       })
       .catch((err) => {
         console.log(`Error: ${err}`);
       });
   } else {
     api
-      .setLike(card._id)
-      .then((card) => {
-        this.updateLikes(card);
+      .setLike(card._cardData._id)
+      .then((likes) => {
+        card.updateLikes(likes);
       })
       .catch((err) => {
         console.log(`Error: ${err}`);
@@ -90,7 +89,7 @@ const popupNewPlace = new PopupWithForm({
     api
       .postDataCard(place, url_link)
       .then((cardData) => {
-        cardsList.addItem(cardData,true);
+        cardsList.addItem(cardData, true);
         popupNewPlace.close();
       })
       .catch((err) => {
@@ -135,7 +134,7 @@ const editAvatarFormValidator = new FormValidator(
 
 const cardsList = new Section(
   {
-    renderer: item => {
+    renderer: (item) => {
       const card = new Card({
         data: item,
         selector: ".template-card",
