@@ -59,8 +59,8 @@ function toggleLike(card) {
 const api = new Api(fetchConfig);
 
 const userInfo = new UserInfo(userSelectors);
-console.log(userInfo);
 const popupImage = new PopupWithImage(".popup_type_open-img");
+
 popupImage.setEventListeners();
 
 const popupEditProfile = new PopupWithForm({
