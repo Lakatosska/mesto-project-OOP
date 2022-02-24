@@ -6,6 +6,7 @@ import {
   btnEditProfile,
   profileName,
   profileMission,
+  profileAvatar,
   btnAddPlace,
   formSelectors,
   profileAvatarContainer,
@@ -26,7 +27,7 @@ function createCard(item) {
     handleCardClick,
     toggleLike,
     handleDeleteClick,
-    userId: userInfo.getUserInfo()._id,
+    userId: userInfo.getUserInfo().userId,
     popupImage,
   });
   return card.generate();
@@ -71,7 +72,7 @@ function toggleLike(card) {
 const api = new Api(fetchConfig);
 
 const userInfo = new UserInfo(userSelectors);
-
+console.log(userInfo);
 const popupImage = new PopupWithImage(".popup_type_open-img");
 popupImage.setEventListeners();
 
@@ -83,8 +84,7 @@ const popupEditProfile = new PopupWithForm({
     api
       .sendUsersData(fullname, mission)
       .then((userData) => {
-        userInfo.getUserInfo(userData);
-        userInfo.setUserInfo();
+        userInfo.setUserInfo(userData);
         popupEditProfile.close();
       })
       .catch((err) => {
@@ -122,8 +122,7 @@ const popupEditAvatar = new PopupWithForm({
     api
       .setAvatar(avatar_url)
       .then((userData) => {
-        userInfo.getUserInfo(userData);
-        userInfo.setUserInfo();
+        userInfo.setUserInfo(userData);
         popupEditAvatar.close();
       })
       .catch((err) => {
@@ -160,8 +159,7 @@ const cardsList = new Section(
 
 // page initialization
 api.getAppInfo().then(([cardData, userData]) => {
-  userInfo.getUserInfo(userData);
-  userInfo.setUserInfo();
+  userInfo.setUserInfo(userData);
   cardsList.renderItems(cardData);
 });
 
