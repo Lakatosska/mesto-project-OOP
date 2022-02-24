@@ -45,6 +45,10 @@ export default class Card {
     this._updateLikesView();
   }
 
+  getCardId() {
+    return this._cardData._id;
+  }
+
   _showTrashIcon() {
     if (this._isOurCard()) {
       this._deleteCardBtn.classList.add("card__trash-icon_visible");
@@ -89,7 +93,7 @@ export default class Card {
     });
 
     this._deleteCardBtn.addEventListener("click", () => {
-      this._handleDeleteClick(this._cardData);
+      this._handleDeleteClick(this);
     });
   }
 }

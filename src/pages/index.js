@@ -24,10 +24,10 @@ function handleCardClick(card) {
   popupImage.open(card);
 }
 
-function handleDeleteClick(cardData) {
+function handleDeleteClick(card) {
   api
-    .deleteCard(cardData._id)
-    .then(this.removeCard())
+    .deleteCard(card.getCardId())
+    .then(() => card.removeCard())
     .catch((err) => {
       console.log(`Error: ${err}`);
     });
