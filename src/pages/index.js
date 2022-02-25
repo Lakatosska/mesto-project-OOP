@@ -135,7 +135,7 @@ const editAvatarFormValidator = new FormValidator(
 const cardsList = new Section(
   {
     renderer: (item) => {
-      const card = new Card({
+      return new Card({
         data: item,
         selector: ".template-card",
         handleCardClick,
@@ -143,8 +143,7 @@ const cardsList = new Section(
         handleDeleteClick,
         popupImage,
         userId: userInfo.getUserInfo().userId,
-      });
-      return card.generate();
+      }).generate();
     },
   },
   ".cards__list"
