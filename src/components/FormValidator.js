@@ -62,7 +62,8 @@ export default class FormValidator {
     errorElement.textContent = input.validationMessage;
   }
 
-  _hideErrorMessage(errorElement, input) {
+  _hideErrorMessage(input) {
+    const errorElement = this._form.querySelector(`#error-${input.id}`);
     errorElement.classList.remove(this._errorClass);
     input.classList.remove(this._inputErrorClass);
     errorElement.textContent = "";
@@ -73,7 +74,7 @@ export default class FormValidator {
     if (!input.validity.valid) {
       this._showErrorMessage(errorElement, input);
     } else {
-      this._hideErrorMessage(errorElement, input);
+      this._hideErrorMessage(input);
     }
   }
 

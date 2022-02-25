@@ -157,20 +157,6 @@ const popupEditAvatar = new PopupWithForm({
   },
 });
 
-/*
-const editProfileFormValidator = new FormValidator(
-  validationConfig,
-  formSelectors.formEditProfile
-);
-const newPlaceFormValidator = new FormValidator(
-  validationConfig,
-  formSelectors.formNewPlace
-);
-const editAvatarFormValidator = new FormValidator(
-  validationConfig,
-  formSelectors.formEditAvatar
-);
-*/
 
 const cardsList = new Section(
   {
@@ -198,16 +184,8 @@ api.getAppInfo().then(([cardData, userData]) => {
 })
 
 
-/*
-//Enable validation
-editProfileFormValidator.enableValidation();
-newPlaceFormValidator.enableValidation();
-editAvatarFormValidator.enableValidation();
-*/
-
 //Listeners
 btnEditProfile.addEventListener("click", () => {
-console.log(formValidators);
   formValidators["edit-profile"].resetValidation();
 
   popupEditProfile.setCurrentValues({
