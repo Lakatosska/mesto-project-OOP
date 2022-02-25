@@ -171,8 +171,8 @@ editAvatarFormValidator.enableValidation();
 //Listeners
 btnEditProfile.addEventListener("click", () => {
   popupEditProfile.setCurrentValues({
-    fullname: profileName,
-    mission: profileMission,
+    fullname: userInfo.getUserInfo().name,
+    mission: userInfo.getUserInfo().about
   });
   popupEditProfile.open();
 });
