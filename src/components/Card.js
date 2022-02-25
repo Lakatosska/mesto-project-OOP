@@ -3,7 +3,7 @@ export default class Card {
     data,
     selector,
     handleCardClick,
-    handleDeleteClick,
+    handleClickToTrashIcon,
     toggleLike,
     userId,
   }) {
@@ -11,7 +11,7 @@ export default class Card {
     this._likes = data.likes;
     this._selector = selector;
     this._handleCardClick = handleCardClick;
-    this._handleDeleteClick = handleDeleteClick;
+    this._handleClickToTrashIcon = handleClickToTrashIcon;
     this._toggleLike = toggleLike;
     this._userId = userId;
   }
@@ -93,7 +93,7 @@ export default class Card {
     });
 
     this._deleteCardBtn.addEventListener("click", () => {
-      this._handleDeleteClick(this);
+      this._handleClickToTrashIcon(this);
     });
   }
 }
