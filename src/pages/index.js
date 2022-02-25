@@ -60,8 +60,6 @@ const api = new Api(fetchConfig);
 const userInfo = new UserInfo(userSelectors);
 const popupImage = new PopupWithImage(".popup_type_open-img");
 
-popupImage.setEventListeners();
-
 const popupEditProfile = new PopupWithForm({
   popupSelector: ".popup_type_edit-profile",
   handleFormSubmit: (event, { fullname, mission }) => {
@@ -77,11 +75,10 @@ const popupEditProfile = new PopupWithForm({
         console.log(`Error: ${err}`);
       })
       .finally(() => {
-        popupEditProfile.renderLoading(false)
+        popupEditProfile.renderLoading(false);
       });
   },
 });
-popupEditProfile.setEventListeners();
 
 const popupNewPlace = new PopupWithForm({
   popupSelector: ".popup_type_new-place",
@@ -98,11 +95,10 @@ const popupNewPlace = new PopupWithForm({
         console.log(`Error: ${err}`);
       })
       .finally(() => {
-        popupNewPlace.renderLoading(false)
+        popupNewPlace.renderLoading(false);
       });
   },
 });
-popupNewPlace.setEventListeners();
 
 const popupEditAvatar = new PopupWithForm({
   popupSelector: ".popup_type_edit-avatar",
@@ -120,12 +116,10 @@ const popupEditAvatar = new PopupWithForm({
         console.log(`Error: ${err}`);
       })
       .finally(() => {
-        popupEditAvatar.renderLoading(false)
+        popupEditAvatar.renderLoading(false);
       });
   },
 });
-
-popupEditAvatar.setEventListeners();
 
 const editProfileFormValidator = new FormValidator(
   validationConfig,
@@ -172,7 +166,7 @@ editAvatarFormValidator.enableValidation();
 btnEditProfile.addEventListener("click", () => {
   popupEditProfile.setCurrentValues({
     fullname: userInfo.getUserInfo().name,
-    mission: userInfo.getUserInfo().about
+    mission: userInfo.getUserInfo().about,
   });
   popupEditProfile.open();
 });
