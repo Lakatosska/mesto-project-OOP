@@ -18,7 +18,6 @@ import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "../components/FormValidator.js";
-import { renderLoading } from "../utils/utils.js";
 
 function handleCardClick(card) {
   popupImage.open(card);
@@ -67,7 +66,7 @@ const popupEditProfile = new PopupWithForm({
   popupSelector: ".popup_type_edit-profile",
   handleFormSubmit: (event, { fullname, mission }) => {
     event.preventDefault();
-    renderLoading("popup_type_edit-profile", true);
+    popupEditProfile.renderLoading(true);
     api
       .sendUsersData(fullname, mission)
       .then((userData) => {
@@ -76,6 +75,9 @@ const popupEditProfile = new PopupWithForm({
       })
       .catch((err) => {
         console.log(`Error: ${err}`);
+      })
+      .finally(() => {
+        popupEditProfile.renderLoading(false)
       });
   },
 });
@@ -85,7 +87,7 @@ const popupNewPlace = new PopupWithForm({
   popupSelector: ".popup_type_new-place",
   handleFormSubmit: (event, { place, url_link }) => {
     event.preventDefault();
-    renderLoading("popup_type_new-place", true, "Создать", "Создание...");
+    popupNewPlace.renderLoading(true, "Создать", "Создание...");
     api
       .postDataCard(place, url_link)
       .then((cardData) => {
@@ -94,6 +96,9 @@ const popupNewPlace = new PopupWithForm({
       })
       .catch((err) => {
         console.log(`Error: ${err}`);
+      })
+      .finally(() => {
+        popupNewPlace.renderLoading(false)
       });
   },
 });
@@ -104,7 +109,7 @@ const popupEditAvatar = new PopupWithForm({
   handleFormSubmit: (event, { avatar_url }) => {
     event.preventDefault();
 
-    renderLoading("popup_type_edit-avatar", true);
+    popupEditAvatar.renderLoading(true);
     api
       .setAvatar(avatar_url)
       .then((userData) => {
@@ -113,6 +118,9 @@ const popupEditAvatar = new PopupWithForm({
       })
       .catch((err) => {
         console.log(`Error: ${err}`);
+      })
+      .finally(() => {
+        popupEditAvatar.renderLoading(false)
       });
   },
 });
@@ -162,7 +170,6 @@ editAvatarFormValidator.enableValidation();
 
 //Listeners
 btnEditProfile.addEventListener("click", () => {
-  renderLoading("popup_type_edit-profile", false);
   popupEditProfile.setCurrentValues({
     fullname: profileName,
     mission: profileMission,
@@ -171,11 +178,9 @@ btnEditProfile.addEventListener("click", () => {
 });
 
 btnAddPlace.addEventListener("click", () => {
-  renderLoading("popup_type_new-place", false, "Создать", "Создание...");
   popupNewPlace.open();
 });
 
 profileAvatarContainer.addEventListener("click", () => {
-  renderLoading("popup_type_edit-avatar", false);
   popupEditAvatar.open();
 });
