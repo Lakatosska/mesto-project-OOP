@@ -15,6 +15,7 @@ import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "../components/FormValidator.js";
+import PopupConfirm from "../components/PopupConfirm.js";
 
 function handleCardClick(card) {
   popupImage.open(card);
@@ -26,7 +27,7 @@ function handleClickToTrashIcon(card) {
 
 function handleDeleteClick(event, card) {
   event.preventDefault();
-  popupConfirmDeleteCard.renderLoading(true, "Да", "Да...");
+  popupConfirmDeleteCard.renderLoading(true, "Да", "Удаление...");
   api
     .deleteCard(card.getCardId())
     .then(() => {
@@ -36,7 +37,9 @@ function handleDeleteClick(event, card) {
     .catch((err) => {
       console.log(`Error: ${err}`);
     })
-    .finally(() => popupConfirmDeleteCard.renderLoading(false, "Да", "Да..."));
+    .finally(() =>
+      popupConfirmDeleteCard.renderLoading(false, "Да", "Удаление...")
+    );
 }
 
 function toggleLike(card) {
