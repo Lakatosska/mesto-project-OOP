@@ -4,9 +4,6 @@ import {
   validationConfig,
   userSelectors,
   btnEditProfile,
-  profileName,
-  profileMission,
-  profileAvatar,
   btnAddPlace,
   formSelectors,
   profileAvatarContainer,
@@ -23,13 +20,23 @@ function handleCardClick(card) {
   popupImage.open(card);
 }
 
-function handleDeleteClick(card) {
+function handleClickToTrashIcon(card) {
+  popupConfirmDeleteCard.open(card);
+}
+
+function handleDeleteClick(event, card) {
+  event.preventDefault();
+  popupConfirmDeleteCard.renderLoading(true, "Да", "Да...");
   api
     .deleteCard(card.getCardId())
-    .then(() => card.removeCard())
+    .then(() => {
+      card.removeCard();
+      popupConfirmDeleteCard.close();
+    })
     .catch((err) => {
       console.log(`Error: ${err}`);
-    });
+    })
+    .finally(() => popupConfirmDeleteCard.renderLoading(false, "Да", "Да..."));
 }
 
 function toggleLike(card) {
@@ -60,11 +67,17 @@ const api = new Api(fetchConfig);
 const userInfo = new UserInfo(userSelectors);
 const popupImage = new PopupWithImage(".popup_type_open-img");
 
+const popupConfirmDeleteCard = new PopupConfirm({
+  popupSelector: ".popup_for_delete-card",
+  handler: handleDeleteClick,
+});
+
 const popupEditProfile = new PopupWithForm({
   popupSelector: ".popup_type_edit-profile",
-  handleFormSubmit: (event, { fullname, mission }) => {
+  handler: (event) => {
     event.preventDefault();
     popupEditProfile.renderLoading(true);
+    const { fullname, mission } = popupEditProfile.getInputValues();
     api
       .sendUsersData(fullname, mission)
       .then((userData) => {
@@ -82,9 +95,10 @@ const popupEditProfile = new PopupWithForm({
 
 const popupNewPlace = new PopupWithForm({
   popupSelector: ".popup_type_new-place",
-  handleFormSubmit: (event, { place, url_link }) => {
+  handler: (event) => {
     event.preventDefault();
     popupNewPlace.renderLoading(true, "Создать", "Создание...");
+    const { place, url_link } = popupNewPlace.getInputValues();
     api
       .postDataCard(place, url_link)
       .then((cardData) => {
@@ -102,10 +116,10 @@ const popupNewPlace = new PopupWithForm({
 
 const popupEditAvatar = new PopupWithForm({
   popupSelector: ".popup_type_edit-avatar",
-  handleFormSubmit: (event, { avatar_url }) => {
+  handler: (event) => {
     event.preventDefault();
-
     popupEditAvatar.renderLoading(true);
+    const { avatar_url } = popupEditAvatar.getInputValues();
     api
       .setAvatar(avatar_url)
       .then((userData) => {
@@ -141,9 +155,8 @@ const cardsList = new Section(
         data: item,
         selector: ".template-card",
         handleCardClick,
+        handleClickToTrashIcon,
         toggleLike,
-        handleDeleteClick,
-        popupImage,
         userId: userInfo.getUserInfo().userId,
       }).generate();
     },
