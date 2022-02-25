@@ -17,6 +17,25 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupConfirm from "../components/PopupConfirm.js";
 
+const formValidators = {}
+
+// Включение валидации
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config,formElement)
+// получаем данные из атрибута `name` у формы
+    const formName = formElement.getAttribute('name')
+
+   // вот тут в объект записываем под именем формы
+    formValidators[formName] = validator;
+   validator.enableValidation();
+  });
+};
+
+enableValidation(validationConfig);
+
+
 function handleCardClick(card) {
   popupImage.open(card);
 }
@@ -138,6 +157,7 @@ const popupEditAvatar = new PopupWithForm({
   },
 });
 
+/*
 const editProfileFormValidator = new FormValidator(
   validationConfig,
   formSelectors.formEditProfile
@@ -150,6 +170,7 @@ const editAvatarFormValidator = new FormValidator(
   validationConfig,
   formSelectors.formEditAvatar
 );
+*/
 
 const cardsList = new Section(
   {
@@ -171,15 +192,24 @@ const cardsList = new Section(
 api.getAppInfo().then(([cardData, userData]) => {
   userInfo.setUserInfo(userData);
   cardsList.renderItems(cardData);
-});
+})
+.catch((err) => {
+  console.log(`Error: ${err}`);
+})
 
+
+/*
 //Enable validation
 editProfileFormValidator.enableValidation();
 newPlaceFormValidator.enableValidation();
 editAvatarFormValidator.enableValidation();
+*/
 
 //Listeners
 btnEditProfile.addEventListener("click", () => {
+console.log(formValidators);
+  formValidators["edit-profile"].resetValidation();
+
   popupEditProfile.setCurrentValues({
     fullname: userInfo.getUserInfo().name,
     mission: userInfo.getUserInfo().about,
@@ -188,9 +218,11 @@ btnEditProfile.addEventListener("click", () => {
 });
 
 btnAddPlace.addEventListener("click", () => {
+  formValidators["new-place"].resetValidation();
   popupNewPlace.open();
 });
 
 profileAvatarContainer.addEventListener("click", () => {
+  formValidators["edit-avatar"].resetValidation();
   popupEditAvatar.open();
 });
