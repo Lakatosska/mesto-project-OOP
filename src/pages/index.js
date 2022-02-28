@@ -6,7 +6,9 @@ import {
   btnEditProfile,
   btnAddPlace,
   profileAvatarContainer,
+  popupSelectors,
 } from "../utils/constants.js";
+import { renderLoading } from "../utils/utils.js";
 import Api from "../components/api.js";
 import Section from "../components/Section.js";
 import Card from "../components/card.js";
@@ -33,7 +35,7 @@ function handleClickToTrashIcon(card) {
 
 function handleDeleteClick(event, card) {
   event.preventDefault();
-  popupConfirmDeleteCard.renderLoading(true, "Да", "Удаление...");
+  renderLoading(popupSelectors.popupDeleteCard, true, "Да", "Удаление...");
   api
     .deleteCard(card.getCardId())
     .then(() => {
@@ -44,7 +46,7 @@ function handleDeleteClick(event, card) {
       console.log(`Error: ${err}`);
     })
     .finally(() =>
-      popupConfirmDeleteCard.renderLoading(false, "Да", "Удаление...")
+      renderLoading(popupSelectors.popupDeleteCard, false, "Да", "Удаление...")
     );
 }
 
@@ -74,18 +76,18 @@ function toggleLike(card) {
 const api = new Api(fetchConfig);
 
 const userInfo = new UserInfo(userSelectors);
-const popupImage = new PopupWithImage(".popup_type_open-img");
+const popupImage = new PopupWithImage(popupSelectors.popupOpenImage);
 
 const popupConfirmDeleteCard = new PopupConfirm({
-  popupSelector: ".popup_for_delete-card",
+  popupSelector: popupSelectors.popupDeleteCard,
   handleDelete: handleDeleteClick,
 });
 
 const popupEditProfile = new PopupWithForm({
-  popupSelector: ".popup_type_edit-profile",
+  popupSelector: popupSelectors.popupEditProfile,
   handleSubmit: (event) => {
     event.preventDefault();
-    popupEditProfile.renderLoading(true);
+    renderLoading(popupSelectors.popupEditProfile, true);
     const { fullname, mission } = popupEditProfile.getInputValues();
     api
       .sendUsersData(fullname, mission)
@@ -97,16 +99,16 @@ const popupEditProfile = new PopupWithForm({
         console.log(`Error: ${err}`);
       })
       .finally(() => {
-        popupEditProfile.renderLoading(false);
+        renderLoading(popupSelectors.popupEditProfile, false);
       });
   },
 });
 
 const popupNewPlace = new PopupWithForm({
-  popupSelector: ".popup_type_new-place",
+  popupSelector: popupSelectors.popupNewPlace,
   handleSubmit: (event) => {
     event.preventDefault();
-    popupNewPlace.renderLoading(true, "Создать", "Создание...");
+    renderLoading(popupSelectors.popupNewPlace, true, "Создать", "Создание...");
     const { place, url_link } = popupNewPlace.getInputValues();
     api
       .postDataCard(place, url_link)
@@ -118,16 +120,16 @@ const popupNewPlace = new PopupWithForm({
         console.log(`Error: ${err}`);
       })
       .finally(() => {
-        popupNewPlace.renderLoading(false);
+        renderLoading(popupSelectors.popupNewPlace, false);
       });
   },
 });
 
 const popupEditAvatar = new PopupWithForm({
-  popupSelector: ".popup_type_edit-avatar",
+  popupSelector: popupSelectors.popupEditAvatar,
   handleSubmit: (event) => {
     event.preventDefault();
-    popupEditAvatar.renderLoading(true);
+    renderLoading(popupSelectors.popupEditAvatar, true);
     const { avatar_url } = popupEditAvatar.getInputValues();
     api
       .setAvatar(avatar_url)
@@ -139,7 +141,7 @@ const popupEditAvatar = new PopupWithForm({
         console.log(`Error: ${err}`);
       })
       .finally(() => {
-        popupEditAvatar.renderLoading(false);
+        renderLoading(popupSelectors.popupEditAvatar, false);
       });
   },
 });
@@ -174,10 +176,19 @@ api
 enableValidation(validationConfig);
 
 //Listeners
+
+popupImage.setEventListeners();
+popupEditProfile.setEventListeners();
+popupNewPlace.setEventListeners();
+popupEditAvatar.setEventListeners();
+popupConfirmDeleteCard.setEventListeners();
+
 btnEditProfile.addEventListener("click", () => {
+  const currentUser = userInfo.getUserInfo();
+
   popupEditProfile.setCurrentValues({
-    fullname: userInfo.getUserInfo().name,
-    mission: userInfo.getUserInfo().about,
+    fullname: currentUser.name,
+    mission: currentUser.about,
   });
   popupEditProfile.open();
 });

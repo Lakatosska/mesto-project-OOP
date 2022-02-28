@@ -31,3 +31,11 @@ export const formSelectors = {
   formNewPlace: ".form_type_new-place",
   formEditAvatar: ".form_type_edit-avatar",
 };
+
+export const popupSelectors = {
+  popupEditProfile: ".popup_type_edit-profile",
+  popupNewPlace: ".popup_type_new-place",
+  popupEditAvatar: ".popup_type_edit-avatar",
+  popupOpenImage: ".popup_type_open-img",
+  popupDeleteCard: ".popup_for_delete-card",
+};
