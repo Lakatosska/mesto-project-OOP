@@ -78,7 +78,7 @@ const popupImage = new PopupWithImage(".popup_type_open-img");
 
 const popupConfirmDeleteCard = new PopupConfirm({
   popupSelector: ".popup_for_delete-card",
-  handler: handleDeleteClick,
+  handleDelete: handleDeleteClick,
 });
 
 const popupEditProfile = new PopupWithForm({

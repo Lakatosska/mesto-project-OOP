@@ -1,10 +1,9 @@
 import Popup from "./Popup.js";
 
 export default class PopupConfirm extends Popup {
-  constructor({ popupSelector, handler }) {
+  constructor({ popupSelector, handleDelete }) {
     super(popupSelector);
-    this._handleSubmit = handler;
-    this._form = this._popup.querySelector(".form");
+    this._handleDelete = handleDelete;
     this._button = this._popup.querySelector(".form__button");
   }
 
@@ -12,9 +11,9 @@ export default class PopupConfirm extends Popup {
     super.open();
     this._data = data;
     this._deleteListener = this._addAndRemoveEventListeners(
-      this._form,
-      "submit",
-      this._handleSubmit,
+      this._button,
+      "click",
+      this._handleDelete,
       this._data
     );
   }
@@ -22,18 +21,6 @@ export default class PopupConfirm extends Popup {
   close() {
     super.close();
     this._deleteListener();
-  }
-
-  renderLoading(
-    isLoading = false,
-    text = "Сохранить",
-    textLoading = "Сохранение..."
-  ) {
-    if (isLoading) {
-      this._button.textContent = textLoading;
-    } else {
-      this._button.textContent = text;
-    }
   }
 
   _addAndRemoveEventListeners(element, event, callBack, argument) {
