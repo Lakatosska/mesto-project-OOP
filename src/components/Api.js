@@ -4,13 +4,6 @@ export default class Api {
     this._headers = headers;
   }
 
-  _checkResponse(res) {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  }
-
   getAppInfo() {
     return Promise.all([this._getCards(), this._getUserData()]);
   }
@@ -30,18 +23,6 @@ export default class Api {
         name: inputTitle,
         link: inputUrl,
       }),
-    }).then(this._checkResponse);
-  }
-
-  _getCards() {
-    return fetch(`${this._baseUrl}cards`, {
-      headers: this._headers,
-    }).then(this._checkResponse);
-  }
-
-  _getUserData() {
-    return fetch(`${this._baseUrl}users/me`, {
-      headers: this._headers,
     }).then(this._checkResponse);
   }
 
@@ -77,6 +58,25 @@ export default class Api {
       body: JSON.stringify({
         avatar: url,
       }),
+    }).then(this._checkResponse);
+  }
+
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
+
+  _getCards() {
+    return fetch(`${this._baseUrl}cards`, {
+      headers: this._headers,
+    }).then(this._checkResponse);
+  }
+
+  _getUserData() {
+    return fetch(`${this._baseUrl}users/me`, {
+      headers: this._headers,
     }).then(this._checkResponse);
   }
 }

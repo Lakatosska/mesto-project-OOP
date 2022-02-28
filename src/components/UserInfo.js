@@ -14,10 +14,10 @@ export default class UserInfo {
     }
   }
 
-  setUserInfo({ name, about, avatar, _id:userId }) {
+  setUserInfo({ name, about, avatar, _id }) {
     this._nameElement.textContent = name;
     this._aboutElement.textContent = about;
     this._avatarElement.src = avatar;
-    this._userId = userId;
+    this._userId = _id;
   }
 }

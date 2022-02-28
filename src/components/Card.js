@@ -49,16 +49,16 @@ export default class Card {
     return this._cardData._id;
   }
 
-  _showTrashIcon() {
-    if (this._isOurCard()) {
-      this._deleteCardBtn.classList.add("card__trash-icon_visible");
-    }
-  }
-
   isLiked() {
     return this._likes.some((like) => {
       return Object.is(like._id, this._userId);
     });
+  }
+
+  _showTrashIcon() {
+    if (this._isOurCard()) {
+      this._deleteCardBtn.classList.add("card__trash-icon_visible");
+    }
   }
 
   _isOurCard() {
