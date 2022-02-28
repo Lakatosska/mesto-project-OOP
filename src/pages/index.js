@@ -83,7 +83,7 @@ const popupConfirmDeleteCard = new PopupConfirm({
 
 const popupEditProfile = new PopupWithForm({
   popupSelector: ".popup_type_edit-profile",
-  handler: (event) => {
+  handleSubmit: (event) => {
     event.preventDefault();
     popupEditProfile.renderLoading(true);
     const { fullname, mission } = popupEditProfile.getInputValues();
@@ -104,7 +104,7 @@ const popupEditProfile = new PopupWithForm({
 
 const popupNewPlace = new PopupWithForm({
   popupSelector: ".popup_type_new-place",
-  handler: (event) => {
+  handleSubmit: (event) => {
     event.preventDefault();
     popupNewPlace.renderLoading(true, "Создать", "Создание...");
     const { place, url_link } = popupNewPlace.getInputValues();
@@ -125,7 +125,7 @@ const popupNewPlace = new PopupWithForm({
 
 const popupEditAvatar = new PopupWithForm({
   popupSelector: ".popup_type_edit-avatar",
-  handler: (event) => {
+  handleSubmit: (event) => {
     event.preventDefault();
     popupEditAvatar.renderLoading(true);
     const { avatar_url } = popupEditAvatar.getInputValues();
