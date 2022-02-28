@@ -75,7 +75,7 @@ export default class FormValidator {
       const errorElement = this._form.querySelector(`#error-${input.id}`);
       input.addEventListener("input", () => {
         this._handlerInputValidity(errorElement, input);
-        this._toggleButtonState(inputs);
+        this._toggleButtonState();
       });
       this._form.addEventListener("reset", () => {
         this._setDisabledButton();

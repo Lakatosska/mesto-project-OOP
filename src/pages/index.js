@@ -19,9 +19,7 @@ import PopupConfirm from "../components/PopupConfirm.js";
 function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((formElement) => {
-    const validator = new FormValidator(config, formElement);
-
-    validator.enableValidation();
+    new FormValidator(config, formElement).enableValidation();
   });
 }
 

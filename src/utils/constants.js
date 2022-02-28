@@ -1,20 +1,8 @@
-export const profileName = document.querySelector(".profile__name");
-export const profileMission = document.querySelector(".profile__mission");
 export const profileAvatarContainer = document.querySelector(
   ".profile__avatar-container"
 );
-export const profileAvatar =
-  profileAvatarContainer.querySelector(".profile__avatar");
 export const btnAddPlace = document.querySelector(".profile__add-button");
 export const btnEditProfile = document.querySelector(".profile__edit-button");
-
-export const formEditAvatar = document.querySelector(".form_type_edit-avatar");
-
-export const inputName = document.querySelector(".form__item_type_name");
-export const inputMission = document.querySelector(".form__item_type_mission");
-
-export const CARD__LIKE_ACTIVE = "card__like_active";
-export const popupImage = document.querySelector(".popup_type_open-img");
 
 export const validationConfig = {
   formSelector: ".form",
