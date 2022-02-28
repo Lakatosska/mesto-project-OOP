@@ -22,7 +22,6 @@ export default class PopupConfirm extends Popup {
   close() {
     super.close();
     this._deleteListener();
-    this._form.reset();
   }
 
   renderLoading(

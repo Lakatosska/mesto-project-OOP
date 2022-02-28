@@ -6,7 +6,11 @@ export default class PopupWithForm extends PopupConfirm {
     this._inputsList = this._popup.querySelectorAll(".form__item");
     this._handleSubmit = handler;
   }
-  L;
+
+  close() {
+    super.close();
+    this._form.reset();
+  }
 
   getInputValues() {
     this._formValues = {};
