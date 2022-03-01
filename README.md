@@ -23,5 +23,8 @@
   - Валидация форм
   - Модули
   - Использован Webpack
+  - ООП
 
 - [MESTO](https://andreyarkhp.github.io/mesto-project/)
+
+* Второй участник проекта рефакторинга ООП: [Елена Никифорова](https://github.com/Lakatosska/) vizualnoe@gmail.com

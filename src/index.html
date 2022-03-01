@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
@@ -111,13 +112,13 @@
             <input
               type="url"
               class="form__item form__item_type_url"
-              name="url-link"
+              name="url_link"
               placeholder="Ссылка на картинку"
-              id="url-link"
+              id="url_link"
               required
               aria-label="Ссылка на картинку"
             />
-            <p id="error-url-link" class="form__error-message"></p>
+            <p id="error-url_link" class="form__error-message"></p>
 
             <button
               class="form__button form__button_disabled"
@@ -155,13 +156,13 @@
             <input
               type="url"
               class="form__item form__item_type_url-avatar"
-              name="avatar-url"
+              name="avatar_url"
               placeholder="https://somewebsite.com/someimage.jpg"
-              id="avatar-url"
+              id="avatar_url"
               required
               aria-label="URL адресс аватара."
             />
-            <p id="error-avatar-url" class="form__error-message"></p>
+            <p id="error-avatar_url" class="form__error-message"></p>
 
             <button
               class="form__button form__button_disabled"
@@ -179,23 +180,14 @@
         ></button>
       </div>
     </div>
-    <div class="popup popup_type_error">
-      <div class="popup__container">
-        <h2 class="popup__title popup__title_for_error">Ошибка</h2>
-        <p class="popup__text-error"></p>
-        <button
-          type="button"
-          class="popup__close-button"
-          aria-label="Закрыть всплывающее окно"
-        ></button>
-      </div>
-    </div>
     <div class="popup popup_for_delete-card">
       <div class="popup__container">
         <h2 class="popup__title popup__title popup__title_for_delete-card">
           Вы уверены?
         </h2>
+
         <button class="form__button" type="button">Да</button>
+
         <button
           type="button"
           class="popup__close-button"

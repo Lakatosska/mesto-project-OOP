@@ -7,12 +7,9 @@
     "build": "webpack --mode production",
     "dev": "webpack serve",
     "predeploy": "npm run build",
-    "deploy":"gh-pages -d dist"
+    "deploy": "gh-pages -d dist"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AndreyArkhp/mesto-project.git"
-  },
+  "repository": "git+https://github.com/AndreyArkhp/mesto-project.git",
   "author": "Andrey Arkhipov",
   "license": "ISC",
   "bugs": {
@@ -36,7 +33,7 @@
     "postcss-loader": "^6.2.1",
     "webpack": "^5.66.0",
     "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.7.3"
+    "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
     "core-js": "^3.20.3"
